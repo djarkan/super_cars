@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Super_Cars_Revival" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Super_Cars_Revival" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=gnu++14" />
+					<Add option="-std=c17" />
+					<Add option="-g" />
+					<Add directory="C:/Program Files/SFML/SFML-2.5.1-cb/include" />
+					<Add directory="C:/Users/Djarkan/Documents/C++/codeblocks/mylib" />
+					<Add directory="C:/Users/Djarkan/Documents/C++/codeblocks/Super_Cars_Revival/" />
+				</Compiler>
+				<Linker>
+					<Add library="C:/Program Files/SFML/SFML-2.5.1-cb/lib/libsfml-network-d.a" />
+					<Add library="C:/Program Files/SFML/SFML-2.5.1-cb/lib/libsfml-audio-d.a" />
+					<Add library="C:/Program Files/SFML/SFML-2.5.1-cb/lib/libsfml-graphics-d.a" />
+					<Add library="C:/Program Files/SFML/SFML-2.5.1-cb/lib/libsfml-window-d.a" />
+					<Add library="C:/Program Files/SFML/SFML-2.5.1-cb/lib/libsfml-system-d.a" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Super_Cars_Revival" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="../mylib/assetcontainer/assetcontainer.hpp" />
+		<Unit filename="../mylib/bitmap/animation/animation.cpp" />
+		<Unit filename="../mylib/bitmap/animation/animation.hpp" />
+		<Unit filename="../mylib/jsonfile/jsoncpp.cpp" />
+		<Unit filename="../mylib/jsonfile/jsonfile.cpp" />
+		<Unit filename="../mylib/jsonfile/jsonfile.hpp" />
+		<Unit filename="../mylib/music/music.cpp" />
+		<Unit filename="../mylib/music/music.hpp" />
+		<Unit filename="../mylib/random/random.hpp" />
+		<Unit filename="../mylib/text/bitmapfont/bitmapFont.cpp" />
+		<Unit filename="../mylib/text/bitmapfont/bitmapFont.hpp" />
+		<Unit filename="../mylib/text/bitmaptext/bitmapText.cpp" />
+		<Unit filename="../mylib/text/bitmaptext/bitmapText.hpp" />
+		<Unit filename="../mylib/timer/timer.cpp" />
+		<Unit filename="../mylib/timer/timer.hpp" />
+		<Unit filename="../mylib/triple/triple.hpp" />
+		<Unit filename="header/assetkey.hpp" />
+		<Unit filename="header/car.hpp" />
+		<Unit filename="header/game.hpp" />
+		<Unit filename="header/inputs.hpp" />
+		<Unit filename="header/intro.hpp" />
+		<Unit filename="header/player.hpp" />
+		<Unit filename="header/playerFactory.hpp" />
+		<Unit filename="header/race.hpp" />
+		<Unit filename="header/track.hpp" />
+		<Unit filename="header/trackRework.hpp" />
+		<Unit filename="source/car.cpp" />
+		<Unit filename="source/game.cpp" />
+		<Unit filename="source/inputs.cpp" />
+		<Unit filename="source/intro.cpp" />
+		<Unit filename="source/main.cpp" />
+		<Unit filename="source/player.cpp" />
+		<Unit filename="source/playerFactory.cpp" />
+		<Unit filename="source/race.cpp" />
+		<Unit filename="source/track.cpp" />
+		<Unit filename="source/trackRework.cpp" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
