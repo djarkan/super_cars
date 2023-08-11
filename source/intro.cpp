@@ -15,13 +15,22 @@
 #include "text/bitmapfont/bitmapFont.hpp"
 #include "text/bitmaptext/bitmapText.hpp"
 #include "jsonfile/jsonfile.hpp"
+#include "bitmap/simpleanimation/animation.hpp"
+#include "bitmap/animationPlayer/animationPlayer.hpp"
+#include "header/command.hpp"
 
-
-Intro::Intro() : m_window(sf::VideoMode(640, 400), "Super Cars Revival", sf::Style::Close) //(648, 409), "Super Cars Revival", sf::Style::Close)
+Intro::Intro() : m_window(sf::VideoMode(640, 400), "Super Cars Revival", sf::Style::Close), m_player(true), m_inputs(m_window, m_player.getJoystickID()) //(648, 409), "Super Cars Revival", sf::Style::Close)
 {
+
     loadAssets();
     m_bestWinnersList =  { {{"SOUT", 3, 10000}, {"ANDY", 3, 5000}, {"JEZZ", 3, 4000}, {"DAVE", 3, 3000}, {"DOUG", 3, 2000}, {"PETE", 3, 1000}} };
     m_bestLapsTimes =    { {{"SOUT", 15000} , {"ANDY", 15000}, {"JEZZ", 20000}, {"DAVE", 20000}, {"DOUG", 25000}, { "PETE", 25000}, {"GARF", 30000}, {"MARI", 30000}, {"ANNE", 30000}} };
+    mylib::JsonFile configJson("config.json");
+    m_language = configJson.m_Root["language"].asInt();
+    m_window.setMouseCursorVisible(false);
+
+    // m_window.setSize(sf::Vector2u(1280, 800));                                                       ///////////////////// mettre au bon ratio suivant fichier de config
+
 }
 
 void Intro::loadAssets()
@@ -35,18 +44,15 @@ void Intro::loadAssets()
     m_textureContaigner.loadAsset(textures::ID::ronAndNancy, "graphics/intro/ron_and_nancy.png");
     m_textureContaigner.loadAsset(textures::ID::credits_original, "graphics/intro/credits.png");
     m_textureContaigner.loadAsset(textures::ID::credits_additionnal, "graphics/intro/credits aditional.png");
+    m_textureContaigner.loadAsset(textures::ID::garageFont, "graphics/bitmap_fonts/ron_and_nancy_16x16.png");
     m_jsonConfig.loadJsonFile("config.json");
 
 }
 
-void Intro::launchIntro()   // 3mn dans la video
+void Intro::launchIntro()
 {
-
-    ///////   recup la resolution pour voir si plus que 640 * 400 et mettre un scale plus grand
-    ///////   mettre le scale en param des fonctions
-
-/*    gremlins();
-    magneticFields();
+launchGame();
+    gremlinsAndMagneticFields();
     mylib::Music music;
     music.loadMusic("music/intro.wav");
     music.setMusicLoop(true);
@@ -54,37 +60,27 @@ void Intro::launchIntro()   // 3mn dans la video
     music.playMusic();
     superCars();
     loading(2500);
-*/    bool displayIntro{true};
+    bool displayIntro{true};
     while(displayIntro)
     {
-//        if(displayIntro) { displayIntro = guyAndGirl(); }
-//        if(displayIntro) { loading(2500); }
+        if(displayIntro) { displayIntro = guyAndGirl(); }
+        if(displayIntro) { loading(2500); }
         if(displayIntro) { displayIntro = ronAndNancy(); }
-//        if(displayIntro) { loading(1000); }
-//        if(displayIntro) { displayIntro = creditsOriginal(); }
-//        if(displayIntro) { loading(1000); }
-//        if(displayIntro) { displayIntro = creditsAdditionnal(); }
-        loading(4000);
+        if(displayIntro) { loading(1000); }
+        if(displayIntro) { displayIntro = creditsOriginal(); }
+        if(displayIntro) { loading(1000); }
+        if(displayIntro) { displayIntro = creditsAdditionnal(); }
+        loading(3000);
     }
-//    music.stopMusic();
+    music.stopMusic();
     launchGame();
 }
 
-void Intro::gremlins()
+void Intro::gremlinsAndMagneticFields()
 {
-    sf::Sprite background;
-    background.setTexture(m_textureContaigner.getAsset(textures::ID::gremlins));
-    background.setTextureRect(sf::IntRect(0, 0, 640, 400));
-    mylib::Timer timer(3000);
-    m_window.clear();
-    m_window.draw(background);
-    m_window.display();
-    while(!timer.isTimeElapsed())
-        ;
-}
-
-void Intro::magneticFields()
-{
+    mylib::Music music;
+    music.loadMusic("music/magnetic fields.wav");
+    music.setMusicVolume(100);
     sf::Sprite background;
     background.setTexture(m_textureContaigner.getAsset(textures::ID::magnetic));
     background.setPosition(sf::Vector2f(320, 200));
@@ -93,7 +89,20 @@ void Intro::magneticFields()
     float factorX{10};
     float factorY{10};
     background.setScale(factorX, factorY);
-    mylib::Timer timer(30);
+
+    sf::Sprite gremlins;
+    gremlins.setTexture(m_textureContaigner.getAsset(textures::ID::gremlins));
+    gremlins.setTextureRect(sf::IntRect(0, 0, 640, 400));
+    mylib::Timer timer(3000);
+    timer.startTimer();
+    m_window.clear();
+    m_window.draw(gremlins);
+    m_window.display();
+    while(!timer.isTimeElapsed())
+        ;
+
+   timer.setTimerDuration(30);
+    timer.startTimer();
     while(factorX >= 1.f)
     {
         m_window.clear();
@@ -106,10 +115,8 @@ void Intro::magneticFields()
         background.setScale(factorX, factorY);
         m_window.display();
     }
-    timer.setTimerDuration(9000);
-    mylib::Music music;
-    music.loadMusic("music/magnetic fields.wav");
-    music.setMusicVolume(100);
+    timer.setTimerDuration(9500);
+    timer.restartTimer();
     music.playMusic();
     while(!timer.isTimeElapsed())
         ;
@@ -121,6 +128,7 @@ void Intro::superCars()
     background.setTexture(m_textureContaigner.getAsset(textures::ID::super_cars));
     background.setTextureRect(sf::IntRect(0, 0, 640, 400));
     mylib::Timer timer(5000);
+    timer.startTimer();
     m_window.clear();
     m_window.draw(background);
     m_window.display();
@@ -139,6 +147,7 @@ bool Intro::guyAndGirl()
     sf::Sprite car;
     car.setTexture(m_textureContaigner.getAsset(textures::ID::spritesheet));
     mylib::Timer timer(17000);
+    timer.startTimer();
     bool exitIntro{false};
     mylib::Random <sf::Int32>randomTime;
     float carHight;
@@ -146,9 +155,10 @@ bool Intro::guyAndGirl()
     sf::Vector2f carCoord(700, 310);
     mylib::Random <int>distanceToGo;
     mylib::Timer timerCarMovement(randomTime.randomNumber(4, 10));
+    timerCarMovement.startTimer();
     int distance{distanceToGo.randomNumber(1200, 1500)};
     int carModel;
-    Inputs inputs(m_window);
+    Inputs inputs(m_window, m_player.getJoystickID());
     while(!timer.isTimeElapsed() && !exitIntro)                     // speech reste immobile 5s et scrolling de 1s   // commence par 1 scrolling
     {                                                               // animation bouches 5s
         if(carCoord.x >= distance  ) {
@@ -189,9 +199,7 @@ bool Intro::guyAndGirl()
             carCoord.x += 5;
             timerCarMovement.restartTimer();
         }
-        if(inputs.readSelectionInput() == Inputs::Command::selection) {
-            exitIntro = true;
-        }
+        if(isIntroSkipped()) { exitIntro = true; }
     }
     if(exitIntro) { return false; }
     else { return true; }
@@ -204,27 +212,112 @@ bool Intro::ronAndNancy()
     background.setTextureRect(sf::IntRect(0, 0, 640, 400));
     bool exitIntro{false};
     bool speechEnded(false);
-    Inputs inputs(m_window);
-    mylib::BitmapText bitmapText("graphics/bitmat_fonts/ron_and_nancy_16x16.png", 16, 16);
+    Inputs inputs(m_window, m_player.getJoystickID());
+    mylib::BitmapFont font(16, 16);
+    font.setTexture(m_textureContaigner.getAsset(textures::ID::garageFont));
+    mylib::BitmapText bitmapText;
+    bitmapText.setFont(&font);
+    bitmapText.setLineSpacing(4.f);
     std::array<std::string, 21> RonAndNancySpeechArray;
     buildRonAndNancySpeech(RonAndNancySpeechArray);
     bool scroling{true};
     mylib::Timer timer(5000);
-    mylib::Timer scrollingRate(50);
+    mylib::Timer scrollingRate(47);
+    scrollingRate.startTimer();
     float x{16};
     float watchingY{351};
     float y =  watchingY;
     int speechArrayIndex{0};
-    bitmapText.setBitmapText(RonAndNancySpeechArray[speechArrayIndex] + RonAndNancySpeechArray[speechArrayIndex + 1]);
+    bitmapText.setText(RonAndNancySpeechArray[speechArrayIndex] + RonAndNancySpeechArray[speechArrayIndex + 1]);
+    mylib::JsonFile jsonAnimations("data/animations/intro.json");
+    mylib::AnimationPlayer animPlayer;
+    sf::Vector2f animationcoord;
+    std::vector<sf::IntRect> frames;
+    for(auto i = 0; i < 4; ++i) {
+        frames.resize(0);
+        animationcoord.x = jsonAnimations.m_Root["ronAndNancy"][i]["destination"].get("x", 100).asFloat();
+        animationcoord.y = jsonAnimations.m_Root["ronAndNancy"][i]["destination"].get("y", 100).asFloat();
+        bool loop = jsonAnimations.m_Root["ronAndNancy"][i].get("loop", true).asBool();
+        bool randomisedLoop = jsonAnimations.m_Root["ronAndNancy"][i].get("randomisedLoop", false).asBool();
+        sf::IntRect rect;
+        for(auto elem : jsonAnimations.m_Root["ronAndNancy"][i]["frames"]){
+            rect.left = elem.get("x", 0).asInt();
+            rect.top = elem.get("y", 0).asInt();
+            rect.width = elem.get("w", 0).asInt();
+            rect.height = elem.get("h", 0).asInt();
+            frames.push_back(rect);
+        }
+        mylib::Animation animation(m_textureContaigner.getAsset(textures::ID::spritesheet), animationcoord, loop, randomisedLoop, frames);
+        mylib::Animation* animPtr = new mylib::Animation (animation);
+        *animPtr = std::move(animation);
+        animPlayer.addAnimation(animPtr);
+    }
+    animPlayer.m_player[0]->play();
+    animPlayer.m_player[2]->play();
+    mylib::Random<sf::Int32> randomiser;
+    mylib::Timer ronEyesDelay(randomiser.randomNumber(1000,3000));
+    ronEyesDelay.startTimer();
+    mylib::Timer someoneMouthDelay(1000);
+    someoneMouthDelay.startTimer();
+    bool ronEyesDelayState{false};
+    bool someoneSpeaking{false};
+    bool ronSpeech{true};
+    mylib::Timer nancyEyesDelay(randomiser.randomNumber(1000,3000));
+    nancyEyesDelay.startTimer();
+    bool nancyEyesDelayState{false};
+    mylib::Timer speechLength(49000);
+    speechLength.startTimer();
     while(!speechEnded && !exitIntro) {
         m_window.clear();                       // texte visible coord 16, 351 step 4
+
+        for(auto elem : animPlayer.m_player) {
+            elem->animate();
+        }
+        if(animPlayer.m_player[0]->getState() == mylib::Animation::State::stopped && ronEyesDelayState == false ) {
+            ronEyesDelayState = true;
+            ronEyesDelay.setTimerDuration(randomiser.randomNumber(1000,3000));
+            ronEyesDelay.startTimer();
+        }
+        if(ronEyesDelay.isTimeElapsed()) {
+            ronEyesDelayState = false;
+            animPlayer.m_player[0]->play();
+        }
+        if(animPlayer.m_player[2]->getState() == mylib::Animation::State::stopped && nancyEyesDelayState == false ) {
+            nancyEyesDelayState = true;
+            nancyEyesDelay.setTimerDuration(randomiser.randomNumber(1000,3000));
+            nancyEyesDelay.startTimer();
+        }
+        if(nancyEyesDelay.isTimeElapsed()) {
+            nancyEyesDelayState = false;
+            animPlayer.m_player[2]->play();
+        }
+        if(!someoneSpeaking && someoneMouthDelay.isTimeElapsed()) {
+            if(ronSpeech) { animPlayer.m_player[1]->play(); }
+            else { animPlayer.m_player[3]->play(); }
+            someoneSpeaking = true;
+            someoneMouthDelay.setTimerDuration(5000);
+            someoneMouthDelay.restartTimer();
+        }
+        if(someoneSpeaking && someoneMouthDelay.isTimeElapsed()) {
+            if(ronSpeech) { animPlayer.m_player[1]->stop(); }
+            else { animPlayer.m_player[3]->stop(); }
+            someoneSpeaking = false;
+            someoneMouthDelay.setTimerDuration(1000);
+            someoneMouthDelay.restartTimer();
+        }
+        if(!ronSpeech && speechLength.isTimeElapsed()) { exitIntro = false; }
+        if(speechLength.isTimeElapsed()) {
+            ronSpeech = false;
+            speechLength.setTimerDuration(66000);
+            speechLength.restartTimer();
+        }
         if(scroling) {
             if(y > 309) {
                 if(scrollingRate.isTimeElapsed()) {
                     y -= 2;
                     scrollingRate.restartTimer();
                 }
-                else ;
+                else {}
             }
             else {
                 scroling = false;
@@ -240,31 +333,32 @@ bool Intro::ronAndNancy()
                 scrollingRate.restartTimer();
             }
         }
-        bitmapText.setBitmapText(RonAndNancySpeechArray[speechArrayIndex] + RonAndNancySpeechArray[speechArrayIndex + 1]);
-       // bitmapText.setBitmapText("£");
-        bitmapText.drawBitmapText(x, y, 4, m_window);
+        bitmapText.setText(RonAndNancySpeechArray[speechArrayIndex] + RonAndNancySpeechArray[speechArrayIndex + 1]);
+        bitmapText.setPosition(x, y);
+        m_window.draw(bitmapText);
         m_window.draw(background);
+        m_window.draw(animPlayer);
         m_window.display();
-        if(inputs.readSelectionInput() == Inputs::Command::selection) {
-            exitIntro = true;
-        }
+        if(isIntroSkipped()) { exitIntro = true;  }
     }
-    if(exitIntro) { return false; }
-    else { return true; }
+    if(!exitIntro) { return true; }
+    else { return false; }
 }
 
 void Intro::buildRonAndNancySpeech(std::array<std::string, 21>& speechArray)
 {
     mylib::JsonFile jsonRonAndNancy;
-    switch(jsonRonAndNancy.m_Root.get("language", 0).asInt()) {
+    switch(m_language) {
+        case 0 :
+            jsonRonAndNancy.loadJsonFile("language/english/RonAndNancy.json");
+            break;
         case 1 :
-            std::setlocale(LC_ALL, "fr_FR.UTF-8");
+            jsonRonAndNancy.loadJsonFile("language/usa/RonAndNancy.json");
+            break;
+        case 2 :
             jsonRonAndNancy.loadJsonFile("language/french/RonAndNancy.json");
             break;
-        case 0 :
         default :
-            std::setlocale(LC_ALL, "us_US.UTF-8");
-            jsonRonAndNancy.loadJsonFile("language/english/RonAndNancy.json");
             break;
     }
     mylib::Random <int>speechRandimiser;
@@ -317,17 +411,17 @@ bool Intro::creditsOriginal()
     background.setTexture(m_textureContaigner.getAsset(textures::ID::credits_original));
     background.setTextureRect(sf::IntRect(0, 0, 640, 400));
     mylib::Timer timer(6000);
+    timer.startTimer();
     m_window.clear();
     m_window.draw(background);
     m_window.display();
     bool exitIntro{false};
-    Inputs inputs(m_window);
-    while(!timer.isTimeElapsed() && !exitIntro)
-        if(inputs.readSelectionInput() == Inputs::Command::selection) {
-            exitIntro = true;
-        }
-    if(exitIntro) { return false; }
-    else { return true; }
+    while(!timer.isTimeElapsed() && !exitIntro) {
+        sf::sleep(sf::milliseconds(100));
+        if(isIntroSkipped()) { exitIntro = true; }
+    }
+    if(!exitIntro) { return true; }
+    else { return false; }
 }
 
 bool Intro::creditsAdditionnal()
@@ -336,15 +430,15 @@ bool Intro::creditsAdditionnal()
     background.setTexture(m_textureContaigner.getAsset(textures::ID::credits_additionnal));
     background.setTextureRect(sf::IntRect(0, 0, 640, 400));
     mylib::Timer timer(6000);
+    timer.startTimer();
     m_window.clear();
     m_window.draw(background);
     m_window.display();
     bool exitIntro{false};
-    Inputs inputs(m_window);
-    while(!timer.isTimeElapsed() && !exitIntro)
-        if(inputs.readSelectionInput() == Inputs::Command::selection) {
-            exitIntro = true;
-        }
+    while(!timer.isTimeElapsed() && !exitIntro) {
+        sf::sleep(sf::milliseconds(100));
+        if(isIntroSkipped()) { exitIntro = true; }
+    }
     if(exitIntro) { return false; }
     else { return true; }
 }
@@ -355,6 +449,7 @@ void Intro::loading(const sf::Int32 delay)
     background.setTexture(m_textureContaigner.getAsset(textures::ID::loading));
     background.setTextureRect(sf::IntRect(0, 0, 640, 400));
     mylib::Timer timer(delay);
+    timer.startTimer();
     m_window.clear();
     m_window.draw(background);
     m_window.display();
@@ -364,6 +459,17 @@ void Intro::loading(const sf::Int32 delay)
 
 void Intro::launchGame()
 {
-    Game game(m_window);
+    Game game(m_window, m_player, m_language);
     game.launch();
+}
+
+bool Intro::isIntroSkipped()
+{
+    m_inputs.readInput();
+    Command command;
+    while(m_inputs.isCommandAvailable()) {
+        command = m_inputs.getInput();
+        if(command.action == CommandType::joystiskButtonPressed || command.action == CommandType::mouseLeftButtonPressed) { return true; }
+    }
+    return false;
 }
