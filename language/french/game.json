@@ -1,1 +1,8 @@
-
+{
+    "pseudo" :
+    [
+        "VEUILLEZ ENTRER", "VOTRE NOM"
+    ],
+    "track" : "PISTE ",
+    "exit" : Sortie
+}
