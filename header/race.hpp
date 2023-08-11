@@ -22,7 +22,7 @@ class Race {
                     sf::View                                    topView;
                     sf::View                                    bottomView;
                 };
-                AssetContainer<textures::ID, sf::Texture>       m_textureContaigner;
+                mylib::AssetContainer<textures::ID, sf::Texture>       m_textureContaigner;
                 std::vector<PlayerScreen>                       m_playersScreen;
                 std::vector<sf::Vector2f>                       m_coordPlayerScreen;
 

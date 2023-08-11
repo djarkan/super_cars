@@ -3,29 +3,30 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
+
 #include <vector>
 
+#include "header/command.hpp"
+#include "header/commandqueue.hpp"
+#include "header/player.hpp"
 
 class Inputs {
     public:
-         enum class                         Command {turnLeft = 0, handBrakeTurnLeft, turnRight, handBrakeTurnRight, acceleration, selection, noSelection, frontMissile, rearMissile, moveCursor, pause, reset};
-                                            Inputs(sf::RenderWindow& theWindow);
-        struct Input{
-            sf::Vector2f                    offset;                                                                     // offset from current position
-            Command                         command;                                                                    // what
-            int                             joystckNumber;                                                              // who
-        };
-
-        void                                readRaceInput();
-        void                                readNotRacingInput();
-        Command                             readSelectionInput();
-        Input                               getInput(int joystickNumber);
+                                            Inputs(sf::RenderWindow& m_window, const unsigned int joystickID);
+        void                                readInput();                                                    // push m_commandQueue
+        Command                             getInput();                                                     // pop m_commandQueue
         bool                                isCommandAvailable();
+        void                                clearCommand(Command& command);
 
     private:
         sf::RenderWindow&                   m_window;
-        sf::Event                           m_event;
-        std::vector<Input>                  commandBuffer;
+        Queue                               m_commandQueue;
+        unsigned int                        m_currentJoystickButton;
+        const unsigned int                  m_joystickID;
+
+        void                                checkAxis(Command& command);
+        void                                checkLastJoystickButtonUsed(Command& command);
+
 };
 #endif
 

@@ -13,6 +13,7 @@ namespace textures
 	    ronAndNancy,
 	    credits_original,
 	    credits_additionnal,
+	    pseudo,
 	    game,
 		cars,
 		spritesheet,
@@ -22,7 +23,14 @@ namespace textures
         roadDown,
         office,
         garage,
-        ronAndNancyFont
+        darkgarage,
+        ronAndNancyFont,
+        supercarsfont,
+        garageFont,
+        goldenFont,
+        whitecar,
+        bluecar,
+        redcar
 	};
 }
 

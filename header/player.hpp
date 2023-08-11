@@ -10,28 +10,66 @@
 class Player
 {
     public :
-        enum levelDifficulty                            {normal = 0, medium, hard};
-                                                        Player();
-                                                        Player(const bool human,const int ID, const std::string pseudo, const sf::Texture&);
+        enum LevelDifficulty                        {normal = 0, medium, hard};
+                                                    Player();
+                                                    Player(const bool human);
+                                                    Player(const bool human, const std::string name);
 
-        bool                                            human;
-        unsigned int                                    ID;
-        unsigned int                                    joystickID;
-        struct PlayserCursor {
-            sf::Vector2f                                coord;
-            sf::Sprite                                  sprite;
-        };
-        PlayserCursor                                   playerCursor;
-        levelDifficulty                                 gameDifficulty;               ///////////////////////  repercuter sur les autres en muti
-        std::string                                     pseudo;
-        int                                             money;
-        Car                                             car;
+        unsigned int                                getJoystickID();
+        unsigned int                                getMoney();
+        Car::Type                                   getCarType() const;
+        sf::FloatRect&                              getCarShape() const;
+        float                                       getCarAngle() const;
+        float                                       getCarSpeed() const;
+        float                                       getCarMaxSpeed() const;
+        float                                       getCarAcceleration() const;
+        sf::Vector2f&                               getCarCenter();
+        int                                         getCarElevation() const;
+        float                                       getCarBodyState() const;
+        float                                       getCarEngineState() const;
+        float                                       getCarTyresState() const;
+        float                                       getCarFuelState() const;
+        bool                                        getCarIsFrontMissileEquiped() const;
+        bool                                        getCarIsRearMissileEquiped() const;
+        bool                                        getCarIsHighSpeedKitEquiped() const;
+        bool                                        getCarIsTurboChargerKitEquiped() const;
+        bool                                        getCarIsRetroKitEquiped() const;
+        bool                                        getCarIsSpinAssistKitEquiped() const;
+        bool                                        getCarIsSideArmourKitEquiped() const;
+        bool                                        getCarIsPowerSteeringKitEquiped() const;
+
+        void                                        setHuman(bool human);
+        void                                        setJoystickID();
+        void                                        setGameDifficulty();
+        void                                        setName(const std::string& name);
+        void                                        setMoney(unsigned int money);
+        void                                        setCarType(Car::Type type);
+        void                                        setCarShape(sf::FloatRect& shape);
+        void                                        setCarAngle(float angle);
+        void                                        setCarSpeed(float speed);
+        void                                        setCarMaxSpeed(float maxSpeed);
+        void                                        setCarAcceleration(float acceleration);
+        void                                        setCarCenter(sf::Vector2f& coords);
+        void                                        setCarElevation(int elevation);
+        void                                        setCarBodyState(float body);
+        void                                        setCarEngineState(float engine);
+        void                                        setCarTyresState(float tyres);
+        void                                        setCarFuelState(float fuel);
+        void                                        setCarFrontMissile(bool frontMissile);
+        void                                        setCarRearMissile(bool rearMissile);
+        void                                        setCarHighSpeedKit(bool highSpeed);
+        void                                        setCarRetroKit(bool retro);
+        void                                        setCarTurboChargerKit(bool turboCharger);
+        void                                        setCarSpinAssistKit(bool spinAssist);
+        void                                        setCarSideArmourKit(bool sideArmour);
+        void                                        setCarPowerSteeringKit(bool powerSteering);
 
     private :
-        void                                            setGameDifficulty(const std::string pseudo);
-        void                                            setPlayerMoney(const std::string pseudo);
-        void                                            setJoystickID(const int ID);
-        void                                            setPlayerOwnMouseCoord();
-        void                                            setPlayerCursor(const sf::Texture& cursorTexture);
+        bool                                        m_human;
+        unsigned int                                m_joystickID;
+        LevelDifficulty                             m_gameDifficulty;               ///////////////////////  repercuter sur les autres en muti
+        std::string                                 m_name;
+        unsigned int                                m_money;
+        Car                                         m_car;
 };
 #endif // PLAYER_HPP

@@ -18,17 +18,53 @@
 class Car : public sf::Transformable, public sf::Drawable, sf::NonCopyable
 {
 	public:
-	    enum class type {Taraco_Neoroder, Taraco_Neoroder1, Vaug_Interceptor2, Vaug_Interceptor3, Retron_Parsec_Turbo5, Retron_Parsec_Turbo6, Retron_Parsec_Turbo8};
+	    enum                                        Type {Taraco_Neoroder, Taraco_Neoroder1, Vaug_Interceptor2, Vaug_Interceptor3, Retron_Parsec_Turbo5, Retron_Parsec_Turbo6, Retron_Parsec_Turbo8};
 
-	    Car();
-	    Car(type type);
-        Car(float x, float y, float w, float h, float angle,  float maxSpeed, bool humanPlayer);
-
-        float                                       getX() const;
-        float                                       getY() const;
-        float                                       getAngle() const;
+                                                    Car();
         sf::Vector2f                                getCarLimit(unsigned int cornerNumber) const;
         sf::Vector2f                                getCarCenter() const;
+        Type                                        getType() const;
+        sf::FloatRect&                              getShape() const;
+        float                                       getAngle() const;
+        float                                       getSpeed() const;
+        float                                       getMaxSpeed() const;
+        float                                       getAcceleration() const;
+        sf::Vector2f&                               getCenter();
+        int                                         getElevation() const;
+        float                                       getBodyState() const;
+        float                                       getEngineState() const;
+        float                                       getTyresState() const;
+        float                                       getFuelState() const;
+        bool                                        getIsFrontMissileEquiped() const;
+        bool                                        getIsRearMissileEquiped() const;
+        bool                                        getIsHighSpeedKitEquiped() const;
+        bool                                        getIsTurboChargerKitEquiped() const;
+        bool                                        getIsRetrorKitEquiped() const;
+        bool                                        getIsSpinAssistKitEquiped() const;
+        bool                                        getIsSideArmourKitEquiped() const;
+        bool                                        getIsPowerSteeringKitEquiped() const;
+
+        void                                        setType(Type type);
+        void                                        setShape(sf::FloatRect& shape);
+        void                                        setAngle(float angle);
+        void                                        setSpeed(float speed);
+        void                                        setMaxSpeed(float maxSpeed);
+        void                                        setAcceleration(float acceleration);
+        void                                        setCenter(sf::Vector2f& coords);
+        void                                        setElevation(int elevation);
+        void                                        setBodyState(float body);
+        void                                        setEngineState(float engine);
+        void                                        setTyresState(float tyres);
+        void                                        setFuelState(float fuel);
+        void                                        setIsFrontMissileEquiped(bool frontMissile);
+        void                                        setIsRearMissileEquiped(bool rearMissile);
+        void                                        setIsHighSpeedKitEquiped(bool highSpeed);
+        void                                        setIsRetroKitEquiped(bool retro);
+        void                                        setIsTurboChargerKitEquiped(bool turboCharger);
+        void                                        setIsSpinAssistKitEquiped(bool spinAssist);
+        void                                        setIsSideArmourKitEquiped(bool sideArmour);
+        void                                        setIsPowerSteeringKitEquiped(bool powerSteering);
+
         void                                        move();
         void                                        findWayToTarget(const sf::Vector2f& target);
         bool                                        isInTargetArea(const sf::Vector2f& target);
@@ -37,30 +73,60 @@ class Car : public sf::Transformable, public sf::Drawable, sf::NonCopyable
         void                                        speedUp();
         void                                        speedDown();
         void                                        setTheCar();
-        virtual void			                    draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+
+        float                                       m_body;                             // % body health
+        float                                       m_engine;                           // % engine usury
+        float                                       m_tyres;                            // % tyres usury
+        float                                       m_fuel;                             // % fuel tank level
+
+        bool                                        m_frontMissile;                     // you can only buy one per race.
+        bool                                        m_rearMissile;                      // you can only buy one per race.
+        bool                                        m_highSpeed;                        // Increases your maximum speed - Invaluable on the straights!
+        bool                                        m_turboCharger;                     // Use this to increase your acceleration rate. This option is particularly useful when running into patches of mud which slow your car down.
+        bool                                        m_retro;                            // Use this for faster braking.
+        bool                                        m_spinAssist;                       // Spin Assist will always point your car in the right direction.
+        bool                                        m_sideArmour;                       // Use this to send any other vehicle into an uncontrollable spin simply by ramming it.
+        bool                                        m_powerSteering;                    // Essential for decreasing your turning circle and allowing for faster corner-taking.
+
+        Car::Type                                   m_type;
+        sf::FloatRect                               m_shape;
+        float                                       m_angle;
+        float                                       m_speed;
+        float                                       m_maxSpeed;
+        float                                       m_acceleration;
+//        std::array<sf::Vector2f, 12>                m_carLimits;                        // corners for collisions and tracks limit detection
+//        sf::Vector2f                                m_center;
+//        int                                         m_elevation;                        // altitude to know if car is on or under the bridges
 
 	private:
-	    type m_type;
-        float m_x, m_y, m_w, m_h;
-        float m_angle;
-        float m_speed, m_maxSpeed, m_acceleration;
-        bool m_humanPlayer;
-        std::array<sf::Vector2f, 12> m_carLimits;                                                               // corners for collisions and tracks limit detection
-        sf::Vector2f m_carCenter;
-        int elevation;                                                                                          // altitude to know if car is on or under the bridges
-        int m_body;
-        int m_engine;
-        float m_tyres;
-        int m_fuel;
-        bool m_frontMissile{false};                                                                             // you can only buy one per race.
-        bool m_rearMissile{false};                                                                              // you can only buy one per race.
-        bool m_highSpeedKit{false};                                                                             // Increases your maximum speed - Invaluable on the straights!
-        bool m_turboCharger{false};                                                                             // Use this to increase your acceleration rate. This option is particularly useful when running into patches of mud which slow your car down.
-        bool m_spinAssist{false};                                                                               // Use this for faster braking.
-        bool m_sideArmour{false};                                                                               // Use this to send any other vehicle into an uncontrollable spin simply by ramming it.
-        bool m_powerSteering{false};                                                                            // Essential for decreasing your turning circle and allowing for faster corner-taking.
+
+//        float                                       m_body;                             // % body health
+//        float                                       m_engine;                           // % engine usury
+//        float                                       m_tyres;                            // % tyres usury
+//        float                                       m_fuel;                             // % fuel tank level
+
+//        bool                                        m_frontMissile;                     // you can only buy one per race.
+//        bool                                        m_rearMissile;                      // you can only buy one per race.
+//        bool                                        m_highSpeedKit;                     // Increases your maximum speed - Invaluable on the straights!
+//        bool                                        m_turboCharger;                     // Use this to increase your acceleration rate. This option is particularly useful when running into patches of mud which slow your car down.
+//        bool                                        m_spinAssist;                       // Use this for faster braking.
+//        bool                                        m_sideArmour;                       // Use this to send any other vehicle into an uncontrollable spin simply by ramming it.
+//        bool                                        m_powerSteering;                    // Essential for decreasing your turning circle and allowing for faster corner-taking.
+
+//        Car::Type                                        m_type;
+//        sf::FloatRect                               m_shape;
+//        float                                       m_angle;
+//        float                                       m_speed;
+//        float                                       m_maxSpeed;
+//        float                                       m_acceleration;
+
+        std::array<sf::Vector2f, 12>                m_carLimits;                        // corners for collisions and tracks limit detection
+        sf::Vector2f                                m_center;
+        int                                         m_elevation;                        // altitude to know if car is on or under the bridges
 
 
+        virtual void			                    draw(sf::RenderTarget& target, sf::RenderStates states) const;
         sf::Vector2f rotateCarCorners(const sf::Vector2f& corner, const sf::Vector2f& center, const float cosinusAngle, const float sinusAngle) ;
         void updateCarLimits();
 };
