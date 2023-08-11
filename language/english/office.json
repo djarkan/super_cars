@@ -10,7 +10,7 @@
                 "hello" : "Hello there, I hear you want to buy a \ncar. Witch type do you want ?"
             },
             {
-                "hello" : "Good morning. You’ve come to the right \nplace to buy a new car. Witch one do \nyou want ?"
+                "hello" : "Good morning. Youâ€™ve come to the right \nplace to buy a new car. Witch one do \nyou want ?"
             },
             {
                 "hello" : "Hello there, How are you ? I understand \nyou want to buy a new car. Witch car do you want ?"
@@ -67,55 +67,84 @@
         "priceAnnounce" :   //38 char max per line
         [
             {
-                "announce" : "OK. The trade-in value on your old \ncar is £MONEY. Your new \nMODEL is going to cost you \n£PRICE."
+                "announce" : "OK. The trade-in value on your old \ncar is Â£MONEY. Your new \nMODEL is going to cost you \nÂ£PRICE."
             },
             {
-                "announce" : "Alright.... I can give you £MONEY \ntrade-in on your old car. Your new \nMODEL will cost you £PRICE."
+                "announce" : "Alright.... I can give you Â£MONEY \ntrade-in on your old car. Your new \nMODEL will cost you Â£PRICE."
             },
             {
-                "announce" : "That’s fine. I can let you have a \nMODEL for £PRICE. By \nthe way your old rustbucket is worth \n0£MONEY."
+                "announce" : "Thatâ€™s fine. I can let you have a \nMODEL for Â£PRICE. By \nthe way your old rustbucket is worth \n0Â£MONEY."
             },
             {
-                "announce" : "OK. Your old car is worth £MONEY to me. \nI have a MODEL for \nsale at £PRICE."
+                "announce" : "OK. Your old car is worth Â£MONEY to me. \nI have a MODEL for \nsale at Â£PRICE."
             },
             {
-                "announce" : "Right, you can have one for £PRICE. You \ncan have £MONEY for your old car \nas well...."
+                "announce" : "Right, you can have one for Â£PRICE. You \ncan have Â£MONEY for your old car \nas well...."
             },
             {
-                "announce" : "I have just one MODEL \nleft. A snip at £PRICE. I can let \nyou have £MONEY for your old car."
+                "announce" : "I have just one MODEL \nleft. A snip at Â£PRICE. I can let \nyou have Â£MONEY for your old car."
             },
             {
-                "announce" : "Right then. I can advance you £MONEY on \nyour old car in part exchange on a \nMODEL , a bargain at £PRICE."
+                "announce" : "Right then. I can advance you Â£MONEY on \nyour old car in part exchange on a \nMODEL , a bargain at Â£PRICE."
             },
             {
-                "announce" : "An excellent choice. Cheap at £PRICE, \nand you can have £MONEY for your \nold car as well."
+                "announce" : "An excellent choice. Cheap at Â£PRICE, \nand you can have Â£MONEY for your \nold car as well."
             }
 
         ],
-        "buy" : "OK. I’ll pay $PRICE for the car.",
-        "NotEnoughMoney" : "Win some more races with your old \ncar first, then maybe you’ll be able \nto afford a new one. Till then, \nget out !!!!",
+        "buy" : "OK. Iâ€™ll pay Â£PRICE for the car.",
+        "NotEnoughMoney" :
+        [
+            {
+                "Win some more races with your old \ncar first, then maybe youâ€™ll be able \nto afford a new one. Till then, \nget out !!!!"
+            },
+            {
+                "Right then, a deal's a dea.... Hey,\nthis money is short. Are you trying\nto cheat me .... Get out of my office\nbefore I call the police....'"
+            },
+            {
+                "When I say Â£MONEY, I mean Â£MONEY.\nOut !!!!"
+            },
+            {
+                "No you won't, because you can't. Get\nout, now !!!!"},
+            }
+            {
+                "Do I look like a charity institution\n? Leave my property immediately."
+            },
+            {
+                "Stop wasting my time. You can't\n afford it. I you'd better go\before I get annoyed...."
+            },
+            {
+                "Sorry, bud, but you ain't got enough\ncash. If you want to try and cheat\people, become a car salesman, not a\racing driver. Bye....'"
+            },
+            {
+                "OK. Here are the keys to your new\nca.... Hold on a minute, this money\is wrong. You can't afford the\car.... Stop wasting my time, and get\nout !'"
+            },
+            {
+                "Don't be silly, you haven't got an\overdraft now. See you when you can\nafford a new car...."
+            }
+        ],
         "thanks" :
         [
             {
-                "bought" : "Alright.... Great to be of help. Byee...."
+                "Alright.... Great to be of help. Byee...."
             },
             {
-                "bought" : "OK. You’ve definitely got a bargain \nthere.... See you...."
+               "OK. Youâ€™ve definitely got a bargain \nthere.... See you...."
             },
             {
-                "bought" : "OK. Thanks for the business, drive \ncarefully...."
+                "OK. Thanks for the business, drive \ncarefully...."
             },
             {
-                "bought" : "I’m glad I could help you. Good \nluck in your next race...."
+                "Iâ€™m glad I could help you. Good \nluck in your next race...."
             },
             {
-                "bought" : "Allright then, thanks for choosing \nmy showroom. Good luck...."
+                "Allright then, thanks for choosing \nmy showroom. Good luck...."
             },
             {
-                "bought" : "I love when a deal comes together. \nGlad to be of service...."
+                "I love when a deal comes together. \nGlad to be of service...."
             },
             {
-                "bought" : "Alright, I hope you and your new \ncar are very happy together...."
+                "Alright, I hope you and your new \ncar are very happy together...."
             }
         ],
         "propositions" :
@@ -125,35 +154,35 @@
                 "answer" : "Try a spaceship to the moon, leaving \nnow from somewhere not in my \noffice.... Got the hint yet. OUT!"
             },
             {
-                "proposition" : "I’m afraid I left my wallet at home.",
+                "proposition" : "Iâ€™m afraid I left my wallet at home.",
                 "answer" : "Then go home and get it, \nscatterbrain...."
             },
             {
                 "proposition" : "No way, creature-features.",
-                "answer" : "I don’t have to take these insults. \nJust get out, you childish idiot."
+                "answer" : "I donâ€™t have to take these insults. \nJust get out, you childish idiot."
             },
             {
                 "proposition" : "Are there any extras included ? ",
-                "answer" : "What do you want ? The shirt off my back ? \nI’ll teach you not to be so greedy ! \nGet out and don’t come back !!!!"
+                "answer" : "What do you want ? The shirt off my back ? \nIâ€™ll teach you not to be so greedy ! \nGet out and donâ€™t come back !!!!"
             },
             {
                 "proposition" : "Are you a Justin Bieber fan ? ",
                 "answer" : "8 out of 10 yankies prefer XXXXX. So do I. \nGet out, and never mention that name in my \npresence again."
             },
             {
-                "proposition" : "Hi-ya matey, what’s happening ? ",
-                "answer" : "Wellll.... Mr Boss-guy is throwing the hip \nultra-cool racing driver out of his ‘digs’ \ncoz I don’t like’ is attitude."
+                "proposition" : "Hi-ya matey, whatâ€™s happening ? ",
+                "answer" : "Wellll.... Mr Boss-guy is throwing the hip \nultra-cool racing driver out of his â€˜digsâ€™ \ncoz I donâ€™t likeâ€™ is attitude."
             },
             {
-                "proposition" : "I won’t pay that ! ",
+                "proposition" : "I wonâ€™t pay that ! ",
                 "answer" : "No problem. No new car !!!! \nGet out !"
             },
             {
                 "proposition" : "I used to know your father.... ",
-                "answer" : "Did you ? Then you can forget buying a \ncar from me. We’re not not exactly on \nspeaking terms...."
+                "answer" : "Did you ? Then you can forget buying a \ncar from me. Weâ€™re not not exactly on \nspeaking terms...."
             },
             {
-                "proposition" : "I just can’t decide. ",
+                "proposition" : "I just canâ€™t decide. ",
                 "answer" : "Well I can. Get out."
             },
             {
@@ -169,7 +198,7 @@
                 "answer" : "What do you want, a medal ? \nGo back to the pub !"
             },
             {
-                "proposition" : "I don’t need this hassle.... ",
+                "proposition" : "I donâ€™t need this hassle.... ",
                 "answer" : "Then go elsewhere !!!!"
             },
             {
@@ -181,60 +210,60 @@
                 "answer" : "Euuuuuchh ! How can you eat meat ???? \nGet out of my office now, you animal."
             },
             {
-                "proposition" : "That’s a good one ! ",
+                "proposition" : "Thatâ€™s a good one ! ",
                 "answer" : "ho ho ho. Ho ho ho indeed. Very boring. \nPlease leave before I fall asleep."
             },
             {
-                "proposition" : "I’d get a better deal from Al Capone!  ",
-                "answer" : "Well go and see him and don’t bother me \nthen, chile-chops."
+                "proposition" : "Iâ€™d get a better deal from Al Capone!  ",
+                "answer" : "Well go and see him and donâ€™t bother me \nthen, chile-chops."
             },
             {
-                "proposition" : "Parlez-vous français ?",
+                "proposition" : "Parlez-vous franÃ§ais ?",
                 "answer" : "Non. Je ne comprends pas. Allez vous en !"
             },
             {
                 "proposition" : "Are you going to sell me a car ? ",
-                "answer" : "As the famous philosopher, Bo-Wo-Dimly \nonce said.... ‘No’. Bye."
+                "answer" : "As the famous philosopher, Bo-Wo-Dimly \nonce said.... â€˜Noâ€™. Bye."
             },
             {
                 "proposition" : "Do I look stupid ? ",
-                "answer" : "Do you really want me to answer \nthat one ???? Just go away, \nI ain’t selling...."
+                "answer" : "Do you really want me to answer \nthat one ???? Just go away, \nI ainâ€™t selling...."
             },
             {
-                "proposition" : "I’ve rather drink a cod-liver-oil. ",
-                "answer" : "OK. Then, drink cod liver oil. \nJust don’t come back here complaining...."
+                "proposition" : "Iâ€™ve rather drink a cod-liver-oil. ",
+                "answer" : "OK. Then, drink cod liver oil. \nJust donâ€™t come back here complaining...."
             },
             {
-                "proposition" : "You’re asking for a bunch of fives.... ",
-                "answer" : "Don’t threaten me.... Get out."
+                "proposition" : "Youâ€™re asking for a bunch of fives.... ",
+                "answer" : "Donâ€™t threaten me.... Get out."
             },
             {
                 "proposition" : "Hey, bug-brains, Cut the price some ! ",
-                "answer" : "If there’s bugs in my brain, you \nbetter get out before you catch \nsome of them !"
+                "answer" : "If thereâ€™s bugs in my brain, you \nbetter get out before you catch \nsome of them !"
             },
             {
-                "proposition" : "I’m only a poor racing driver.... ",
-                "answer" : "Win some more races with your old \ncar first, then maybe you’ll be able \nto afford a new one. Till then, get out!!!!"
+                "proposition" : "Iâ€™m only a poor racing driver.... ",
+                "answer" : "Win some more races with your old \ncar first, then maybe youâ€™ll be able \nto afford a new one. Till then, get out!!!!"
             },
             {
                 "proposition" : "Not in a month of Sundays.... ",
-                "answer" : "Alright, in that case there’s nothing \nmore to say, exept ‘Goodbye’...."
+                "answer" : "Alright, in that case thereâ€™s nothing \nmore to say, exept â€˜Goodbyeâ€™...."
             },
             {
                 "proposition" : "Are the ball-joints safe ? ",
-                "answer" : "Of course they are ! All my cars are \nsafe ! I don’t like your tone of voice ! \nGet out !!!!"
+                "answer" : "Of course they are ! All my cars are \nsafe ! I donâ€™t like your tone of voice ! \nGet out !!!!"
             },
             {
                 "proposition" : "Get to the point ! ",
                 "answer" : "GET OUT OF MY OFFICE BEFORE THE SEARING \nWINDS OF INFINITY SCOCH THY WORTHLESS \nCARCASS."
             },
             {
-                "proposition" : "Would you take £100 less.... ",
+                "proposition" : "Would you take Â£100 less.... ",
                 "answer" : "What are you trying to do with me ? \nMy last offer was the lowest I could go. \nNo deal. Bye."
             },
             {
-                "proposition" : "Howdy, I’m an American tourist.... ",
-                "answer" : "Wanna buy Tower Bridge ? Only \n1000 dollars. A bargain. Let’s go outside and \ntalk about it. You first."
+                "proposition" : "Howdy, Iâ€™m an American tourist.... ",
+                "answer" : "Wanna buy Tower Bridge ? Only \n1000 dollars. A bargain. Letâ€™s go outside and \ntalk about it. You first."
             },
             {
                 "proposition" : "I hope you have a nice day.... ",
@@ -242,79 +271,79 @@
             },
             {
                 "proposition" : "HOW MUCH ???? ",
-                "answer" : "DON’T SHOUT AT ME !!!!OUT !"
+                "answer" : "DONâ€™T SHOUT AT ME !!!!OUT !"
             },
             {
-                "proposition" : "Hey hey hey, it’s YogiBear.... ",
+                "proposition" : "Hey hey hey, itâ€™s YogiBear.... ",
                 "answer" : "A bear ! In my office ! Quick. \nEvacuate the building.... After you."
             },
             {
-                "proposition" : "I’m in a bit of a hurry.... ",
-                "answer" : "Well don’t let me keep you. \nSee you when you’ve a little more time. \nBuying a car isn’t something that \nyou should rush into."
+                "proposition" : "Iâ€™m in a bit of a hurry.... ",
+                "answer" : "Well donâ€™t let me keep you. \nSee you when youâ€™ve a little more time. \nBuying a car isnâ€™t something that \nyou should rush into."
             },
             {
                 "proposition" : "Are you Sagittarius ? ",
-                "answer" : "No. I’m a car salesman. \nAstrologers next door. Goodbye."
+                "answer" : "No. Iâ€™m a car salesman. \nAstrologers next door. Goodbye."
             },
             {
-                "proposition" : "I’m a fan of Cardi B.... ",
-                "answer" : "Aaaaaaaaaaarrrrrrgggggghhhh. \nShe can’t sing. She can’t dance. She looks awful. \nShe would go far.... \nThe moon would do. Get out and \nimprove your music taste."
+                "proposition" : "Iâ€™m a fan of Cardi B.... ",
+                "answer" : "Aaaaaaaaaaarrrrrrgggggghhhh. \nShe canâ€™t sing. She canâ€™t dance. She looks awful. \nShe would go far.... \nThe moon would do. Get out and \nimprove your music taste."
             },
             {
                 "proposition" : "Never. No way. Uh Uh. Not for dada. ",
                 "answer" : "OK Mr. Negative. Good byee."
             },
             {
-                "proposition" : "What’s up doc ? ",
-                "answer" : "Out ! I don’t deal with rabbits...."
+                "proposition" : "Whatâ€™s up doc ? ",
+                "answer" : "Out ! I donâ€™t deal with rabbits...."
             },
             {
                 "proposition" : "This is getting boring.... ",
                 "answer" : "Quite right. Au revoir."
             },
             {
-                "proposition" : "Let’s sort this out once and for all. ",
+                "proposition" : "Letâ€™s sort this out once and for all. ",
                 "answer" : "Sure ! Get out ! Pretty well \nsorted if you ask me !"
             },
             {
-                "proposition" : "There’s something funny going on. Is there.... ",
-                "answer" : "Well, we’d better get out of here. \nYou first. Bye, don’t come back...."
+                "proposition" : "Thereâ€™s something funny going on. Is there.... ",
+                "answer" : "Well, weâ€™d better get out of here. \nYou first. Bye, donâ€™t come back...."
             },
             {
-                "proposition" : "Hmmm, I’d like to think about it ! ",
-                "answer" : "Well think about it outside, \ncause I haven’t got the time to waste."
+                "proposition" : "Hmmm, Iâ€™d like to think about it ! ",
+                "answer" : "Well think about it outside, \ncause I havenâ€™t got the time to waste."
             },
             {
                 "proposition" : "Stop being silly, dog-breath.",
-                "answer" : "Dog-breath !!!! Get out of here \nor I’ll bite yer legs...."
+                "answer" : "Dog-breath !!!! Get out of here \nor Iâ€™ll bite yer legs...."
             },
             {
                 "proposition" : "How fast does it go ? ",
-                "answer" : "Don’t ask me. Look on the specs \nscreens ! Trough the door, second right and a \ncouple of clicks !"
+                "answer" : "Donâ€™t ask me. Look on the specs \nscreens ! Trough the door, second right and a \ncouple of clicks !"
             },
             {
-                "proposition" : "I’m a politician.... ",
+                "proposition" : "Iâ€™m a politician.... ",
                 "answer" : "Ho ho ho indeed. Very boring. \nPlease leave before I fall asleep."
             },
             {
                 "proposition" : "Aaah. I was hoping to pay \na bit less. ",
-                "answer" : "That’s just to bad. Goodbye."
+                "answer" : "Thatâ€™s just to bad. Goodbye."
             },
             {
                 "proposition" : "Dingbat WombatKick a Kangaroo.... ",
-                "answer" : "I’d repport you to the RSPCA. \nGet ou of my office !"
+                "answer" : "Iâ€™d repport you to the RSPCA. \nGet ou of my office !"
             },
             {
-                "proposition" : "I’ll give you half of that ! ",
-                "answer" : "That would probably pay for the \npaint-job ! You really shouldn’t be such a miser. \nTime to leave.... Goodbye."
+                "proposition" : "Iâ€™ll give you half of that ! ",
+                "answer" : "That would probably pay for the \npaint-job ! You really shouldnâ€™t be such a miser. \nTime to leave.... Goodbye."
             },
             {
                 "proposition" : "Come on Guvnor, give me a break. ",
-                "answer" : "Don’t you ever call me ‘Guvnor’ again. \nLeave my office immediately...."
+                "answer" : "Donâ€™t you ever call me â€˜Guvnorâ€™ again. \nLeave my office immediately...."
             },
             {
                 "proposition" : "Are the Headlights bright ? ",
-                "answer" : "Probably a lot brighter than you ! \nI’ve had enough of this silly conversation . \nGet out !"
+                "answer" : "Probably a lot brighter than you ! \nIâ€™ve had enough of this silly conversation . \nGet out !"
             },
             {
                 "proposition" : "Can I put my car in part exchange ? ",
@@ -326,14 +355,14 @@
             },
             {
                 "proposition" : "How about a few drinks at the pub ? ",
-                "answer" : "? No way.... You’re driving.... I’m not \nhaving you caught over the limit in one of my \ncars. Get out...."
+                "answer" : "? No way.... Youâ€™re driving.... Iâ€™m not \nhaving you caught over the limit in one of my \ncars. Get out...."
             },
             {
-                "proposition" : "C’Mon man, gimme a break....",
-                "answer" : "If you use any more silly sayings like \nthat I’ll break something alright. Leave my \noffice, IMMEDIATELY...."
+                "proposition" : "Câ€™Mon man, gimme a break....",
+                "answer" : "If you use any more silly sayings like \nthat Iâ€™ll break something alright. Leave my \noffice, IMMEDIATELY...."
             },
             {
-                "proposition" : "Don’t make me laugh. ",
+                "proposition" : "Donâ€™t make me laugh. ",
                 "answer" : "This should wipe the smile off your face. \nLEAVE MY OFFICE IMMEDIATELY !"
             },
             {
@@ -342,23 +371,23 @@
             },
             {
                 "proposition" : "I could get to dislike you, you know. ",
-                "answer" : "Well you better get out of here before \nyou do get to dislike me, hadn’t you !"
+                "answer" : "Well you better get out of here before \nyou do get to dislike me, hadnâ€™t you !"
             },
             {
-                "proposition" : "Hey sleazebag, that’s not cool. ",
+                "proposition" : "Hey sleazebag, thatâ€™s not cool. ",
                 "answer" : "Sleazebag, eh. GET LOST, GREEP !"
             },
             {
-                "proposition" : "Hey man, you’re stupid ! ",
+                "proposition" : "Hey man, youâ€™re stupid ! ",
                 "answer" : "Sticks and stones will break my bones.... \nGet out !"
             },
             {
                 "proposition" : "I want something cheap....",
-                "answer" : "How about s Skoda patent skip ? \nUnfortunately I don’t sell them.... \nBut I know a man that does.... \nHe went that-a-way.... Byee."
+                "answer" : "How about s Skoda patent skip ? \nUnfortunately I donâ€™t sell them.... \nBut I know a man that does.... \nHe went that-a-way.... Byee."
             },
             {
-                "proposition" : "I’m not really sure I need this car. ",
-                "answer" : "Well if you don’t need it, then you’re \nwasting my time. Get out !"
+                "proposition" : "Iâ€™m not really sure I need this car. ",
+                "answer" : "Well if you donâ€™t need it, then youâ€™re \nwasting my time. Get out !"
             },
             {
                 "proposition" : "Would you like a banana ? ",
@@ -366,7 +395,7 @@
             },
             {
                 "proposition" : "Ooga Booga Awalamagunga.... ",
-                "answer" : "Sorry, I don’t sell stone chariots with \nsquire wheels. Come back some other time, Cavey...."
+                "answer" : "Sorry, I donâ€™t sell stone chariots with \nsquire wheels. Come back some other time, Cavey...."
             },
             {
                 "proposition" : "Grovel grovel.... Slime slime.... ",
@@ -378,7 +407,7 @@
             },
             {
                 "proposition" : "Whats the upholstery like ? ",
-                "answer" : "Oh, the feel of th ewind in its fibres, \na good brush every other week and no idiots like you in \nits owner’s office. Out !"
+                "answer" : "Oh, the feel of th ewind in its fibres, \na good brush every other week and no idiots like you in \nits ownerâ€™s office. Out !"
             },
             {
                 "proposition" : "May I smoke my pipe ? ",
@@ -389,16 +418,16 @@
                 "answer" : "Try a diner jacket.... Oh and by the way, \nshut the door on your way out !"
             },
             {
-                "proposition" : "I’m really an income tax collector. ",
-                "answer" : ". I’m really a traffic warden, and your \nold car is illegally parked outside. I suggest you get out \nand move it before I tow it away...."
+                "proposition" : "Iâ€™m really an income tax collector. ",
+                "answer" : ". Iâ€™m really a traffic warden, and your \nold car is illegally parked outside. I suggest you get out \nand move it before I tow it away...."
             },
             {
                 "proposition" : "On yer bike, matey. ",
-                "answer" : "You’ll be riding a bike if you keep up \nthis cheek. Get out of my office, NOW !"
+                "answer" : "Youâ€™ll be riding a bike if you keep up \nthis cheek. Get out of my office, NOW !"
             },
             {
                 "proposition" : "Please don't sell me a car.... ",
-                "answer" : "Uhhh, OK.How does ‘GO AWAY. I’M NOT \nGOING TO SELL YOU A CAR’ sound ? OK ? Good. \nGet out, timewaster."
+                "answer" : "Uhhh, OK.How does â€˜GO AWAY. Iâ€™M NOT \nGOING TO SELL YOU A CARâ€™ sound ? OK ? Good. \nGet out, timewaster."
             },
             {
                 "proposition" : "You look like someone called Steve ! ",
@@ -406,43 +435,43 @@
             },
             {
                 "proposition" : "Phoooooo.... It is a lot of money. ",
-                "answer" : "You didn’t expect to buy a brand new car \nand still get change from a fever, did you ? \nCome back when you feel you can \nbear to part with your money."
+                "answer" : "You didnâ€™t expect to buy a brand new car \nand still get change from a fever, did you ? \nCome back when you feel you can \nbear to part with your money."
             },
             {
                 "proposition" : "My brother is seven feet two tall !  ",
-                "answer" : "My big sister is eight foot four ! You won’t \nintimidate me with idle threats. \nGet out...."
+                "answer" : "My big sister is eight foot four ! You wonâ€™t \nintimidate me with idle threats. \nGet out...."
             },
             {
                 "proposition" : "Do you take cheques ? ",
-                "answer" : "Ho ho ho. Please leave before I collapse \nfrom laughter…"
+                "answer" : "Ho ho ho. Please leave before I collapse \nfrom laughterâ€¦"
             },
             {
-                "proposition" : "Uhhh.... Errrr… Ahhh.... ",
+                "proposition" : "Uhhh.... Errrrâ€¦ Ahhh.... ",
                 "answer" : "Indecisiveness really gets on my nerves. \nGoodbye !"
             },
             {
-                "proposition" : "What a big office you’ve got !  ",
+                "proposition" : "What a big office youâ€™ve got !  ",
                 "answer" : "All the better to throw people out of...."
             },
             {
                 "proposition" : "I absolutely refuse to pay. ",
-                "answer" : "It doesn’t bother me.... Close the door on \nyour way out."
+                "answer" : "It doesnâ€™t bother me.... Close the door on \nyour way out."
             },
             {
                 "proposition" : "Ever been had ? ",
-                "answer" : "No, Mr Viciuous. I deal firmly with bad \ncustomers. Goodbye"
+                "answer" : "No, Mr Vicious. I deal firmly with bad \ncustomers. Goodbye"
             },
             {
-                "proposition" : "I’m a reporter of the SUN.",
+                "proposition" : "Iâ€™m a reporter of the SUN.",
                 "answer" : "Well I eat hamsters too, so you \nbetter watch out. Leave my office at once \nyou bilge-rat...."
             },
             {
                 "proposition" : "American Express ???? ",
-                "answer" : "???? I don’t like plastic, It’s not \nbio-degradable. You can forget about your \nnew car, I ain’t selling you one."
+                "answer" : "???? I donâ€™t like plastic, Itâ€™s not \nbio-degradable. You can forget about your \nnew car, I ainâ€™t selling you one."
             },
             {
                 "proposition" : "You look like a shifty character. ",
-                "answer" : "You look like someone who is rather \nannoyed at being thrown out of a car salesman’s \noffice for being insulting...."
+                "answer" : "You look like someone who is rather \nannoyed at being thrown out of a car salesmanâ€™s \noffice for being insulting...."
             },
             {
                 "proposition" : "Barclaycard ?",
@@ -450,244 +479,244 @@
             },
             {
                 "proposition" : "Not in a million years ! ",
-                "answer" : "OK. Then obviously don’t have anything \nto talk about. Goodbye...."
+                "answer" : "OK. Then obviously donâ€™t have anything \nto talk about. Goodbye...."
             },
             {
                 "proposition" : "Not a chance, fungus-fangs.... ",
-                "answer" : "There’s nothing wrong with my dental \nhygiene, skunk-breath. \nGoodbye and good reddance."
+                "answer" : "Thereâ€™s nothing wrong with my dental \nhygiene, skunk-breath. \nGoodbye and good reddance."
             },
             {
-                "proposition" : "I ain’t that much.... ",
+                "proposition" : "I ainâ€™t got that much.... ",
                 "answer" : "Though then. Goodbye."
             },
             {
                 "proposition" : "Know any good jokes ? ",
-                "answer" : "Yeah, there was a racing driver trying \nto buy a car, and the salesman said ‘Not on \nyour life. Get out !’"
+                "answer" : "Yeah, there was a racing driver trying \nto buy a car, and the salesman said â€˜Not on \nyour life. Get out !â€™"
             },
             {
-                "proposition" : "Would you take £5000? ",
-                "answer" : "Don’t be silly. Come back when you’ve \nfound your grip on reality...."
+                "proposition" : "Would you take Â£5000? ",
+                "answer" : "Donâ€™t be silly. Come back when youâ€™ve \nfound your grip on reality...."
             },
             {
                 "proposition" : "I hate car salesmen ! ",
-                "answer" : "Don’t look at me, I’m only the cleaner.... \nByee."
+                "answer" : "Donâ€™t look at me, Iâ€™m only the cleaner.... \nByee."
             },
             {
-                "proposition" : "Ah, come on, I’m not that rich. ",
+                "proposition" : "Ah, come on, Iâ€™m not that rich. ",
                 "answer" : "Yes you are ! Get out of my office. \nyou mean little rat...."
             },
             {
-                "proposition" : "Aren’t you Ronald Reagan ? ",
-                "answer" : "No. Last time I heard of him he \nwas reading the news.... Maybe you’ll find him \nsomewhere else, but not here. Goodbye."
+                "proposition" : "Arenâ€™t you Ronald Reagan ? ",
+                "answer" : "No. Last time I heard of him he \nwas reading the news.... Maybe youâ€™ll find him \nsomewhere else, but not here. Goodbye."
             },
             {
                 "proposition" : "Can't you cut the price more ?  ",
-                "answer" : "No. I’ve got to support my wife, six kids, \nfour cats, seventeen goldfishes, three canaries, and Bilbo, \nmy dog. So get out !"
+                "answer" : "No. Iâ€™ve got to support my wife, six kids, \nfour cats, seventeen goldfishes, three canaries, and Bilbo, \nmy dog. So get out !"
             },
             {
                 "proposition" : "Your cars are rubbish ! ",
-                "answer" : "Then you won’t want one, will you. OUT !"
+                "answer" : "Then you wonâ€™t want one, will you. OUT !"
             },
             {       // 55 good price is lowered
                 "proposition" : "Hey, I am paying cash, you know. ",
-                "answer" : "Ok, for cash, I’ll knock the VAT off. \nYou can have it for £PRICE."
+                "answer" : "Ok, for cash, Iâ€™ll knock the VAT off. \nYou can have it for Â£PRICE."
             },
             {
                 "proposition" : "I COULD MURDER A CURRY !",
-                "answer" : "Great idea. I know a little restaurant \ncalled the Katmandu. But first let’s sell \nyou a car… How about £PRICE."
+                "answer" : "Great idea. I know a little restaurant \ncalled the Katmandu. But first letâ€™s sell \nyou a carâ€¦ How about Â£PRICE."
             },
             {
                 "proposition" : "Is your name Arthur Daley ? ",
-                "answer" : "hey.... Mind-er what you say.... But seeing \nas how he’s such a gent you can have the \ncar for £PRICE."
+                "answer" : "hey.... Mind-er what you say.... But seeing \nas how heâ€™s such a gent you can have the \ncar for Â£PRICE."
             },
             {
                 "proposition" : "Hmmm. I did want some extras also.",
-                "answer" : "OK. That case I’ll knok some off \nthe price so you can afford some. \nIs £PRICE fair to you ?"
+                "answer" : "OK. That case Iâ€™ll knok some off \nthe price so you can afford some. \nIs Â£PRICE fair to you ?"
             },
             {
-                "proposition" : "I’d need a second mortage....",
-                "answer" : "Well, we can’t have that, can we. \nI’ll let you have it fir a mere £PRICE."
+                "proposition" : "Iâ€™d need a second mortage....",
+                "answer" : "Well, we canâ€™t have that, can we. \nIâ€™ll let you have it fir a mere Â£PRICE."
             },
             {
                 "proposition" : "I ought to knock your light out !",
-                "answer" : "Oh anything, but don’t damage my cars. \nI’ll reduce the price to £PRICE."
+                "answer" : "Oh anything, but donâ€™t damage my cars. \nIâ€™ll reduce the price to Â£PRICE."
             },
             {
                 "proposition" : "Is there a doctor in the fish ?",
-                "answer" : "Si baroni. And he only wants £PRICE \nfor his car...."
+                "answer" : "Si baroni. And he only wants Â£PRICE \nfor his car...."
             },
             {
                 "proposition" : "won't you take less....  ",
-                "answer" : "Sure yopu only have to ask.... £PRICE."
+                "answer" : "Sure yopu only have to ask.... Â£PRICE."
             },
             {
                 "proposition" : "Does it run on nuclear power ?",
-                "answer" : "No, This is a nuclear free zone ! \nTell you what ! I’ll let you have it \nat a knock-down price of £PRICE."
+                "answer" : "No, This is a nuclear free zone ! \nTell you what ! Iâ€™ll let you have it \nat a knock-down price of Â£PRICE."
             },
             {
                 "proposition" : "What is the air speed of a swallow ? ",
-                "answer" : "African or Eropean ???? For a fellow \nPython fan I’ll let you have the car \nfor £PRICE, and a funny walk...."
+                "answer" : "African or Eropean ???? For a fellow \nPython fan Iâ€™ll let you have the car \nfor Â£PRICE, and a funny walk...."
             },
             {
-                "proposition" : "That’s a disgusting suit.... ",
-                "answer" : "Yeah, I know it is but it comes with \nthe job unfortunately. Let’s call the \nprice £PRICE for someone with \ndecent dress sense."
+                "proposition" : "Thatâ€™s a disgusting suit.... ",
+                "answer" : "Yeah, I know it is but it comes with \nthe job unfortunately. Letâ€™s call the \nprice Â£PRICE for someone with \ndecent dress sense."
             },
             {
-                "proposition" : "I’ve got a garage. ",
-                "answer" : "Good. I likemy cars to go to a good home. \nLet’s say £PRICE for a concerned \ncustomer."
+                "proposition" : "Iâ€™ve got a garage. ",
+                "answer" : "Good. I likemy cars to go to a good home. \nLetâ€™s say Â£PRICE for a concerned \ncustomer."
             },
             {
-                "proposition" : "I think it’s started to rain.",
-                "answer" : ".  Oh no, my cars are outside and \nI’ve just waxed them. Tell you what, What \nabout a cut-price deal of £PRICE"
+                "proposition" : "I think itâ€™s started to rain.",
+                "answer" : ".  Oh no, my cars are outside and \nIâ€™ve just waxed them. Tell you what, What \nabout a cut-price deal of Â£PRICE"
             },
             {
-                "proposition" : "You know, you ain’t half mean ! ",
-                "answer" : "I have to be to be a car dealer. \nLook, I’ll do you a deal. Only £PRICE."
+                "proposition" : "You know, you ainâ€™t half mean ! ",
+                "answer" : "I have to be to be a car dealer. \nLook, Iâ€™ll do you a deal. Only Â£PRICE."
             },
             {
                 "proposition" : "Is it fitted with a CAT ?",
-                "answer" : "Yeah, one of those furry ones you \nstick to the back windscreen wich blocks \nyour view ! Let’s say £PRICE."
+                "answer" : "Yeah, one of those furry ones you \nstick to the back windscreen wich blocks \nyour view ! Letâ€™s say Â£PRICE."
             },
             {
                 "proposition" : "I should report you to the T.S.A.",
-                "answer" : "Oh please don’t do that.... \nI’ll cut the price to £PRICE."
+                "answer" : "Oh please donâ€™t do that.... \nIâ€™ll cut the price to Â£PRICE."
             },
             {
                 "proposition" : "What colour socks are you wearing ? ",
-                "answer" : "They’re a smoothing shade of green. \nThat makes me feel better, so I’ll cut \nthe price to £PRICE."
+                "answer" : "Theyâ€™re a smoothing shade of green. \nThat makes me feel better, so Iâ€™ll cut \nthe price to Â£PRICE."
             },
             {
-                "proposition" : "Don’t make me laugh. ",
-                "answer" : ". I wasn’t trying to make you laugh.... \nMaybe the price-tag will bring a better \nsmile to your face. £PRICE."
+                "proposition" : "Donâ€™t make me laugh. ",
+                "answer" : ". I wasnâ€™t trying to make you laugh.... \nMaybe the price-tag will bring a better \nsmile to your face. Â£PRICE."
             },
             {
                 "proposition" : "Are you taking me for a sucker ?  ",
-                "answer" : "No, not at all.... As a goodwill gesture \nI’ll only charge you £PRICE."
+                "answer" : "No, not at all.... As a goodwill gesture \nIâ€™ll only charge you Â£PRICE."
             },
             {
-                "proposition" : "How’s the sub-frame ? ",
-                "answer" : "Well it’s been in hospital recently to \nhave a toe nail removed, but otherwi.... \nSorry, just my little joke. It’s fine. \nTell you what, you can have the car for £PRICE."
+                "proposition" : "Howâ€™s the sub-frame ? ",
+                "answer" : "Well itâ€™s been in hospital recently to \nhave a toe nail removed, but otherwi.... \nSorry, just my little joke. Itâ€™s fine. \nTell you what, you can have the car for Â£PRICE."
             },
             {
                 "proposition" : "Does the imredefluidulator work ? ",
-                "answer" : "The Wha.... Err, oh yes… Ithink so.... \nSince you seem to know so much about cars, \nI’ll let you have it for a knock down \nprice of £PRICE."
+                "answer" : "The Wha.... Err, oh yesâ€¦ Ithink so.... \nSince you seem to know so much about cars, \nIâ€™ll let you have it for a knock down \nprice of Â£PRICE."
             },
             {
                 "proposition" : "Go ahead, punk, make my day. ",
-                "answer" : "OK, I err know what you mean, arry.... \nIs £PRICE better ?"
+                "answer" : "OK, I err know what you mean, arry.... \nIs Â£PRICE better ?"
             },
             {
-                "proposition" : "That’s excessive!",
-                "answer" : "Of course it is, but £PRICE isn’t."
+                "proposition" : "Thatâ€™s excessive!",
+                "answer" : "Of course it is, but Â£PRICE isnâ€™t."
             },
             {
-                "proposition" : "I can’t really find that much....",
-                "answer" : "Well how about £PRICE."
+                "proposition" : "I canâ€™t really find that much....",
+                "answer" : "Well how about Â£PRICE."
             },
             {
                 "proposition" : "Are you a scruffy piece of string ?",
-                "answer" : "No, I’m a frayed knot.... Put it there, \nwhat a double act.... Tell you what, \nyou can have the car for £PRICE."
+                "answer" : "No, Iâ€™m a frayed knot.... Put it there, \nwhat a double act.... Tell you what, \nyou can have the car for Â£PRICE."
             },
             {
-                "proposition" : "You’ve got moths in your wallet !",
-                "answer" : "! Sorry, I didn’t realise I was speaking \nto an animal lover. I’ll make you a \nspecial deal of £PRICE."
+                "proposition" : "Youâ€™ve got moths in your wallet !",
+                "answer" : "! Sorry, I didnâ€™t realise I was speaking \nto an animal lover. Iâ€™ll make you a \nspecial deal of Â£PRICE."
             },
             {
-                "proposition" : "Oh, I say, That’s not very spiffing. ",
-                "answer" : "OK yar.... How about selling a chunk of \nDaddy’s estate to pay a piffing £PRICE. then ?"
+                "proposition" : "Oh, I say, Thatâ€™s not very spiffing. ",
+                "answer" : "OK yar.... How about selling a chunk of \nDaddyâ€™s estate to pay a piffing Â£PRICE. then ?"
             },
             {
-                "proposition" : "I’ve got a cat named Garfield. ",
-                "answer" : ". Know what you mean, Jon, Black an Orange, \nbit of temper, eats a lot §§§§ \nI like cats, so we’ll call it \n£PRICE."
+                "proposition" : "Iâ€™ve got a cat named Garfield. ",
+                "answer" : ". Know what you mean, Jon, Black an Orange, \nbit of temper, eats a lot Â§Â§Â§Â§ \nI like cats, so weâ€™ll call it \nÂ£PRICE."
             },
             {
                 "proposition" : "I used to know your mother.... ",
                 "proposition" : "I used to know your mother.... ",
-                "answer" : "Good old ma. Seeing as how you’re a friend \nof the family, you can have it \nfor £PRICE."
+                "answer" : "Good old ma. Seeing as how youâ€™re a friend \nof the family, you can have it \nfor Â£PRICE."
             },
             {
                 "proposition" : "Is the car insured ? ",
-                "answer" : "Would you insure a car that was probably \ngoing to get smashed to bits by a \nmaniac driver in a car rally ? Let’s \nsay £PRICE for someone with a sense of humour."
+                "answer" : "Would you insure a car that was probably \ngoing to get smashed to bits by a \nmaniac driver in a car rally ? Letâ€™s \nsay Â£PRICE for someone with a sense of humour."
             },
             {
                 "proposition" : "HOW MUCH ???? ",
-                "answer" : "Errr, £PRICE.    ????????????"
+                "answer" : "Errr, Â£PRICE.    ????????????"
             },
             {
                 "proposition" : "Make me a better deal than that ! ",
-                "answer" : "OK. I admire someone who is straight \nwith me. £PRICE"
+                "answer" : "OK. I admire someone who is straight \nwith me. Â£PRICE"
             },
             {
-                "proposition" : "I can’shell out tha much. ",
-                "answer" : "Then you certainly couldn’t afford to ‘\nshell out’ £PRICE. But, if you want the \ncar, you’ll have to !"
+                "proposition" : "I canâ€™shell out tha much. ",
+                "answer" : "Then you certainly couldnâ€™t afford to â€˜\nshell outâ€™ Â£PRICE. But, if you want the \ncar, youâ€™ll have to !"
             },
             {
                 "proposition" : "This parrot is dead.... ",
-                "answer" : "And I’m a lumberjack.... OK. This is it. \nAt once in a lifetime, never to be \nrepeated, special offer, cheap-rate deal. \nA mere, trifling, eensy-weensy £PRICE"
+                "answer" : "And Iâ€™m a lumberjack.... OK. This is it. \nAt once in a lifetime, never to be \nrepeated, special offer, cheap-rate deal. \nA mere, trifling, eensy-weensy Â£PRICE"
             },
             {
                 "proposition" : "How about a round of golf ?",
-                "answer" : "Ah, A golfer. OK. Give me just £PRICE \nfor the car."
+                "answer" : "Ah, A golfer. OK. Give me just Â£PRICE \nfor the car."
             },
             {
-                "proposition" : "That’s about as fair as Snow White ! ",
-                "answer" : "Ha ha, a comedian. I like you. \nTry this one - £PRICE. "
+                "proposition" : "Thatâ€™s about as fair as Snow White ! ",
+                "answer" : "Ha ha, a comedian. I like you. \nTry this one - Â£PRICE. "
             },
             {
                 "proposition" : "Does the car use unleaded ? ",
-                "answer" : "Sure it does ! And since you’re \nobviously environementally conscious, I’ll \ndrop the price a bit ! Let’s say £PRICE \nfor being green...."
+                "answer" : "Sure it does ! And since youâ€™re \nobviously environementally conscious, Iâ€™ll \ndrop the price a bit ! Letâ€™s say Â£PRICE \nfor being green...."
             },
             {
                 "proposition" : "Too much ! ",
-                "answer" : "Hmmm yeah, I assume it is really.... \nHow about £PRICE."
+                "answer" : "Hmmm yeah, I assume it is really.... \nHow about Â£PRICE."
             },
             {
-                "proposition" : "Can’t we compromise ? ",
-                "answer" : "Of course ! How about £PRICE."
+                "proposition" : "Canâ€™t we compromise ? ",
+                "answer" : "Of course ! How about Â£PRICE."
             },
             {
-                "proposition" : "Is that a wig you’re wearing ? ",
-                "answer" : "Uh, OK. Your’re gonne like this, \nnot a lot, but you’ll like it $PRICE."
+                "proposition" : "Is that a wig youâ€™re wearing ? ",
+                "answer" : "Uh, OK. Yourâ€™re gonne like this, \nnot a lot, but youâ€™ll like it $PRICE."
             },
             {
                 "proposition" : "How old are you ? ",
-                "answer" : "Errr.... Let’s change the subject. \nHow about if I cut the price of your \nnew car to £PRICE."
+                "answer" : "Errr.... Letâ€™s change the subject. \nHow about if I cut the price of your \nnew car to Â£PRICE."
             },
             {
                 "proposition" : "Does it come with guarantee ? ",
-                "answer" : "? Errr. No. But to make up for it, \nI’m willing to knock down the price \nto a staggering £PRICE."
+                "answer" : "? Errr. No. But to make up for it, \nIâ€™m willing to knock down the price \nto a staggering Â£PRICE."
             },
             {
-                "proposition" : "I’ve been driving my car.... ",
-                "answer" : "What a embaressment. I’m your \nBaggy Trousers as well. Never mind, come to \nOur House on the Wings Of A Dove. \nEnough of this madness, let’s say £PRICE."
+                "proposition" : "Iâ€™ve been driving my car.... ",
+                "answer" : "What a embaressment. Iâ€™m your \nBaggy Trousers as well. Never mind, come to \nOur House on the Wings Of A Dove. \nEnough of this madness, letâ€™s say Â£PRICE."
             },
             {
                 "proposition" : "Has the car got rust ?  ",
-                "answer" : "All the cars do have ! \nI’ll cut the price to take the rust into \nconcideration? Let’s say, errr £PRICE."
+                "answer" : "All the cars do have ! \nIâ€™ll cut the price to take the rust into \nconcideration? Letâ€™s say, errr Â£PRICE."
             },
             {
-                "proposition" : "Come on, We’re both businessmen. ",
-                "answer" : "For a fellow entrepreneur, £PRICE. OK ?"
+                "proposition" : "Come on, Weâ€™re both businessmen. ",
+                "answer" : "For a fellow entrepreneur, Â£PRICE. OK ?"
             },
             {
                 "proposition" : "Could you reduce the price, please. ",
-                "answer" : "Of course, how about £PRICE."
+                "answer" : "Of course, how about Â£PRICE."
             },
             {
                 "proposition" : "What are you trying to take me for ? ",
-                "answer" : "? I ain’t trying to take you for anything. \nSorry. How about £PRICE"
+                "answer" : "? I ainâ€™t trying to take you for anything. \nSorry. How about Â£PRICE"
             },
             {
-                "proposition" : "Don’t be draft, frogface.",
-                "answer" : ". Oh Come on, I’m not that ugly. \nTell you what, I’ll make you a special deal \nof £PRICE."
+                "proposition" : "Donâ€™t be draft, frogface.",
+                "answer" : ". Oh Come on, Iâ€™m not that ugly. \nTell you what, Iâ€™ll make you a special deal \nof Â£PRICE."
             },
             {
-                "proposition" : "I’m a lumberjack! ",
-                "answer" : "You mean you wear womens clothing \nand you hang around in bars ? \nErrr, yesssss. Shall we say £PRICE."
+                "proposition" : "Iâ€™m a lumberjack! ",
+                "answer" : "You mean you wear womens clothing \nand you hang around in bars ? \nErrr, yesssss. Shall we say Â£PRICE."
             },
             {
-                "proposition" : "That’s a fair profit margin. ",
-                "answer" : "Not really, but if you’re unsatisfied, \nthen I’ll let you have it for £PRICE."
+                "proposition" : "Thatâ€™s a fair profit margin. ",
+                "answer" : "Not really, but if youâ€™re unsatisfied, \nthen Iâ€™ll let you have it for Â£PRICE."
             },
             {
                 "proposition" : "Are you trying to rip me off !",
@@ -695,139 +724,139 @@
             },
             {
                 "proposition" : "Heads or Tails ? ",
-                "answer" : "Tails you win .... £PRICE."
+                "answer" : "Tails you win .... Â£PRICE."
             },
             {
                 "proposition" : "Ullo John, got a new motor ???? ",
-                "answer" : "Nice sound, Bermondsey, innit. \nOK me old china, I’ll konock a \npony or two off. JUST $PRICE."
+                "answer" : "Nice sound, Bermondsey, innit. \nOK me old china, Iâ€™ll konock a \npony or two off. JUST $PRICE."
             },
             {
-                "proposition" : "Don’t push me.... ",
-                "answer" : "OK. Mr Rambo , you can put \nthe machine gun away. I’ll settle \nfor £PRICE."
+                "proposition" : "Donâ€™t push me.... ",
+                "answer" : "OK. Mr Rambo , you can put \nthe machine gun away. Iâ€™ll settle \nfor Â£PRICE."
             },
             {       // 33 price up
                 "proposition" : "That's a good sun-tan. ",
-                "answer" : ". I know, I go on lots of \nexpensive holidays, paid for my people \nlike you who pay extra for my cars. \nHow about £PRICE. "
+                "answer" : ". I know, I go on lots of \nexpensive holidays, paid for my people \nlike you who pay extra for my cars. \nHow about Â£PRICE. "
             },
              {
                 "proposition" : "My other car's a Porsche. ",
-                "answer" : "Other car ???? You must be \nrolling in it.... You can pay £PRICE \nin that case. "
+                "answer" : "Other car ???? You must be \nrolling in it.... You can pay Â£PRICE \nin that case. "
             },
             {
                 "proposition" : "Do you mind if I smoke ? ",
-                "answer" : "Yes. You can pay more for the car \nif you’re willing to kill \nyourself with cagarettes .... £PRICE. "
+                "answer" : "Yes. You can pay more for the car \nif youâ€™re willing to kill \nyourself with cagarettes .... Â£PRICE. "
             },
             {
                 "proposition" : "Help.",
-                "answer" : "What do you think this is, \nan adventure game ? Try £PRICE for size."
+                "answer" : "What do you think this is, \nan adventure game ? Try Â£PRICE for size."
             },
             {
                 "proposition" : "Does it come with furry dice ? ",
-                "answer" : "Sure, but it costs a little more.... \nLet’s say £PRICE."
+                "answer" : "Sure, but it costs a little more.... \nLetâ€™s say Â£PRICE."
             },
             {
-                "proposition" : "I’m absolutely rolling in dough ! ",
-                "answer" : "Well, you really ought to be a baker \nthen, not a racing driver, but \nI won’t hold it against you too much. \nThe price is now £PRICE.   "
+                "proposition" : "Iâ€™m absolutely rolling in dough ! ",
+                "answer" : "Well, you really ought to be a baker \nthen, not a racing driver, but \nI wonâ€™t hold it against you too much. \nThe price is now Â£PRICE.   "
             },
             {
                 "proposition" : "Are you making enough money ? ",
-                "answer" : "No, not really. Tel you what, \nI’d make a bit more if I increase \nthe price, woudn’t I ? How about £PRICE."
+                "answer" : "No, not really. Tel you what, \nIâ€™d make a bit more if I increase \nthe price, woudnâ€™t I ? How about Â£PRICE."
             },
             {
                 "proposition" : "I know karate ! ",
-                "answer" : "I know Charlie Chan, and he said \ncharge the cheeky little oik more \nfor the car if he gets clever’ so \nI will. £PRICE."
+                "answer" : "I know Charlie Chan, and he said \ncharge the cheeky little oik more \nfor the car if he gets cleverâ€™ so \nI will. Â£PRICE."
             },
             {
-                "proposition" : "What would you say to £5. ",
-                "answer" : ". What would you say to £PRICE. "
+                "proposition" : "What would you say to Â£5. ",
+                "answer" : ". What would you say to Â£PRICE. "
             },
             {
-                "proposition" : "I’m a trainspotter.... ",
-                "answer" : ".... Boring little twerp. £PRICE. "
+                "proposition" : "Iâ€™m a trainspotter.... ",
+                "answer" : ".... Boring little twerp. Â£PRICE. "
             },
             {
                 "proposition" : "Not for a rustbucket like that. ",
-                "answer" : "£PRICE, with the rust thrown \nin for free, then.... "
+                "answer" : "Â£PRICE, with the rust thrown \nin for free, then.... "
             },
             {
                 "proposition" : "What do I say to reduce \nthe price ?  ",
-                "answer" : "Not that. £PRICE. "
+                "answer" : "Not that. Â£PRICE. "
             },
             {
-                "proposition" : "That’s unfair ! ",
-                "answer" : "Give the man a cigar.... \nI am the only salsman in town, so I can charge \nwhat I like. Like £PRICE. "
+                "proposition" : "Thatâ€™s unfair ! ",
+                "answer" : "Give the man a cigar.... \nI am the only salsman in town, so I can charge \nwhat I like. Like Â£PRICE. "
             },
             {
                 "proposition" : "What ?",
-                "answer" : "Sorry. I meant to say £PRICE. \nHo ho ho. "
+                "answer" : "Sorry. I meant to say Â£PRICE. \nHo ho ho. "
             },
             {
-                "proposition" : "I’ve got loadsmoney....  ",
-                "answer" : "Great, you can pay more for \nthe car in that case. Let’s say £PRICE."
+                "proposition" : "Iâ€™ve got loadsmoney....  ",
+                "answer" : "Great, you can pay more for \nthe car in that case. Letâ€™s say Â£PRICE."
             },
             {
                 "proposition" : "Is a radio fitted as standard ? ",
-                "answer" : "No, it costs more. That brings \nthe price up to £PRICE."
+                "answer" : "No, it costs more. That brings \nthe price up to Â£PRICE."
             },
             {
                 "proposition" : "What condition is the car in ? ",
-                "answer" : "Brand new. So good, in fact, \nthat you can pay £PRICE for iy if you \nwant it !"
+                "answer" : "Brand new. So good, in fact, \nthat you can pay Â£PRICE for iy if you \nwant it !"
             },
             {
                 "proposition" : "Will you take a little less ? ",
-                "answer" : "? Nope.... But I’ll take a lot \nmore instead, infact, to be precise, \n£PRICE."
+                "answer" : "? Nope.... But Iâ€™ll take a lot \nmore instead, infact, to be precise, \nÂ£PRICE."
             },
             {
                 "proposition" : "Does it have a petrol tank ? ",
-                "answer" : "Of course it’s got petrol, and \nstop calling me tank.... \nSorry, no more jokes. £PRICE."
+                "answer" : "Of course itâ€™s got petrol, and \nstop calling me tank.... \nSorry, no more jokes. Â£PRICE."
             },
             {
-                "proposition" : "That’s good deal ! ",
-                "answer" : "Yeah it was. You should have \ntaken it ! Now it’ll cost \nyou £PRICE. "
+                "proposition" : "Thatâ€™s good deal ! ",
+                "answer" : "Yeah it was. You should have \ntaken it ! Now itâ€™ll cost \nyou Â£PRICE. "
             },
             {
                 "proposition" : "Can I raise a loan ? ",
-                "answer" : "No, but I can raise the price. \n£PRICE."
+                "answer" : "No, but I can raise the price. \nÂ£PRICE."
             },
             {
-                "proposition" : "I’ll give you £100.  ",
-                "answer" : ".  I’ll give you a black-eye !!!! \nOr a bill for £PRICE if you still \nwant to purchase this new set \nof wheels."
+                "proposition" : "Iâ€™ll give you Â£100.  ",
+                "answer" : ".  Iâ€™ll give you a black-eye !!!! \nOr a bill for Â£PRICE if you still \nwant to purchase this new set \nof wheels."
             },
             {
                 "proposition" : "Hey man, I dig the shades.... ",
-                "answer" : "Why don’t you speak properly ? \nIf you want the carnow it’s going to \ncost you £PRICE."
+                "answer" : "Why donâ€™t you speak properly ? \nIf you want the carnow itâ€™s going to \ncost you Â£PRICE."
             },
             {
                 "proposition" : "Whinge whinge whinge.... ",
-                "answer" : "Don’t come moaning to me, \nI’ll increase the price, to, \nlet’s say £PRICE. "
+                "answer" : "Donâ€™t come moaning to me, \nIâ€™ll increase the price, to, \nletâ€™s say Â£PRICE. "
             },
             {
-                "proposition" : "I don’t suppose you’d give me the car.",
-                "answer" : "Dead right, turkey.... \nLet’s say £PRICE for your cheek ! "
+                "proposition" : "I donâ€™t suppose youâ€™d give me the car.",
+                "answer" : "Dead right, turkey.... \nLetâ€™s say Â£PRICE for your cheek ! "
             },
             {
-                "proposition" : "How about £50 ? ",
-                "answer" : "How about £PRICE "
+                "proposition" : "How about Â£50 ? ",
+                "answer" : "How about Â£PRICE "
             },
             {
                 "proposition" : "I used to be a werewolf..... ",
-                "answer" : "But you’re alright now-ooooooooo. \nYes very funny. Any more quips \nlike that and I’ll throw you out. \nPay me £PRICE if you want the car.  "
+                "answer" : "But youâ€™re alright now-ooooooooo. \nYes very funny. Any more quips \nlike that and Iâ€™ll throw you out. \nPay me Â£PRICE if you want the car.  "
             },
             {
                 "proposition" : "Please increase the price. ",
-                "answer" : "Sure, anything you say. \nWhat about £PRICE, sucker? "
+                "answer" : "Sure, anything you say. \nWhat about Â£PRICE, sucker? "
             },
             {
                 "proposition" : "Are your cars ozone-Friendly ?  ",
-                "answer" : "Yes, but they’re a bit more expensive \nbecause of it. Yours will cost \nyou £PRICE."
+                "answer" : "Yes, but theyâ€™re a bit more expensive \nbecause of it. Yours will cost \nyou Â£PRICE."
             },
             {
                 "proposition" : "Yo ho ho and a bottle of rum ! ",
-                "answer" : "Less of that ! I’m the pirate \naround here. To prove it, I’m going to \ncharge you £PRICE for the car."
+                "answer" : "Less of that ! Iâ€™m the pirate \naround here. To prove it, Iâ€™m going to \ncharge you Â£PRICE for the car."
             },
             {
                 "proposition" : "I could really go a pizza....",
-                "answer" : "Ah well then, if you can afford \na pizza from around here, then you can \nafford to pay some morefor the car. \nLet’s say, hmmm.... £PRICE. "
+                "answer" : "Ah well then, if you can afford \na pizza from around here, then you can \nafford to pay some morefor the car. \nLetâ€™s say, hmmm.... Â£PRICE. "
             }
         ]
     }
