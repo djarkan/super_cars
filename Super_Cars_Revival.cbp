@@ -12,19 +12,36 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-std=gnu++14" />
-					<Add option="-std=c17" />
+					<Add option="-Wnon-virtual-dtor" />
+					<Add option="-Wshadow" />
+					<Add option="-Winit-self" />
+					<Add option="-Wredundant-decls" />
+					<Add option="-Wcast-align" />
+					<Add option="-Wundef" />
+					<Add option="-Wfloat-equal" />
+					<Add option="-Winline" />
+					<Add option="-Wunreachable-code" />
+					<Add option="-Wmissing-declarations" />
+					<Add option="-Wswitch-default" />
+					<Add option="-Wmain" />
+					<Add option="-pedantic-errors" />
+					<Add option="-pedantic" />
+					<Add option="-Wextra" />
+					<Add option="-Wall" />
 					<Add option="-g" />
-					<Add directory="C:/Program Files/SFML/SFML-2.5.1-cb/include" />
+					<Add option="-Wmissing-include-dirs" />
+					<Add option="-Wzero-as-null-pointer-constant" />
+					<Add option="-std=c++14" />
+					<Add directory="C:/Program Files/SFML/SFML-2.6.0 gcc 13.1.0 32-bit/include" />
 					<Add directory="C:/Users/Djarkan/Documents/C++/codeblocks/mylib" />
-					<Add directory="C:/Users/Djarkan/Documents/C++/codeblocks/Super_Cars_Revival/" />
+					<Add directory="C:/Users/Djarkan/Documents/C++/codeblocks/Super_Cars_Revival" />
 				</Compiler>
 				<Linker>
-					<Add library="C:/Program Files/SFML/SFML-2.5.1-cb/lib/libsfml-network-d.a" />
-					<Add library="C:/Program Files/SFML/SFML-2.5.1-cb/lib/libsfml-audio-d.a" />
-					<Add library="C:/Program Files/SFML/SFML-2.5.1-cb/lib/libsfml-graphics-d.a" />
-					<Add library="C:/Program Files/SFML/SFML-2.5.1-cb/lib/libsfml-window-d.a" />
-					<Add library="C:/Program Files/SFML/SFML-2.5.1-cb/lib/libsfml-system-d.a" />
+					<Add library="C:/Program Files/SFML/SFML-2.6.0 gcc 13.1.0 32-bit/lib/libsfml-network-d.a" />
+					<Add library="C:/Program Files/SFML/SFML-2.6.0 gcc 13.1.0 32-bit/lib/libsfml-audio-d.a" />
+					<Add library="C:/Program Files/SFML/SFML-2.6.0 gcc 13.1.0 32-bit/lib/libsfml-graphics-d.a" />
+					<Add library="C:/Program Files/SFML/SFML-2.6.0 gcc 13.1.0 32-bit/lib/libsfml-window-d.a" />
+					<Add library="C:/Program Files/SFML/SFML-2.6.0 gcc 13.1.0 32-bit/lib/libsfml-system-d.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -44,8 +61,18 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="../mylib/assetcontainer/assetcontainer.hpp" />
-		<Unit filename="../mylib/bitmap/animation/animation.cpp" />
-		<Unit filename="../mylib/bitmap/animation/animation.hpp" />
+		<Unit filename="../mylib/bitmap/animationPlayer/animationPlayer.cpp" />
+		<Unit filename="../mylib/bitmap/animationPlayer/animationPlayer.hpp" />
+		<Unit filename="../mylib/bitmap/simpleAnimation/animation.cpp" />
+		<Unit filename="../mylib/bitmap/simpleAnimation/animation.hpp" />
+		<Unit filename="../mylib/button/button/button.cpp" />
+		<Unit filename="../mylib/button/button/button.hpp" />
+		<Unit filename="../mylib/button/complexClickBox/complexClickBox.cpp" />
+		<Unit filename="../mylib/button/complexClickBox/complexClickBox.hpp" />
+		<Unit filename="../mylib/button/simpleClickBox/simpleClickBox.cpp" />
+		<Unit filename="../mylib/button/simpleClickBox/simpleClickBox.hpp" />
+		<Unit filename="../mylib/clickable/clickable.cpp" />
+		<Unit filename="../mylib/clickable/clickable.hpp" />
 		<Unit filename="../mylib/jsonfile/jsoncpp.cpp" />
 		<Unit filename="../mylib/jsonfile/jsonfile.cpp" />
 		<Unit filename="../mylib/jsonfile/jsonfile.hpp" />
@@ -60,23 +87,38 @@
 		<Unit filename="../mylib/timer/timer.hpp" />
 		<Unit filename="../mylib/triple/triple.hpp" />
 		<Unit filename="header/assetkey.hpp" />
+		<Unit filename="header/bottompanel.hpp" />
 		<Unit filename="header/car.hpp" />
+		<Unit filename="header/carTextureColorModifier.hpp" />
+		<Unit filename="header/command.hpp" />
+		<Unit filename="header/commandqueue.hpp" />
 		<Unit filename="header/game.hpp" />
+		<Unit filename="header/garage.hpp" />
 		<Unit filename="header/inputs.hpp" />
 		<Unit filename="header/intro.hpp" />
+		<Unit filename="header/message.hpp" />
+		<Unit filename="header/office.hpp" />
 		<Unit filename="header/player.hpp" />
-		<Unit filename="header/playerFactory.hpp" />
+		<Unit filename="header/players.hpp" />
 		<Unit filename="header/race.hpp" />
+		<Unit filename="header/racebottompanel.hpp" />
 		<Unit filename="header/track.hpp" />
 		<Unit filename="header/trackRework.hpp" />
+		<Unit filename="source/bottompanel.cpp" />
 		<Unit filename="source/car.cpp" />
+		<Unit filename="source/carTextureColorModifier.cpp" />
+		<Unit filename="source/commandqueue.cpp" />
 		<Unit filename="source/game.cpp" />
+		<Unit filename="source/garage.cpp" />
 		<Unit filename="source/inputs.cpp" />
 		<Unit filename="source/intro.cpp" />
 		<Unit filename="source/main.cpp" />
+		<Unit filename="source/message.cpp" />
+		<Unit filename="source/office.cpp" />
 		<Unit filename="source/player.cpp" />
-		<Unit filename="source/playerFactory.cpp" />
+		<Unit filename="source/players.cpp" />
 		<Unit filename="source/race.cpp" />
+		<Unit filename="source/racebottompanel.cpp" />
 		<Unit filename="source/track.cpp" />
 		<Unit filename="source/trackRework.cpp" />
 		<Extensions>
