@@ -1,7 +1,7 @@
 {
     "bottomScreen" :
     {
-	"text" : "CASH    CAR            ENG BOD FUE TYR\n                       ",
+        "text" : "CASH    CAR            ENG BOD FUE TYR\n                       ",
         "carModel" :
         [
             "1.6 Taraco Neo",

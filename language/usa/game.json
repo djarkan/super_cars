@@ -1,6 +1,9 @@
-"pseudo" :
+{
+    "pseudo" :
     [
         "PLEASE ENTER", "YOUR NAME"
     ],
     "track" : "TRACK ",
-    "exit" : Exit
+    "message" : "Loading...",
+    "exit" : "Exit"
+}

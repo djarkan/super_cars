@@ -13,40 +13,40 @@
         "bestDrivers" :
         [
             [  //1
-                "Top of the pile is NAME with X races,\nand £MONEY cash left.\n",
-                "Today's best driver is NAME with X,\nraces and £MONEY unused cash.\n",
-                "Leading the pack is NAME with X races,\nand £MONEY money in the bank.\n",
-                "Heading the field is NAME who had X,\nraces and £MONEY cash to spare.\n"
+                "Top of the pile is NAME with X races,\nand $MONEY cash left.\n",
+                "Today's best driver is NAME with X,\nraces and $MONEY unused cash.\n",
+                "Leading the pack is NAME with X races,\nand $MONEY money in the bank.\n",
+                "Heading the field is NAME who had X,\nraces and $MONEY cash to spare.\n"
             ],
             [  // 2
-                "Second in line is a good performence,\nfrom NAME with X races and £MONEY.\n",
-                "Breathing down the leader's neck is,\nNAME with X races and £MONEY money.\n",
-                "Just behind is NAME with a solid X,\nraces and a whopping £MONEY cash.\n",
-                "Next to top is our old friend NAME who,\nhad X races and was left with £MONEY.\n"
+                "Second in line is a good performence,\nfrom NAME with X races and $MONEY.\n",
+                "Breathing down the leader's neck is,\nNAME with X races and $MONEY money.\n",
+                "Just behind is NAME with a solid X,\nraces and a whopping $MONEY cash.\n",
+                "Next to top is our old friend NAME who,\nhad X races and was left with $MONEY.\n"
             ],
             [  // 3
-                "Just in the top three is NAME with a,\nsuperb X races an £MONEY.\n",
-                "Hot on the heels in third place, is,\nNAME with X races and £MONEY.\n",
-                "In bronze medal position is NAME with,\nX races and a cash supply of £MONEY.\n",
-                "In a commendable third place is NAME,\nwith X races, not to mention £MONEY.\n"
+                "Just in the top three is NAME with a,\nsuperb X races an $MONEY.\n",
+                "Hot on the heels in third place, is,\nNAME with X races and $MONEY.\n",
+                "In bronze medal position is NAME with,\nX races and a cash supply of $MONEY.\n",
+                "In a commendable third place is NAME,\nwith X races, not to mention $MONEY.\n"
             ],
             [  // 4
-                "Next in line is NAME with an amazing,\nX races, £MONEY cash and a giraffe.\n",
-                "In fourth place is NAME with a superb,\nX races and £MONEY to spare.\n",
-                "In slot number four is NAME with just,\nX races and £MONEY cash.\n",
-                "Holding up well in fourth place is,\nNAME with X races and £MONEY cash.\n"
+                "Next in line is NAME with an amazing,\nX races, $MONEY cash and a giraffe.\n",
+                "In fourth place is NAME with a superb,\nX races and $MONEY to spare.\n",
+                "In slot number four is NAME with just,\nX races and $MONEY cash.\n",
+                "Holding up well in fourth place is,\nNAME with X races and $MONEY cash.\n"
             ],
             [  // 5
-                "Hanging in there is NAME with X,\nraces and £MONEY cash in the bank.\n",
-                "Next to bottom is NAME. A fair try,\nwith X races and £MONEY to boot....\n",
-                "Down in fifth place is NAME,\ncredital X races and £MONEY.\n",
-                "Position number five on the board for,\nNAME who had X races and £MONEY.\n"
+                "Hanging in there is NAME with X,\nraces and $MONEY cash in the bank.\n",
+                "Next to bottom is NAME. A fair try,\nwith X races and $MONEY to boot....\n",
+                "Down in fifth place is NAME,\ncredital X races and $MONEY.\n",
+                "Position number five on the board for,\nNAME who had X races and $MONEY.\n"
             ],
             [  // 6
-                "Bringing up the rear is NAME with a,\nhopeless X races and £MONEY.\n",
-                "Right at the bottom is NAME with ONLY,\nX races and only £MONEY left.\n",
-                "Way down in sixth place is NAME with a,\nmeagre X races and a mere £MONEY.\n",
-                "Last and probably least is NAME with,\nX races and £MONEY unspent cash.\n"
+                "Bringing up the rear is NAME with a,\nhopeless X races and $MONEY.\n",
+                "Right at the bottom is NAME with ONLY,\nX races and only $MONEY left.\n",
+                "Way down in sixth place is NAME with a,\nmeagre X races and a mere $MONEY.\n",
+                "Last and probably least is NAME with,\nX races and $MONEY unspent cash.\n"
             ]
         ],
         "ronToNancy" :
