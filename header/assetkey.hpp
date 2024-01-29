@@ -38,15 +38,17 @@ namespace sounds
 {
 	enum ID
 	{
-		motor,
-		carsbump,
-		countdowninter,
-		countdownfinal,
-		tyres1,
-		tyres2,
 		applause,
-		gameover,
-		sold
+		bouncingWheel,
+		bump,
+		gameOver,
+		hornCountdown,
+		tyresLong,
+		tyresShort,
+		tyresWater,
+		floppy,
+		cashDrawer,
+		whatAreYouDoing
 	};
 }
 

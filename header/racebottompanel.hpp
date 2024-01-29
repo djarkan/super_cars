@@ -30,6 +30,7 @@ class RaceBottomPanel : public sf::Drawable
         void                                                    updateCarUsury(const float engine, const float body, const float fuel, const float tyres);
         void                                                    updatePosition(const unsigned int position, const unsigned int totalRacers);
         void                                                    updateLaps(const unsigned int lap, const unsigned int lapNb);
+        void                                                    updateLap(const unsigned int lap);
         void			                                        draw();
 
     private:

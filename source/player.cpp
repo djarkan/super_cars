@@ -2,36 +2,48 @@
 
 #include <SFML/Window/Mouse.hpp>
 
-Player::Player()
+Player::Player() : m_gameDifficulty{LevelDifficulty::Normal}, m_carInArrivalArea{false}, m_carInRankingArea{false}, m_checkedRankingAreaNumber{0}, m_startRanking{false}
 {
 
 }
 
-Player::Player(const bool human) : m_human{human}, m_money{5000} , m_car(human)
+Player::Player(const PlayerType playerType) : m_playerType{playerType}, m_gameDifficulty{LevelDifficulty::Normal}, m_money{5000} , m_car(), m_carInArrivalArea{false}, m_carInRankingArea{false},
+                                   m_checkedRankingAreaNumber{0}, m_startRanking{false}
 {
-    if(m_human) { setJoystickID(); }
+    if(m_playerType == PlayerType::Human) { setJoystickID(); }
 }
 
-Player::Player(const bool human, const std::string pseudo) : m_human{human}, m_name{pseudo}, m_money{5000} , m_car(human)
+Player::Player(const PlayerType playerType, const std::string pseudo) :  m_playerType{playerType}, m_gameDifficulty{LevelDifficulty::Normal}, m_name{pseudo}, m_money{5000} , m_car(),
+                                                                    m_carInArrivalArea{false}, m_carInRankingArea{false}, m_checkedRankingAreaNumber{0}, m_startRanking{false}
 {
-    if(m_human) { setJoystickID(); }
+    if(m_playerType == PlayerType::Human) { setJoystickID(); }
+}
+
+bool Player::isHuman()
+{
+    return m_playerType == PlayerType::Human;
+}
+
+bool Player::isComputer()
+{
+    return m_playerType == PlayerType::Computer;
 }
 
 void Player::setGameDifficulty()
 {
     if(m_name == "ODIE") {
-        m_gameDifficulty = LevelDifficulty::medium;
+        m_gameDifficulty = LevelDifficulty::Medium;
         setCarType(Car::Type::Vaug_Interceptor2);
         m_money = 20000;
     }
     else {
         if(m_name == "BIGC") {
-            m_gameDifficulty = LevelDifficulty::hard;
+            m_gameDifficulty = LevelDifficulty::Hard;
             setCarType(Car::Type::Retron_Parsec_Turbo5);
             m_money = 50000;
         }
         else {
-            m_gameDifficulty = LevelDifficulty::normal;
+            m_gameDifficulty = LevelDifficulty::Normal;
             setCarType(Car::Type::Taraco_Neoroder);
             if(m_name == "RICH") { m_money = 500000; }
             else { m_money = 5000; }
@@ -41,8 +53,10 @@ void Player::setGameDifficulty()
 
 void Player::levelupGameDifficulty()
 {
-    if(m_gameDifficulty == LevelDifficulty::normal) { m_gameDifficulty = LevelDifficulty::medium; }
-    if(m_gameDifficulty == LevelDifficulty::medium) { m_gameDifficulty = LevelDifficulty::hard; }
+    if(m_gameDifficulty == LevelDifficulty::Normal) { m_gameDifficulty = LevelDifficulty::Medium; }
+    else {
+        if(m_gameDifficulty == LevelDifficulty::Medium) { m_gameDifficulty = LevelDifficulty::Hard; }
+    }
 }
 
 void Player::setJoystickID()
@@ -64,7 +78,11 @@ void Player::setJoystickID()
         }
     }
     else {
-        m_joystickID = 0;
+        if(pluggedJoystickNumber == 1) { m_joystickID = 0; }
+        else {
+            m_joystickID = 99;
+            std::cout << "No joystick plugged" << std::endl;                                       // IDEM
+        }
     }
 }
 
@@ -78,7 +96,7 @@ unsigned int Player::getMoney()
     return m_money;
 }
 
-std::string Player::getName()
+const std::string& Player::getName() const
 {
     return m_name;
 }
@@ -213,6 +231,98 @@ const Car& Player::getCar() const
     return m_car;
 }
 
+bool Player::getCarNearBridgeArea()
+{
+    return m_car.getNearBridgeArea();
+}
+
+sf::FloatRect Player::getCarLocalBounds() const
+{
+    return m_car.getLocalBounds();
+}
+
+sf::FloatRect Player::getCarGlobalBounds() const
+{
+    return m_car.getGlobalBounds();
+}
+
+bool Player::getCarInArrivalAreaState() const
+{
+    return m_carInArrivalArea;
+}
+
+unsigned int Player::getRaceCurrentLap() const
+{
+    return m_raceCurrentLap;
+}
+
+const sf::Vector2f& Player::getCarLimit(const unsigned int index) const
+{
+    return m_car.getCarLimit(index);
+}
+
+Car::Interaction Player::getCarInteractionType() const
+{
+    return m_car.getInteractionType();
+}
+
+sf::Time Player::getBestLapTime() const
+{
+    return m_bestLapTime;
+}
+
+sf::Time Player::getCurrentLapTime() const
+{
+    return m_lapClock.getElapsedTime();
+}
+
+unsigned int Player::getRaceRanking() const
+{
+    return m_raceRanking;
+}
+
+bool Player::getStartRanking() const
+{
+    return m_startRanking;
+}
+
+unsigned int Player::getCheckedRankingAreaNumber() const
+{
+    return m_checkedRankingAreaNumber;
+}
+
+bool Player::getAnticheatWaypointState(const unsigned int index) const
+{
+    return m_anticheatWaypoint[index];
+}
+
+bool Player::getcarInRankingAreaState() const
+{
+    return m_carInRankingArea;
+}
+
+unsigned int Player::getCarFrame() const
+{
+    return m_car.getFrame();
+}
+
+const sf::Vector2f& Player::getCarCornerCoords(const unsigned int whatCorner) const
+{
+    return m_car.getCornerCoords(whatCorner);
+}
+
+const sf::Vector2f& Player::getCarOldPosition() const
+{
+    return m_car.getOldPosition();
+}
+
+                                /////////////////////////////////////////////////////////////  set
+
+void Player::setHuman(PlayerType playerType)
+{
+    m_playerType = playerType;
+}
+
 void Player::setCarType(Car::Type type)
 {
     m_car.setType(type);
@@ -228,14 +338,9 @@ void Player::setCarShape(sf::FloatRect rect)
     m_car.setShape(rect);
 }
 
-void Player::setCarCenter(float centerX, float centerY)
+void Player::setCarOrigin(float offsetX, float offsetY)
 {
-    m_car.setCenter(centerX, centerY);
-}
-
-void Player::setCarCenter(sf::Vector2f& coords)
-{
-    m_car.setCenter(coords);
+    m_car.setOrigin(offsetX, offsetY);
 }
 
 void  Player::setCarAngle(float angle)
@@ -246,6 +351,11 @@ void  Player::setCarAngle(float angle)
 void Player::setCarSpeed(float speed)
 {
     m_car.setSpeed(speed);
+}
+
+void Player::setCarSideSpeed(float sideSpeed)
+{
+    m_car.setSideSpeed(sideSpeed);
 }
 
 void Player::setCarMaxSpeed(float maxSpeed)
@@ -343,9 +453,65 @@ void Player::setCarPosition(const sf::Vector2f& position)
     m_car.setPosition(position);
 }
 
-void Player::setCarStartFrame()
+void Player::setCarFrame()
 {
-    m_car.setStartFrame();
+    m_car.setFrame();
+}
+
+void Player::setCarNearBridgeArea(bool nearBridgeArea)
+{
+    m_car.setNearBridgeArea(nearBridgeArea);
+}
+
+void Player::setAnticheatWaypointValidated(const unsigned int index, bool validated)
+{
+    m_anticheatWaypoint[index] = validated;
+}
+
+void Player::setCarInArrivalAreaState(bool state)
+{
+    m_carInArrivalArea = state;
+}
+
+void Player::setRaceCurrentLap(const unsigned int lap)
+{
+    m_raceCurrentLap = lap;
+}
+
+void Player::setCarInSand(bool inSand)
+{
+    m_car.setInSand(inSand);
+}
+
+void Player::setCarInteraction(Car::Interaction type, float angle, unsigned int intensity, float speed)
+{
+    m_car.setInteraction(type, angle, intensity, speed);
+}
+
+void Player::setBestLapTime(sf::Time lapTime)
+{
+    m_bestLapTime = lapTime;
+    m_lapClock.restart();
+}
+
+void Player::setRaceRanking(unsigned int ranking)
+{
+    m_raceRanking = ranking;
+}
+
+void Player::setStartRanking(bool startRanking )
+{
+    m_startRanking = startRanking;
+}
+
+void Player::setCheckedRankingAreaNumber(unsigned int areaNumber)
+{
+    m_checkedRankingAreaNumber = areaNumber;
+}
+
+void Player::setcarInRankingAreaState(bool carInRankingArea)
+{
+    m_carInRankingArea = carInRankingArea;
 }
 
 void Player::moveCar()
@@ -353,14 +519,9 @@ void Player::moveCar()
     m_car.move();
 }
 
-void Player::turnCarLeft()
+void Player::turnCar(Car::Direction direction)
 {
-    m_car.turnLeft();
-}
-
-void Player::turnCarRight()
-{
-    m_car.turnRight();
+    m_car.turn(direction);
 }
 
 void Player::accelerate()
@@ -371,4 +532,30 @@ void Player::accelerate()
 void Player::decelerate()
 {
     m_car.decelerate();
+}
+
+void Player::updateCarLimits()
+{
+    m_car.updateCarLimits();
+}
+
+bool Player::areAllAnticheatWaypointValidated()
+{
+    bool check{true};
+    for(auto elem : m_anticheatWaypoint) {
+        check &= elem;
+    }
+    return check;
+}
+
+void Player::resetAnticheatWaypointValidation()
+{
+    for(auto& elem : m_anticheatWaypoint) {
+        elem = false;
+    }
+}
+
+void Player::startLapTimeClock()
+{
+    m_lapClock.restart();
 }

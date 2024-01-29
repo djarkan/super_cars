@@ -53,19 +53,15 @@ Game::Game(sf::RenderWindow& window, unsigned int language, Players& players):  
     m_completedRaces = m_players.getGameDifficulty() * 9;
 }
 
-bool Game::launch()  // json langage et si json de config reçoit les tableaux scores classement nb races/money et liste meilleurs temps/pseudo par ref non const
+bool Game::launch(mylib::Music& music)  // json langage et si json de config reçoit les tableaux scores classement nb races/money et liste meilleurs temps/pseudo par ref non const
 {
     bool focus{true};
-    mylib::Music music;
-    music.loadMusic("music/track1.wav");
-    music.setMusicLoop(true);
-    music.setMusicVolume(100);
-//    music.playMusic();
+music.setMusicVolume(100);
     sf::Sprite background;
     background.setTexture(m_textureContaigner.getAsset(textures::ID::game));
     background.setTextureRect(sf::IntRect(0, 0, 640, 360));
     mylib::Timer inputsTimer(10);
-    inputsTimer.startTimer();
+    inputsTimer.start();
     m_bottomPanel.textConfiguration();
     Garage garage(m_window, m_players.getHumanPlayer(), m_bottomPanel, m_language);
     Office office(m_window, m_players.getHumanPlayer(), m_bottomPanel, m_language);
@@ -73,10 +69,11 @@ bool Game::launch()  // json langage et si json de config reçoit les tableaux s
     m_window.setMouseCursorVisible(true);
     bool gameover{false};
     bool allRacesDone{false};
-    while(m_window.isOpen() && !gameover){                                    ///////////////////////////// virer la boucle d'evenement !!!!!!!!!!!!!!!!!!!!!
+m_completedRaces = 6;
+    while(m_window.isOpen() && !gameover && !allRacesDone){
         if(inputsTimer.isTimeElapsed()) {
             m_inputs.readInput(m_players.getHumanJoystick());
-            inputsTimer.restartTimer();
+            inputsTimer.restart();
         }
         if(m_inputs.isCommandAvailable()) {
             m_command = m_inputs.getInput();
@@ -87,27 +84,29 @@ bool Game::launch()  // json langage et si json de config reçoit les tableaux s
                 case CommandType::mouseLeftButtonPressed :
                 case CommandType::joystiskButtonPressed :
                 {
-                    if(m_simpleClickBoxes[0]->isPressed(m_command.coords)) {
+                    if(m_simpleClickBoxes[0]->isPressed(m_command.coords)) {                                                                // go garage
                         loading(2000, m_languageJson.m_Root["message"].asString());
                         garage.carUpdate();
                         garage.setInitGarage(false);
                         loading(2000, m_languageJson.m_Root["message"].asString());
                     }
-                    if(m_simpleClickBoxes[1]->isPressed(m_command.coords) && canGoToOffice) {
+                    if(m_simpleClickBoxes[1]->isPressed(m_command.coords) && canGoToOffice) {                                               // go office
                         canGoToOffice = false;
                         loading(2000, m_languageJson.m_Root["message"].asString());
                         office.buy();
                         loading(2000, m_languageJson.m_Root["message"].asString());
                     }
-                    int whatTrack = checkButtons();
+                    int whatTrack = checkHoveredButton();                                                                                         // check if player select a race
                     if(whatTrack >= 0 && whatTrack < 9) {
                         if(!m_raceListState[whatTrack]) {
+std::cout << "race " << whatTrack << " selected" << std::endl;
                             m_window.setMouseCursorVisible(false);
                             m_players.buildPlayers(m_completedRaces, m_lastRaceRanking);
-                            m_lastRaceRanking = race(whatTrack, m_lastRaceRanking);
+std::cout << "m_players built " << std::endl;
+                            m_lastRaceRanking = race(whatTrack);                                                                            // start the race X
                             if(m_lastRaceRanking > 3) { gameover = true; }
                             bool testFlag{true};
-                            for(bool elem : m_raceListState) { testFlag |= elem; }
+                            for(bool elem : m_raceListState) { testFlag &= elem; }
                             if(testFlag && !gameover) {
                                 m_players.levelupGameDifficulty();
                                 allRacesDone = true;
@@ -119,7 +118,7 @@ bool Game::launch()  // json langage et si json de config reçoit les tableaux s
                             canGoToOffice = true;
                         }
                     }
-                    for(auto i = 0; i < 3; ++i) {
+                    for(auto i = 0; i < 3; ++i) {                                                                                           // check if player select a car specification
                         if(m_ComplexClickBoxes[i]->isTriggerred(m_command.coords)) {
                             loading(2000, m_languageJson.m_Root["message"].asString());
                             sf::Sprite carSpecs;
@@ -137,7 +136,7 @@ bool Game::launch()  // json langage et si json de config reçoit les tableaux s
                                 default :
                                     break;
                             }
-                            carSpecs.setTextureRect(sf::IntRect(0, 0, 640, 400));
+                            carSpecs.setTextureRect(sf::IntRect(0, 0, 640, 400));                                                           // draw car specification
                             m_window.clear();
                             sf::View view;
                             view.setSize(640, 400);
@@ -146,19 +145,34 @@ bool Game::launch()  // json langage et si json de config reçoit les tableaux s
                             m_window.setView(view);
                             m_window.draw(carSpecs);
                             m_window.display();
+                            m_window.setMouseCursorVisible(false);
                             m_inputs.clearCommand(m_command);
+                            mylib::Timer carSpecTimer(25);
+                            carSpecTimer.start();
                             while(m_command.action != CommandType::joystiskButtonPressed && m_command.action != CommandType::mouseLeftButtonPressed) {
-                                m_inputs.readInput(m_players.getHumanJoystick());
+                                if(carSpecTimer.isTimeElapsed()) {
+                                    m_inputs.readInput(m_players.getHumanJoystick());
+                                    carSpecTimer.restart();
+                                }
                                 if(m_inputs.isCommandAvailable()) { m_command = m_inputs.getInput(); }
                             }
                             loading(2000, m_languageJson.m_Root["message"].asString());
                             m_inputs.clearCommand(m_command);
+                            m_window.setMouseCursorVisible(true);
                         }
                     }
+                    break;
                 }
                 case CommandType::joystiskMoved :
+                    {
+                    sf::Vector2i mouseCoords = sf::Mouse::getPosition(m_window);
+                    mouseCoords.x += ((m_command.offsetX / 100) * 4);
+                    mouseCoords.y += ((m_command.offsetY / 100) * 4);
+                    sf::Mouse::setPosition(mouseCoords, m_window);
                     break;
-                case CommandType::keyboardPressed :
+                    }
+                case CommandType::keyboardReleased :
+                    if(static_cast<int>(m_command.letter) == 27) { gameover = true; }
                     break;
                 case CommandType::lostFocus :
                     focus = false;
@@ -168,12 +182,6 @@ bool Game::launch()  // json langage et si json de config reçoit les tableaux s
                     break;
                 default :
                     break;
-            }
-            if(m_command.action == CommandType::joystiskMoved) {
-                sf::Vector2i mouseCoords = sf::Mouse::getPosition(m_window);
-                mouseCoords.x += ((m_command.offsetX / 100) * 4);
-                mouseCoords.y += ((m_command.offsetY / 100) * 4);
-                sf::Mouse::setPosition(mouseCoords, m_window);
             }
             if(focus) {
                 m_window.clear();
@@ -285,10 +293,19 @@ int Game::checkButtons()
     return -1;
 }
 
-unsigned int Game::race(int whatTrack, unsigned int lastRaceRanking)
+int Game::checkHoveredButton()
 {
-    Race race(m_window, whatTrack, m_players, m_language);
-    return race.racing(lastRaceRanking, m_completedRaces, m_clockwiseRaceRotation);
+    for(auto i = 0; i < 9; ++i) {
+        if(m_racesButtonsArray[i]->isHovered()) { return i; }
+    }
+    return -1;
+}
+
+unsigned int Game::race(const unsigned int whatTrack)
+{
+    Race race(m_window, whatTrack, m_players, m_language, m_clockwiseRaceRotation);
+std::cout << "object race created: " << whatTrack << std::endl;
+    return race.racing(m_completedRaces, m_clockwiseRaceRotation);
 }
 
 void Game::loading(const sf::Int32 delay, const std::string& text)
@@ -308,7 +325,7 @@ void Game::loading(const sf::Int32 delay, const std::string& text)
     m_window.draw(message);
     m_window.display();
     mylib::Timer duration(delay);
-    duration.startTimer();
+    duration.start();
     while(!duration.isTimeElapsed())
         ;
 }

@@ -8,6 +8,11 @@
 #include <sfml/window/mouse.hpp>
 
 #include <iostream>
+
+#include "triple/triple.hpp"
+
+extern std::array<mylib::Triple<std::string, int, int>, 7>     bestWinnersList;
+
 Garage::Garage( sf::RenderWindow& window, Player& player, BottomPanel& bottomPanel, const unsigned int language) :
                                                                 m_window{window}, m_language{language}, m_bottomPanel{bottomPanel},
                                                                 m_switch{true}, m_inGarage{true}, m_coordsJson("data/garage/coords.json"),
@@ -92,7 +97,7 @@ void Garage::carUpdate()  // sold texture 180 980   90 * 17
     int choice{-1};
     setBackground();
     mylib::Timer smilingTimer(2000);
-    smilingTimer.restartTimer();
+    smilingTimer.start();
     mylib::Random<sf::Int32> randomiser;
     sf::Vector2f animationcoord;
     std::vector<sf::IntRect> frames;
@@ -115,12 +120,12 @@ void Garage::carUpdate()  // sold texture 180 980   90 * 17
     bool canDrawAnimation{false};
     if(m_initGrage) { definePrices(); }
     mylib::Timer inputsTimer(10);
-    inputsTimer.startTimer();
+    inputsTimer.start();
     bool focus{true};
     while(m_inGarage) {
         if(inputsTimer.isTimeElapsed()) {
             m_inputs.readInput(m_player.getJoystickID());
-            inputsTimer.restartTimer();
+            inputsTimer.restart();
         }
         if(m_inputs.isCommandAvailable()) {
             m_command = m_inputs.getInput();
@@ -168,8 +173,8 @@ void Garage::carUpdate()  // sold texture 180 980   90 * 17
             m_window.draw(m_smiling);
             if(animation.getState() == mylib::Animation::State::stopped && eyesDelayState == false ) {
                 eyesDelayState = true;
-                eyesDelay.setTimerDuration(randomiser.randomNumber(1000,3000));
-                eyesDelay.startTimer();
+                eyesDelay.setDuration(randomiser.randomNumber(1000,3000));
+                eyesDelay.start();
             }
             if(eyesDelay.isTimeElapsed()) {
                 eyesDelayState = false;
@@ -189,6 +194,7 @@ void Garage::action(int choice, Player& player)
         case 0 :
         case 1 :
             m_inGarage = false;
+            bestWinnersList[0].second = player.getMoney();
             break;
         case 2 :
             if(choice == 2) {

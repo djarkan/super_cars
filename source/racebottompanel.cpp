@@ -81,7 +81,9 @@ void RaceBottomPanel::updateCarUsury(const float engine, const float body, const
 
 void RaceBottomPanel::updateSpeedMeter(const float speed)
 {
-    m_speedMeter.setSize(sf::Vector2f(80 * (speed / 260), 10.f));
+    if(speed > 0) { m_speedMeter.setSize(sf::Vector2f(80 * (speed / 260), 10.f)); }
+    else { m_speedMeter.setSize(sf::Vector2f(0, 10.f)); }
+
 }
 
 void RaceBottomPanel::updatePosition(const unsigned int position, const unsigned int totalRacers)
@@ -95,6 +97,13 @@ void RaceBottomPanel::updateLaps(const unsigned int lap, const unsigned int lapN
 {
     std::string text{m_Text.getText()};
     text.replace(41, 3, std::to_string(lap) + "/" + std::to_string(lapNb));
+    m_Text.setText(text);
+}
+
+void RaceBottomPanel::updateLap(const unsigned int lap)
+{
+    std::string text{m_Text.getText()};
+    text.replace(41, 1, std::to_string(lap));
     m_Text.setText(text);
 }
 

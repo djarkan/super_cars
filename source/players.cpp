@@ -8,8 +8,9 @@
 #include "header/command.hpp"
 #include "header/commandqueue.hpp"
 #include "header/inputs.hpp"
+#include "music/music.hpp"
 
-Players::Players(sf::RenderWindow& window) : m_window{window}, m_humanPlayer(true, "RICH")
+Players::Players(sf::RenderWindow& window) : m_window{window}, m_humanPlayer(Player::PlayerType::Human, "SOUT")  ////////////////////////////  REMETTE SOUT APRES LES TESTS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 {
     mylib::JsonFile configJson("config.json");
     m_language = configJson.m_Root["language"].asInt();
@@ -29,9 +30,16 @@ Players::Players(sf::RenderWindow& window) : m_window{window}, m_humanPlayer(tru
     if(!m_carsTexture.loadFromFile("graphics/cars/cars.png")) { std::cout << m_languageJson.m_Root["error"].asString() << std::endl; }
 }
 
+Players::~Players()
+{
+    if(m_players.size() > 0) {
+        for(auto& elem : m_players) { delete(elem); }
+    }
+}
+
 std::string Players::enterPseudo()
 {
-    std::string pseudo = "RICH";  m_humanPlayer.getName();
+    std::string pseudo = m_humanPlayer.getName();
     sf::Sprite background;
     sf::Texture backgroundTexture;
     backgroundTexture.loadFromFile("graphics/intro/enter_name.png");
@@ -48,18 +56,20 @@ std::string Players::enterPseudo()
     bitmapText.setFont(&font);
     mylib::Timer flashingLetter(100);
     unsigned int currentLetter{0};
-    flashingLetter.startTimer();
+    flashingLetter.start();
     bool clearGlyph{false};
-    mylib::Timer commandTimer(200);
-    commandTimer.startTimer();
-    Command command;
     Inputs inputs(m_window);
+    Command command;
+    mylib::Timer commandTimer(200);
+    commandTimer.start();
     while(command.action != CommandType::joystiskButtonPressed && command.action != CommandType::mouseLeftButtonPressed) {
         if(commandTimer.isTimeElapsed()) {
             inputs.readInput(m_humanPlayer.getJoystickID());
-            commandTimer.restartTimer();
+            commandTimer.restart();
         }
         if(inputs.isCommandAvailable()) { command = inputs.getInput(); }
+
+        if(static_cast<int>(command.letter) == 27) { return ""; }
         m_window.clear();
         m_window.draw(background);
         bitmapText.setText(m_languageJson.m_Root["pseudo"][0].asString());
@@ -101,7 +111,7 @@ std::string Players::enterPseudo()
         if(flashingLetter.isTimeElapsed()) {
             if(clearGlyph) { clearGlyph = false; }
             else { clearGlyph = true; }
-            flashingLetter.restartTimer();
+            flashingLetter.restart();
         }
         m_window.display();
     }
@@ -120,19 +130,39 @@ unsigned int Players::getHumanJoystick()
     return m_humanPlayer.getJoystickID();
 }
 
+sf::Vector2f Players::getHumanCarPosition()
+{
+    return m_humanPlayer.getCarPosition();
+}
+
+unsigned int Players::getHumanRanking() const
+{
+    return m_humanPlayer.getRaceRanking();
+}
+
+const std::string& Players::getHumanName() const
+{
+    return m_humanPlayer.getName();
+}
+
 unsigned int Players::getGameDifficulty()
 {
     return m_humanPlayer.getGameDifficulty();
 }
 
-unsigned int Players::getRacerNumber()
+unsigned int Players::getRacerNumber() const
 {
     return m_players.size();
 }
 
-sf::Vector2f Players::getHumanCarPosition()
+sf::Vector2f Players::getCarPosition(const unsigned int playerIndex) const
 {
-    return m_humanPlayer.getCarPosition();
+    return m_players[playerIndex]->getCarPosition();
+}
+
+Player* Players::getPlayer(const unsigned int index)
+{
+    return m_players[index];
 }
 
 const Car& Players::getPlayerCar(unsigned int index)
@@ -140,42 +170,49 @@ const Car& Players::getPlayerCar(unsigned int index)
     return m_players[index]->getCar();
 }
 
-void Players::setHumanName(bool won)
+unsigned int Players::getPlayerCarElevation(unsigned int index) const
 {
-    m_humanPlayer.setName(enterPseudo());
+   return m_players[index]->getCarElevation();
+}
+
+bool Players::setHumanName(bool won)
+{
+    std::string pseudo{enterPseudo()};
+    if((pseudo.size() < 4)) { return false; }
+    m_humanPlayer.setName(pseudo);
     if(!won) { m_humanPlayer.setGameDifficulty(); }
-}
-
-void Players::setCarPosition(sf::Vector2f& coords, unsigned int index)
-{
-    m_players[index]->setCarPosition(coords);
-}
-
-void  Players::setCarAngle(double angle, unsigned int index)
-{
-    m_players[index]->setCarAngle(angle);
-}
-
-void Players::setCarStartFrame(unsigned int index)
-{
-    m_players[index]->setCarStartFrame();
+    return true;
 }
 
 void Players::buildPlayers(unsigned int completedRaces, unsigned int lastRaceRanking)
 {
+std::cout << "loading players files " << std::endl;
     mylib::JsonFile playersFileConfig("data/race/racers.json");
     mylib::JsonFile carsFileConfig("data/cars/cars.json");
     unsigned int AIracerNumber = playersFileConfig.m_Root["races"][completedRaces]["names"].size();
     unsigned int totalRacers{AIracerNumber + 1};
     unsigned int humanStartPlace{lastRaceRanking - 1};
     unsigned int AIindex{0};
-
+std::cout << "freeing old players memory" << std::endl;
+    if(m_players.size() > 0) {
+int count{0};
+        for(auto& elem : m_players) {
+            if(!elem->isHuman()) { delete(elem); std::cout << "element " << count  << " deleted" << std::endl; ++count; }
+        }
+    }
+std::cout << "resizing vect " << std::endl;
+    m_players.resize(0);
+std::cout << "vect is empty " << std::endl;
     for(unsigned int index = 0; index < totalRacers; ++index) {
         Player* ptr = new Player;
         if(index == humanStartPlace) {
-
             if(m_humanPlayer.getCarIsHighSpeedKitEquiped()) { m_humanPlayer.setCarMaxSpeed(carsFileConfig.m_Root["model"][m_humanPlayer.getCarType()]["maxSpeedKit"].asFloat()); }
             else { m_humanPlayer.setCarMaxSpeed(carsFileConfig.m_Root["model"][m_humanPlayer.getCarType()]["maxSpeed"].asFloat()); }
+            if(m_humanPlayer.getCarIsTurboChargerKitEquiped()) { m_humanPlayer.setCarAcceleration(3); }
+            else { m_humanPlayer.setCarAcceleration(2); }
+            m_humanPlayer.setRaceCurrentLap(1);
+            m_humanPlayer.setCarSpeed(0);
+            m_humanPlayer.setRaceRanking(totalRacers - index);
             ptr = &m_humanPlayer;
             m_players.emplace(m_players.begin(), ptr);
         }
@@ -185,204 +222,29 @@ void Players::buildPlayers(unsigned int completedRaces, unsigned int lastRaceRan
             ptr->setCarSpeedLimiter(playersFileConfig.m_Root["races"][completedRaces]["carspeedlimiter"][AIindex].asFloat());
             ptr->setCarMaxSpeed(carsFileConfig.m_Root["model"][ptr->getCarType()]["maxSpeed"].asFloat());
             ptr->setCarColor(0);
+            ptr->setHuman(Player::PlayerType::Computer);
+            ptr->setCarSpeed(0);
+            ptr->setRaceCurrentLap(1);
+            ptr->setRaceRanking(totalRacers - index);
             m_players.emplace(m_players.begin(), ptr);
             ++AIindex;
         }
     }
     for(auto& elem : m_players) {
+        elem->setBestLapTime(sf::milliseconds(60000));
+        elem->resetAnticheatWaypointValidation();
+        elem->setCarSideSpeed(0);
+        elem->setcarInRankingAreaState(false);
+        elem->setStartRanking(false);
         elem->setTexture(&m_carsTexture);
-        elem->setCarCenter(carsFileConfig.m_Root["model"][elem->getCarType()]["centerx"].asFloat(), carsFileConfig.m_Root["model"][elem->getCarType()]["centery"].asFloat());
         elem->setCarShape(sf::FloatRect(0, 0, carsFileConfig.m_Root["model"][elem->getCarType()]["width"].asFloat(), carsFileConfig.m_Root["model"][elem->getCarType()]["heigth"].asFloat()));
-
+        elem->setCarOrigin(carsFileConfig.m_Root["model"][elem->getCarType()]["width"].asFloat() / 2, carsFileConfig.m_Root["model"][elem->getCarType()]["heigth"].asFloat() / 2);
     }
 }
 
-void Players::levelupGameDifficulty()
+void Players::levelupGameDifficulty()              // dans race ??????????????????????? --->> dans game qui connait le nb de courses deja faire
 {
     m_humanPlayer.levelupGameDifficulty();
 }
 
-void Players::moveCars()
-{
-   // for(auto& elem : m_players) {
-      //  elem->setCarAngle( elem->getCarAngle() + 0.087);
-        m_humanPlayer.turnCarRight();
-std::cout << "car angle is : " << m_humanPlayer.getCarAngle() << " rad" << std::endl;
-  //  }
-}
-
-/*
-float Players::getCarAngle(Player& player) const
-{
-    return player.getCarAngle();
-}
-
-float Players::getCarSpeed(Player& player) const
-{
-    return player.getCarSpeed();
-}
-
-float Players::getCarMaxSpeed(Player& player) const
-{
-    return player.getCarMaxSpeed();
-}
-
-float Players::getCarAcceleration(Player& player) const
-{
-    return player.getCarAcceleration();
-}
-
-sf::Vector2f& Players::getCarCenter(Player& player)
-{
-    return player.getCarCenter();
-}
-
-int Players::getCarElevation(Player& player) const
-{
-    return player.getCarElevation();
-}
-
-float Players::getCarBodyState(Player& player) const
-{
-    return player.getCarBodyState();
-}
-
-float Players::getCarEngineState(Player& player) const
-{
-    return player.getCarEngineState();
-}
-
-float Players::getCarTyresState(Player& player) const
-{
-    return player.getCarTyresState();
-}
-
-float Players::getCarFuelState(Player& player) const
-{
-    return player.getCarFuelState();
-}
-
-bool Players::getCarIsFrontMissileEquiped(Player& player) const
-{
-    return player.getCarIsFrontMissileEquiped();
-}
-
-bool Players::getCarIsRearMissileEquiped(Player& player) const
-{
-    return player.getCarIsRearMissileEquiped();
-}
-
-bool Players::getCarIsHighSpeedKitEquiped(Player& player) const
-{
-    return player.getCarIsHighSpeedKitEquiped();
-}
-
-bool Players::getCarIsTurboChargerKitEquiped(Player& player) const
-{
-    return player.getCarIsTurboChargerKitEquiped();
-}
-
-bool Players::getCarIsRetroKitEquiped(Player& player) const
-{
-    return player.getCarIsRetroKitEquiped();
-}
-
-bool Players::getCarIsSpinAssistKitEquiped(Player& player) const
-{
-    return player.getCarIsSpinAssistKitEquiped();
-}
-
-bool Players::getCarIsSideArmourKitEquiped(Player& player) const
-{
-    return player.getCarIsSideArmourKitEquiped();
-}
-
-bool Players::getCarIsPowerSteeringKitEquiped(Player& player) const
-{
-    return player.getCarIsPowerSteeringKitEquiped();
-}
-
-void Players::setCarSpeed(float speed, Player& player)
-{
-    player.setCarSpeed(speed);
-}
-
-void  Players::setCarMaxSpeed(float maxSpeed, Player& player)
-{
-    player.setCarMaxSpeed(maxSpeed);
-}
-
-void Players::setCarAcceleration(float acceleration, Player& player)
-{
-    player.setCarAcceleration(acceleration);
-}
-
-void Players::setCarElevation(int elevation, Player& player)
-{
-    player.setCarElevation(elevation);
-}
-
-void Players::setCarBodyState(float body, Player& player)
-{
-    player.setCarBodyState(body);
-}
-
-void Players::setCarEngineState(float engine, Player& player)
-{
-    player.setCarEngineState(engine);
-}
-
-void Players::setCarTyresState(float tyres, Player& player)
-{
-    player.setCarTyresState(tyres);
-}
-
-void Players::setCarFuelState(float fuel, Player& player)
-{
-    player.setCarFuelState(fuel);
-}
-
-void Players::setCarFrontMissile(bool frontMissile, Player& player)
-{
-    player.setCarFrontMissile(frontMissile);
-}
-
-void Players::setCarRearMissile(bool rearMissile, Player& player)
-{
-    player.setCarRearMissile(rearMissile);
-}
-
-void Players::setCarHighSpeedKit(bool highSpeed, Player& player)
-{
-    player.setCarHighSpeedKit(highSpeed);
-
-}
-
-void Players::setCarRetroKit(bool retro, Player& player)
-{
-    player.setCarRetroKit(retro);
-}
-
-void Players::setCarTurboChargerKit(bool turboCharger, Player& player)
-{
-    player.setCarTurboChargerKit(turboCharger);
-}
-
-void Players::setCarSpinAssistKit(bool spinAssist, Player& player)
-{
-    player.setCarSpinAssistKit(spinAssist);
-}
-
-void Players::setCarSideArmourKit(bool sideArmour, Player& player)
-{
-    player.setCarSideArmourKit(sideArmour);
-}
-
-void Players::setCarPowerSteeringKit(bool powerSteering, Player& player)
-{
-    player.setCarPowerSteeringKit(powerSteering);
-}
-
-
-*/
 

@@ -1,25 +1,32 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include <iostream>
-#include <string>
 #include <SFML/Window/Joystick.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/NonCopyable.hpp>
+#include <SFML/System/Time.hpp>
+#include <SFML/System/Clock.hpp>
+
+#include <iostream>
+#include <string>
+
 #include "header/car.hpp"
 
-class Player
+class Player : public sf::NonCopyable
 {
     public :
-        enum                                        LevelDifficulty {normal = 0, medium, hard};
+        enum                                        LevelDifficulty {Normal = 1, Medium, Hard};
+        enum                                        PlayerType {Human, Computer, Network};
 Player();
-                                                    Player(const bool human);
-                                                    Player(const bool human, const std::string name);
+                                                    Player(const PlayerType playerType);
+                                                    Player(const PlayerType playerType, const std::string name);
 
+        bool                                        isHuman();
+        bool                                        isComputer();
         unsigned int                                getJoystickID();
         unsigned int                                getMoney();
         unsigned int                                getGameDifficulty();
-        std::string                                 getName();
+        const std::string&                          getName() const;
         Car::Type                                   getCarType() const;
         sf::FloatRect                               getCarShape() const;
         float                                       getCarAngle() const;
@@ -44,8 +51,25 @@ Player();
         bool                                        getCarIsPowerSteeringKitEquiped() const;
         unsigned int                                getCarColor();
         const Car&                                  getCar() const;
+        bool                                        getCarNearBridgeArea();
+        sf::FloatRect                               getCarLocalBounds() const;
+        sf::FloatRect                               getCarGlobalBounds() const;
+        bool                                        getCarInArrivalAreaState() const;
+        unsigned int                                getRaceCurrentLap() const;
+        const sf::Vector2f&                         getCarLimit(const unsigned int index) const;
+        Car::Interaction                            getCarInteractionType() const;
+        sf::Time                                    getBestLapTime() const;
+        sf::Time                                    getCurrentLapTime() const;
+        unsigned int                                getRaceRanking() const;
+        bool                                        getStartRanking() const;
+        unsigned int                                getCheckedRankingAreaNumber() const;
+        bool                                        getAnticheatWaypointState(const unsigned int index) const;
+        bool                                        getcarInRankingAreaState() const;
+        unsigned int                                getCarFrame() const;
+        const sf::Vector2f&                         getCarCornerCoords(const unsigned int whatCorner) const;
+        const sf::Vector2f&                         getCarOldPosition() const;
 
-        void                                        setHuman(bool human);
+        void                                        setHuman(PlayerType playerType);
         void                                        setJoystickID();
         void                                        setGameDifficulty();
         void                                        levelupGameDifficulty();
@@ -55,11 +79,11 @@ Player();
         void                                        setCarShape(sf::FloatRect rect);
         void                                        setCarAngle(float angle);
         void                                        setCarSpeed(float speed);
+        void                                        setCarSideSpeed(float sideSpeed);
         void                                        setCarMaxSpeed(float maxSpeed);
         void                                        setCarAcceleration(float acceleration);
         void                                        setCarSpeedLimiter(float speedLimiter);
-        void                                        setCarCenter(float centerX, float centerY);
-        void                                        setCarCenter(sf::Vector2f& coords);
+        void                                        setCarOrigin(float offsetX, float offsetY);
         void                                        setCarElevation(int elevation);
         void                                        setCarBodyState(float body);
         void                                        setCarEngineState(float engine);
@@ -76,20 +100,44 @@ Player();
         void                                        setCarColor(unsigned int color);
         void                                        setTexture(sf::Texture* carTexture);
         void                                        setCarPosition(const sf::Vector2f& position);
-        void                                        setCarStartFrame();
+        void                                        setCarFrame();
+        void                                        setCarNearBridgeArea(bool nearBridgeArea);
+        void                                        setAnticheatWaypointValidated(const unsigned int index, bool validated);
+        void                                        setCarInArrivalAreaState(bool state);
+        void                                        setRaceCurrentLap( const unsigned int lap);
+        void                                        setCarInSand(bool inSand);
+        void                                        setCarInteraction(Car::Interaction type, float angle, unsigned int intensity, float speed);
+        void                                        setBestLapTime(sf::Time lapTime);
+        void                                        setRaceRanking(unsigned int ranking);
+        void                                        setStartRanking(bool startRanking);
+        void                                        setCheckedRankingAreaNumber(unsigned int areaNumber);
+        void                                        setcarInRankingAreaState(bool startRanking);
 
         void                                        moveCar();
-        void                                        turnCarLeft();
-        void                                        turnCarRight();
+        void                                        turnCar(Car::Direction direction);
         void                                        accelerate();
         void                                        decelerate();
+        void                                        updateCarLimits();
+        bool                                        areAllAnticheatWaypointValidated();
+        void                                        resetAnticheatWaypointValidation();
+        void                                        startLapTimeClock();
 
     private :
-        bool                                        m_human;
+        PlayerType                                  m_playerType;
         unsigned int                                m_joystickID;
         LevelDifficulty                             m_gameDifficulty;               //   repercuter sur les autres en muti
         std::string                                 m_name;
         unsigned int                                m_money;
         Car                                         m_car;
+        std::array<bool, 3>                         m_anticheatWaypoint;
+        bool                                        m_carInArrivalArea;
+        unsigned int                                m_raceCurrentLap;
+        unsigned int                                m_currentRaceRanking;
+        sf::Clock                                   m_lapClock;
+        sf::Time                                    m_bestLapTime;
+        unsigned int                                m_raceRanking;
+        bool                                        m_carInRankingArea;
+        unsigned int                                m_checkedRankingAreaNumber;
+        bool                                        m_startRanking;
 };
 #endif // PLAYER_HPP

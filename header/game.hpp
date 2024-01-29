@@ -15,13 +15,14 @@
 #include "header/assetkey.hpp"
 #include "header/inputs.hpp"
 #include "header/players.hpp"
+#include "music/music.hpp"
 
 #include "header/bottompanel.hpp"
 
 class Game {
     public:
                                                                         Game(sf::RenderWindow& window, unsigned int language, Players& players);
-        bool                                                            launch();
+        bool                                                            launch(mylib::Music& music);
         void                                                            loadTextures();
         std::string                                                     enterPseudo();
         void                                                            loading(const sf::Int32 delay, const std::string& text);
@@ -55,8 +56,9 @@ class Game {
         void                                                            loadSimpleClickBoxes();
         void                                                            loadComplexClickBoxes();
         int                                                             checkButtons();
-        unsigned int                                                    race(int whatRace, unsigned int lastRaceRanking);
+        unsigned int                                                    race(const unsigned int whatRace);
         void                                                            initViews();
+        int                                                             checkHoveredButton();
 
 };
 

@@ -5,8 +5,10 @@
 #include "random/random.hpp"
 #include "bitmap/simpleAnimation/animation.hpp"
 #include "header/inputs.hpp"
+#include "triple/triple.hpp"
 
 extern sf::Vector2f windowRatio;
+extern std::array<mylib::Triple<std::string, int, int>, 7>     bestWinnersList;
 
 Office::Office(sf::RenderWindow& window, Player& player, BottomPanel& bottomPanel, const unsigned int language) :   m_window{window}, m_player{player}, m_bottomPanel{bottomPanel}, m_language{language}, m_firstTimeIn{true},
                                                                                                                     m_door(sf::FloatRect(0, 0, 87, 240)), m_font(16, 16), m_inputs(window)
@@ -109,7 +111,7 @@ void Office::buy()                                ///// 16,252   16, 268   16,28
     Mood vendorMood{Mood::normal};
     unsigned int currentColor{m_player.getCarColor()};
     mylib::Timer commandLimiter(10);
-    commandLimiter.startTimer();
+    commandLimiter.start();
     mylib::Timer scrollLimiter(350);
     unsigned int color{m_player.getCarColor()};
     int step{1};                                                                                // 1/ hello /2 choose color 3/choose car model 4/ price announce 5/ negociation until 5 lowering or raising price 6/ buy yes-no 7/ get out
@@ -129,7 +131,7 @@ void Office::buy()                                ///// 16,252   16, 268   16,28
     sf::Vector2i mouseCoords;
     while(inOffice) {
         if(commandLimiter.isTimeElapsed()) {
-                commandLimiter.restartTimer();
+                commandLimiter.restart();
                 m_inputs.readInput(m_player.getJoystickID());
         }
         if(m_inputs.isCommandAvailable()) { m_command = m_inputs.getInput(); }
@@ -181,7 +183,7 @@ void Office::buy()                                ///// 16,252   16, 268   16,28
                 break;
             case 2 :                                                            // recolor the car
                 if(chooseDialog) {
-                    scrollLimiter.startTimer();
+                    scrollLimiter.start();
                     m_window.setMouseCursorVisible(false);
                     m_text.setText("");
                     m_text.setText(m_languageJson.m_Root["office"]["coloring"].asString());
@@ -190,7 +192,7 @@ void Office::buy()                                ///// 16,252   16, 268   16,28
                 else {
                     if(m_command.action == CommandType::joystiskMoved) {
                         if(scrollLimiter.isTimeElapsed()) {
-                            scrollLimiter.restartTimer();
+                            scrollLimiter.restart();
                             if(m_command.offsetX < 0) {
                                 if(color == 1) { color = 13; }
                                 else { --color; }
@@ -245,7 +247,7 @@ void Office::buy()                                ///// 16,252   16, 268   16,28
                         step = 1;
                     }
                 }
-                else {                  //////////////////////// selector est décalé verticalement de 4 5 pixels et apparait disparait vite fait quand memonte ou descend hors de la dernière ligne selectionnable
+                else {
                     mouseCoords = sf::Mouse::getPosition(m_window);
                     mouseCoords.x /= windowRatio.x;
                     mouseCoords.y /= windowRatio.y;
@@ -560,6 +562,7 @@ void Office::buy()                                ///// 16,252   16, 268   16,28
         m_window.draw(m_bottomPanel);
         m_window.display();
     }
+    bestWinnersList[0].second = m_player.getMoney();
 }
 
 void Office::selectVendorFace(sf::Sprite& vendorFace, Mood mood)

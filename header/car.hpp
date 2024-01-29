@@ -12,24 +12,21 @@
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
-#ifndef M_PI
-    #define M_PI 3.14159265358979323846
-#endif
-
-
 class Car : public sf::Transformable, public sf::Drawable, public sf::NonCopyable
 {
 	public:
 	    enum                                        Type {Taraco_Neoroder = 0, Taraco_Neoroder1, Vaug_Interceptor2, Vaug_Interceptor3, Retron_Parsec_Turbo5, Retron_Parsec_Turbo6, Retron_Parsec_Turbo8};
-Car();
-                                                    Car(bool human);
-        sf::Vector2f                                getCarLimit(unsigned int cornerNumber) const;
+	    enum                                        Interaction {None = 0, Bumping, waterShifting, Spining, PushedFromBehind, PushedFromLeft, PushedFromRight};
+	    enum                                        Direction{Left = 0, Right};
+
+                                                    Car();
+        const sf::Vector2f&                         getCarLimit(unsigned int index) const;
         Type                                        getType() const;
         sf::FloatRect                               getShape() const;
         float                                       getAngle() const;
         float                                       getSpeed() const;
         float                                       getMaxSpeed() const;
-        float                                       getAcceleration() const;
+        int                                         getAcceleration() const;
         float                                       getSpeedLimiter() const;
         sf::Vector2f                                getCenter() const;
         int                                         getElevation() const;
@@ -46,17 +43,24 @@ Car();
         bool                                        getIsSideArmourKitEquiped() const;
         bool                                        getIsPowerSteeringKitEquiped() const;
         unsigned int                                getColor();
+        bool                                        getNearBridgeArea();
+        sf::FloatRect                               getLocalBounds() const;
+        sf::FloatRect                               getGlobalBounds() const;
+        Interaction                                 getInteractionType() const;
+        unsigned int                                getFrame() const;
+        const sf::Vector2f&                         getCornerCoords(const unsigned int whatCorner) const;
+        const sf::Vector2f&                         getOldPosition() const;
 
         void                                        setType(Type type);
         void                                        setShape(sf::FloatRect& rect);
-        void                                        setCenter(float centerX, float centerY);
-        void                                        setCenter(sf::Vector2f& coords);
+        void                                        setPosition(const sf::Vector2f& coords);
         void                                        setAngle(float angle);
         void                                        setSpeed(float speed);
+        void                                        setSideSpeed(float sideSpeed);
         void                                        setMaxSpeed(float maxSpeed);
-        void                                        setAcceleration(float acceleration);
+        void                                        setAcceleration(int acceleration);
         void                                        setSpeedLimiter(float speedLimiter);
-        void                                        setElevation(int elevation);
+        void                                        setElevation(unsigned int elevation);
         void                                        setBodyState(float body);
         void                                        setEngineState(float engine);
         void                                        setTyresState(float tyres);
@@ -70,20 +74,29 @@ Car();
         void                                        setIsSideArmourKitEquiped(bool sideArmour);
         void                                        setIsPowerSteeringKitEquiped(bool powerSteering);
         void                                        setColor(unsigned int color);
+        void                                        setNearBridgeArea(bool nearBridgeArea);
         void                                        setTexture(sf::Texture* carTexture);
         void                                        setVertices();
-        void                                        setStartFrame();
+        void                                        setFrame();
+        void                                        setInSand(bool inSand);
+        void                                        setInteraction(Interaction type,float angle, unsigned int intensity, float speed);
+
 
         void                                        move();
-        void                                        turnLeft();
-        void                                        turnRight();
+        void                                        turn(Direction direction);
         void                                        accelerate();
         void                                        decelerate();
+        void                                        updateCarLimits();
+        void                                        consumeTyres();
+        void                                        consumeFuel();
+        void                                        consumeEngine();
+        void                                        consumeBody();
         void                                        findWayToTarget(const sf::Vector2f& target);
         bool                                        isInTargetArea(const sf::Vector2f& target);
+        bool                                        isCarBroken();
+        bool                                        isAcceleration();
 
 	private:
-	    bool                                        m_human;                            // car driven by human or AI
         float                                       m_body;                             // % body health
         float                                       m_engine;                           // % engine usury
         float                                       m_tyres;                            // % tyres usury
@@ -98,24 +111,41 @@ Car();
         bool                                        m_powerSteering;                    // Essential for decreasing your turning circle and allowing for faster corner-taking.
         bool                                        m_retro;                            // Use this for faster braking.
 
-        Car::Type                                   m_type;
-        sf::FloatRect                               m_shape;
-        float                                       m_angle;
-        float                                       m_speed;
-        float                                       m_maxSpeed;
-        float                                       m_acceleration;
-        float                                       m_speedLimiter;
-        std::array<sf::Vector2f, 6>                 m_carLimits;                        // corners for collisions and tracks limit detection
-
-        int                                         m_elevation;                        // altitude to know if car is on or under the bridges
-        unsigned int                                m_color;
-        sf::Texture*                                m_carTexture;
-        sf::VertexArray                             m_vertices;
-        unsigned int                                m_frame;
+        Car::Type                                   m_type;                             // car model type
+        sf::FloatRect                               m_shape;                            // car length and width
+        float                                       m_angle;                            // current car speed
+        float                                       m_sideAngle;                        // deviation angle
+        float                                       m_speed;                            // current car speed
+        float                                       m_maxSpeed;                         // max car speed
+        float                                       m_sideSpeed;                        // deviation speed
+        float                                       m_speedLimiter;                     // limiter for computer car
+        int                                         m_acceleration;                     // 2 : normal acceleration, 3 : turbo charger kit bought
+        std::array<sf::Vector2f, 8>                 m_carLimits;                        // corners for collisions and tracks limit detection
+        unsigned int                                m_elevation;                        // altitude to know if car is on or under the bridges
+        unsigned int                                m_color;                            // current car color
+        sf::Texture*                                m_carTexture;                       // car grahics location
+        sf::VertexArray                             m_vertices;                         // texture corners
+        unsigned int                                m_frame;                            // graphics car for that ange
+        bool                                        m_accelerationOn;                   // true : car in acceleration false: car in deceleration or stopped
+        float                                       m_accelerationTime;                 // length of the acceleration
+        bool                                        m_isBroken;                         // true : race over, false: can play
+        unsigned int                                m_turnIntensity;                    // turn length
+        bool                                        m_shifting;                         // car is in shifting
+        float                                       m_shiftingAngle;                    // angle to shift
+        bool                                        m_nearBridgeArea;
+        bool                                        m_inSand;
+        struct {
+            Interaction     type;
+            unsigned int    intensity;
+            float           angle;
+            float           speed;
+        }                                           m_interaction;
+        sf::Vector2f                                m_oldPosition;
 
         virtual void			                    draw(sf::RenderTarget& target, sf::RenderStates states) const;
-        sf::Vector2f                                rotateCarCorners(const sf::Vector2f& corner, const sf::Vector2f& center, const float cosinusAngle, const float sinusAngle) ;
-        void                                        updateCarLimits();
+        sf::Vector2f                                rotateCarCorners(const sf::Vector2f& corner, const sf::Vector2f& center, const float cosinusAngle, const float sinusAngle);
+        void                                        handbrakeTurn();
+        void                                        interaction();
 };
 
 #endif

@@ -7,52 +7,58 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
-#include "header/player.hpp"
 #include "jsonfile/jsonfile.hpp"
+#include "timer/timer.hpp"
+#include "header/inputs.hpp"
+
 
 class Players
 {
     public :
                                                 Players(sf::RenderWindow& window);
+                                                ~Players();
+
         Player&                                 getHumanPlayer();
         unsigned int                            getHumanJoystick();
-        unsigned int                            getGameDifficulty();
-        unsigned int                            getRacerNumber();
         sf::Vector2f                            getHumanCarPosition();
+        unsigned int                            getHumanRanking() const;
+        const std::string&                      getHumanName() const;
+        unsigned int                            getGameDifficulty();
+        unsigned int                            getRacerNumber() const;
+        sf::Vector2f                            getCarPosition(const unsigned int playerIndex) const;
+        Player*                                 getPlayer(const unsigned int index);
         const Car&                              getPlayerCar(unsigned int index);
+        unsigned int                            getPlayerCarElevation(unsigned int index) const;
 
-
-        void                                    setHumanName(bool won);
-        void                                    setCarPosition(sf::Vector2f& coords, unsigned int index);
-        void                                    setCarAngle(double angle, unsigned int index);
-        void                                    setCarStartFrame(unsigned int index);
+        bool                                    setHumanName(bool won);
 
         std::string                             enterPseudo();
         void                                    buildPlayers(unsigned int completedRaces, unsigned int lastRaceRanking);
         void                                    levelupGameDifficulty();
 
-        void                                    moveCars();
-
     private :
         sf::RenderWindow&                       m_window;
         Player                                  m_humanPlayer;
-        std::vector<std::unique_ptr<Player>>                    m_players;
+        std::vector<Player*>                    m_players;
         mylib::JsonFile                         m_languageJson;
         unsigned int                            m_language;
         sf::Texture                             m_carsTexture;
-
-
 };
 #endif
 
 
 /*
+        void                                    setPlayerCarPosition(sf::Vector2f& coords, unsigned int index);
+        void                                    setPlayerCarAngle(double angle, unsigned int index);
+        void                                    setPlayerCarStartFrame(unsigned int index);
+        void                                    setPlayerCarElevation(unsigned int elevation, unsigned int index);
+
         float                                   getCarAngle(Player& player) const;
         float                                   getCarSpeed(Player& player) const;
         float                                   getCarMaxSpeed(Player& player) const;
         float                                   getCarAcceleration(Player& player) const;
         sf::Vector2f&                           getCarCenter(Player& player);
-        int                                     getCarElevation(Player& player) const;
+        int                                     getPlayerCarElevation() const;
         float                                   getCarBodyState(Player& player) const;
         float                                   getCarEngineState(Player& player) const;
         float                                   getCarTyresState(Player& player) const;

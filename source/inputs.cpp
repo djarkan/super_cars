@@ -125,9 +125,12 @@ void Inputs::checkLastJoystickButtonUsed(Command& command)
     if (sf::Joystick::isButtonPressed(m_currentJoystickID, m_currentJoystickButton) && command.action != CommandType::joystiskButtonPressed) {
         command.action = CommandType::joystiskButtonPushed;
         command.joystickButtonID = m_currentJoystickButton;
-        m_commandQueue.push(command);
-        clearCommand(command);
     }
+    else {
+        command.action = CommandType::joystiskButtonReleased;
+    }
+    m_commandQueue.push(command);
+    clearCommand(command);
 }
 
 void Inputs::clearCommand(Command& command)

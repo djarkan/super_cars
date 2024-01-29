@@ -4,29 +4,31 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Window/Event.hpp>
 
-#include "header/car.hpp"
-#include "header/inputs.hpp"
 #include "timer/timer.hpp"
-#include "header/game.hpp"
+#include "bitmap/simpleanimation/animation.hpp"
+#include "bitmap/animationPlayer/animationPlayer.hpp"
 #include "music/music.hpp"
 #include "random/random.hpp"
 #include "text/bitmapfont/bitmapFont.hpp"
 #include "text/bitmaptext/bitmapText.hpp"
 #include "jsonfile/jsonfile.hpp"
-#include "bitmap/simpleanimation/animation.hpp"
-#include "bitmap/animationPlayer/animationPlayer.hpp"
+#include "header/car.hpp"
+#include "header/inputs.hpp"
 #include "header/command.hpp"
 #include "header/message.hpp"
+#include "header/game.hpp"
 
 extern sf::Vector2f windowRatio;
+
+std::array<std::pair<std::string, sf::Time>, 9> bestLapsTimes = {{{"SOUT", sf::milliseconds(15000)}, {"ANDY", sf::milliseconds(18000)}, {"JEZZ", sf::milliseconds(20000)}, {"DAVE", sf::milliseconds(20000)}, {"DOUG", sf::milliseconds(25000)}, {"PETE", sf::milliseconds(25000)} , {"GARF", sf::milliseconds(30000)}, {"MARI", sf::milliseconds(30000)}, {"ANNE", sf::milliseconds(30000)}}};
+std::array<mylib::Triple<std::string, int, int>, 7> bestWinnersList =  { {{"GILL", 0, 500}, {"SOUT", 3, 10000}, {"ANDY", 3, 5000}, {"JEZZ", 3, 4000}, {"DAVE", 3, 3000}, {"DOUG", 3, 2000}, {"PETE", 3, 1000}} };
 
 Intro::Intro() : m_window(sf::VideoMode(640, 400), "Super Cars Revival", sf::Style::Close), m_players(m_window)
 {
     m_window.setJoystickThreshold(70);
     loadAssets();
-    m_bestWinnersList =  { {{"SOUT", 3, 10000}, {"ANDY", 3, 5000}, {"JEZZ", 3, 4000}, {"DAVE", 3, 3000}, {"DOUG", 3, 2000}, {"PETE", 3, 1000}} };
-    m_bestLapsTimes =    { {{"SOUT", 15000} , {"ANDY", 15000}, {"JEZZ", 20000}, {"DAVE", 20000}, {"DOUG", 25000}, { "PETE", 25000}, {"GARF", 30000}, {"MARI", 30000}, {"ANNE", 30000}} };
     mylib::JsonFile configJson("config.json");
     m_language = configJson.m_Root["language"].asInt();
     switch(m_language) {
@@ -71,37 +73,103 @@ void Intro::loadAssets()
 
 void Intro::launchIntro()
 {
-    bool won{false};
+    if(m_players.getHumanJoystick() == 99 ) { return; }
 
-m_players.setHumanName(won);
-won = launchGame();
+    bool won{false};
     initView();
-    gremlinsAndMagneticFields();
+    sf::Sound floppySound;
+    sf::SoundBuffer soundBuffer;
+    soundBuffer.loadFromFile("sound/floppy.ogg");
+    floppySound.setBuffer(soundBuffer);
+    floppySound.setLoop(true);
+    floppySound.setVolume(100);
+    floppySound.play();
+ //   gremlins();
+    floppySound.setVolume(0);
+ //   magneticFields();
     mylib::Music music;
     music.loadMusic("music/intro.wav");
     music.setMusicLoop(true);
     music.setMusicVolume(100);
-    music.playMusic();
-    superCars();
-    loading(2500, m_languageJson.m_Root["message"].asString());
-    bool displayIntro{true};
-    while(displayIntro)
-    {
-        if(displayIntro) { displayIntro = guyAndGirl(); }
-        if(displayIntro) { loading(2500, m_languageJson.m_Root["message"].asString()); }
-        if(displayIntro) { displayIntro = ronAndNancy(); }
-        if(displayIntro) { loading(1000, m_languageJson.m_Root["message"].asString()); }
-        if(displayIntro) { displayIntro = creditsOriginal(); }
-        if(displayIntro) { loading(1000, m_languageJson.m_Root["message"].asString()); }
-        if(displayIntro) { displayIntro = creditsAdditionnal(); }
-        loading(3000, m_languageJson.m_Root["message"].asString());
+  //  music.playMusic();
+    floppySound.setVolume(0);
+    if(!won) {
+   //     floppySound.setVolume(100);
+   //     superCars();
     }
-    music.stopMusic();
-    m_players.setHumanName(won);
-    won = launchGame();
+   // loading(2500, m_languageJson.m_Root["message"].asString());
+    floppySound.setVolume(0);
+    bool displayIntro{true};
+    while(1) {
+        bool enteredPseudo{false};
+        displayIntro = true;
+        while(!enteredPseudo) {
+            while(displayIntro)
+            {
+                if(displayIntro) { displayIntro = guyAndGirl(); }
+                if(displayIntro) {
+                    floppySound.setVolume(100);
+                    loading(2500, m_languageJson.m_Root["message"].asString());
+                    floppySound.setVolume(0);
+                }
+                if(displayIntro) { displayIntro = ronAndNancy(); }
+                if(displayIntro) {
+                    floppySound.setVolume(100);
+                    loading(1000, m_languageJson.m_Root["message"].asString());
+                    floppySound.setVolume(0);
+                }
+                if(displayIntro) { displayIntro = creditsOriginal(); }
+                if(displayIntro) {
+                    floppySound.setVolume(100);
+                    loading(1000, m_languageJson.m_Root["message"].asString());
+                    floppySound.setVolume(0);
+                }
+                if(displayIntro) { displayIntro = creditsAdditionnal(); }
+         //       floppySound.setVolume(100);
+         //       loading(3000, m_languageJson.m_Root["message"].asString());
+                floppySound.setVolume(0);
+            }
+         //   floppySound.setVolume(100);
+         //   loading(3000, m_languageJson.m_Root["message"].asString());
+            floppySound.setVolume(0);
+            music.stopMusic();
+            music.loadMusic("music/pseudo.wav");
+         //   music.playMusic();
+            enteredPseudo = m_players.setHumanName(won);
+            if(!enteredPseudo) {
+                music.stopMusic();
+                displayIntro = true;
+           //     floppySound.setVolume(100);
+           //     loading(3000, m_languageJson.m_Root["message"].asString());
+                music.loadMusic("music/intro.wav");
+                floppySound.setVolume(0);
+           //     music.playMusic();
+            }
+
+        }
+        won = launchGame(music);
+        initView();
+        floppySound.setVolume(100);
+        loading(2500, m_languageJson.m_Root["message"].asString());
+        floppySound.setVolume(0);
+    }
 }
 
-void Intro::gremlinsAndMagneticFields()
+void Intro::gremlins()
+{
+    sf::Sprite gremlins;
+    gremlins.setTexture(m_textureContaigner.getAsset(textures::ID::gremlins));
+    gremlins.setTextureRect(sf::IntRect(0, 0, 640, 400));
+    mylib::Timer timer(3000);
+    timer.start();
+    m_window.clear();
+    m_window.draw(gremlins);
+    m_window.display();
+    while(!timer.isTimeElapsed())
+        ;
+}
+
+void Intro::magneticFields()
 {
     mylib::Music music;
     music.loadMusic("music/magnetic fields.wav");
@@ -114,33 +182,22 @@ void Intro::gremlinsAndMagneticFields()
     float factorX{10};
     float factorY{10};
     background.setScale(factorX, factorY);
-
-    sf::Sprite gremlins;
-    gremlins.setTexture(m_textureContaigner.getAsset(textures::ID::gremlins));
-    gremlins.setTextureRect(sf::IntRect(0, 0, 640, 400));
-    mylib::Timer timer(3000);
-    timer.startTimer();
-    m_window.clear();
-    m_window.draw(gremlins);
-    m_window.display();
-    while(!timer.isTimeElapsed())
-        ;
-   timer.setTimerDuration(30);
-    timer.startTimer();
+    mylib::Timer timer(30);
+    timer.start();
     while(factorX >= 1.f)
     {
         m_window.clear();
         m_window.draw(background);
         while(!timer.isTimeElapsed())
         ;
-        timer.restartTimer();
+        timer.restart();
         factorX -= 0.2f;
         factorY -= 0.2f;
         background.setScale(factorX, factorY);
         m_window.display();
     }
-    timer.setTimerDuration(9500);
-    timer.restartTimer();
+    timer.setDuration(9500);
+    timer.restart();
     music.playMusic();
     while(!timer.isTimeElapsed())
         ;
@@ -152,7 +209,7 @@ void Intro::superCars()
     background.setTexture(m_textureContaigner.getAsset(textures::ID::super_cars));
     background.setTextureRect(sf::IntRect(0, 0, 640, 400));
     mylib::Timer timer(5000);
-    timer.startTimer();
+    timer.start();
     m_window.clear();
     m_window.draw(background);
     m_window.display();
@@ -162,6 +219,7 @@ void Intro::superCars()
 
 bool Intro::guyAndGirl()
 {
+    m_window.setMouseCursorVisible(false);
     sf::Sprite background;
     background.setTexture(m_textureContaigner.getAsset(textures::ID::guyAndGirl));
     background.setTextureRect(sf::IntRect(0, 0, 640, 400));
@@ -171,23 +229,22 @@ bool Intro::guyAndGirl()
     sf::Sprite car;
     car.setTexture(m_textureContaigner.getAsset(textures::ID::spritesheet));
     mylib::Timer timer(17000);
-    timer.startTimer();
+    timer.start();
     bool exitIntro{false};
     mylib::Random <sf::Int32>randomTime;
     float carHight;
     mylib::Random <int>randomCarModel;
     sf::Vector2f carCoord(700, 310);
     mylib::Random <int>distanceToGo;
-    mylib::Timer timerCarMovement(randomTime.randomNumber(4, 10));
-    timerCarMovement.startTimer();
+    mylib::Timer timerCarMovement(randomTime.randomNumber(4, 8));
+    timerCarMovement.start();
     int distance{distanceToGo.randomNumber(1200, 1500)};
-    int carModel;
- //   Inputs inputs(m_window, m_player.getJoystickID());
-    while(!timer.isTimeElapsed() && !exitIntro)                     // speech reste immobile 5s et scrolling de 1s   // commence par 1 scrolling
-    {                                                               // animation bouches 5s
+    int carModel{randomCarModel.randomNumber(0, 2)};
+    while(!timer.isTimeElapsed() && !exitIntro)
+    {
         if(carCoord.x >= distance  ) {
 
-            timerCarMovement.setTimerDuration(randomTime.randomNumber(3, 6));
+            timerCarMovement.setDuration(randomTime.randomNumber(4, 8));
             distance = distanceToGo.randomNumber(1500, 2000);
             int oldCarModel{carModel};
             do
@@ -221,7 +278,7 @@ bool Intro::guyAndGirl()
         m_window.display();
         if(timerCarMovement.isTimeElapsed()) {
             carCoord.x += 5;
-            timerCarMovement.restartTimer();
+            timerCarMovement.restart();
         }
         if(isIntroSkipped()) { exitIntro = true; }
     }
@@ -247,7 +304,7 @@ bool Intro::ronAndNancy()
     bool scroling{true};
     mylib::Timer timer(5000);
     mylib::Timer scrollingRate(47);
-    scrollingRate.startTimer();
+    scrollingRate.start();
     float x{16};
     float watchingY{351};
     float y =  watchingY;
@@ -280,17 +337,17 @@ bool Intro::ronAndNancy()
     animPlayer.m_player[2]->play();
     mylib::Random<sf::Int32> randomiser;
     mylib::Timer ronEyesDelay(randomiser.randomNumber(1000,3000));
-    ronEyesDelay.startTimer();
+    ronEyesDelay.start();
     mylib::Timer someoneMouthDelay(1000);
-    someoneMouthDelay.startTimer();
+    someoneMouthDelay.start();
     bool ronEyesDelayState{false};
     bool someoneSpeaking{false};
     bool ronSpeech{true};
     mylib::Timer nancyEyesDelay(randomiser.randomNumber(1000,3000));
-    nancyEyesDelay.startTimer();
+    nancyEyesDelay.start();
     bool nancyEyesDelayState{false};
     mylib::Timer speechLength(49000);
-    speechLength.startTimer();
+    speechLength.start();
     while(!speechEnded && !exitIntro) {
         m_window.clear();                       // texte visible coord 16, 351 step 4
 
@@ -299,8 +356,8 @@ bool Intro::ronAndNancy()
         }
         if(animPlayer.m_player[0]->getState() == mylib::Animation::State::stopped && ronEyesDelayState == false ) {
             ronEyesDelayState = true;
-            ronEyesDelay.setTimerDuration(randomiser.randomNumber(1000,3000));
-            ronEyesDelay.startTimer();
+            ronEyesDelay.setDuration(randomiser.randomNumber(1000,3000));
+            ronEyesDelay.start();
         }
         if(ronEyesDelay.isTimeElapsed()) {
             ronEyesDelayState = false;
@@ -308,8 +365,8 @@ bool Intro::ronAndNancy()
         }
         if(animPlayer.m_player[2]->getState() == mylib::Animation::State::stopped && nancyEyesDelayState == false ) {
             nancyEyesDelayState = true;
-            nancyEyesDelay.setTimerDuration(randomiser.randomNumber(1000,3000));
-            nancyEyesDelay.startTimer();
+            nancyEyesDelay.setDuration(randomiser.randomNumber(1000,3000));
+            nancyEyesDelay.start();
         }
         if(nancyEyesDelay.isTimeElapsed()) {
             nancyEyesDelayState = false;
@@ -319,33 +376,33 @@ bool Intro::ronAndNancy()
             if(ronSpeech) { animPlayer.m_player[1]->play(); }
             else { animPlayer.m_player[3]->play(); }
             someoneSpeaking = true;
-            someoneMouthDelay.setTimerDuration(5000);
-            someoneMouthDelay.restartTimer();
+            someoneMouthDelay.setDuration(5000);
+            someoneMouthDelay.restart();
         }
         if(someoneSpeaking && someoneMouthDelay.isTimeElapsed()) {
             if(ronSpeech) { animPlayer.m_player[1]->stop(); }
             else { animPlayer.m_player[3]->stop(); }
             someoneSpeaking = false;
-            someoneMouthDelay.setTimerDuration(1000);
-            someoneMouthDelay.restartTimer();
+            someoneMouthDelay.setDuration(1000);
+            someoneMouthDelay.restart();
         }
         if(!ronSpeech && speechLength.isTimeElapsed()) { exitIntro = false; }
         if(speechLength.isTimeElapsed()) {
             ronSpeech = false;
-            speechLength.setTimerDuration(66000);
-            speechLength.restartTimer();
+            speechLength.setDuration(66000);
+            speechLength.restart();
         }
         if(scroling) {
             if(y > 309) {
                 if(scrollingRate.isTimeElapsed()) {
                     y -= 2;
-                    scrollingRate.restartTimer();
+                    scrollingRate.restart();
                 }
                 else {}
             }
             else {
                 scroling = false;
-                timer.restartTimer();
+                timer.restart();
                 speechArrayIndex++;
                 if(speechArrayIndex == 20) {speechEnded = true; }
             }
@@ -354,7 +411,7 @@ bool Intro::ronAndNancy()
             y = watchingY;
             if(timer.isTimeElapsed()) {
                 scroling = true;
-                scrollingRate.restartTimer();
+                scrollingRate.restart();
             }
         }
         bitmapText.setText(RonAndNancySpeechArray[speechArrayIndex] + RonAndNancySpeechArray[speechArrayIndex + 1]);
@@ -406,24 +463,25 @@ void Intro::buildRonAndNancySpeech(std::array<std::string, 21>& speechArray)
     speechArray[17] = jsonRonAndNancy.m_Root["Ron&Nancy"]["bestTracks"][7][speechRandimiser.randomNumber(0, 3)].asString();
     speechArray[18] = jsonRonAndNancy.m_Root["Ron&Nancy"]["bestTracks"][8][speechRandimiser.randomNumber(0, 3)].asString();
     speechArray[19] = jsonRonAndNancy.m_Root["Ron&Nancy"]["outro"][speechRandimiser.randomNumber(0, 5)].asString();
-    speechArray[20] = "\n\n";
+    speechArray[20] = "                        \n                                   ";
     auto j{0};
+    if(bestWinnersList[0].second < 3) { j = 1; }
     auto position{0};
     for(auto i = 2; i < 8; ++i, ++j) {
         position = speechArray[i].find("NAME");
-        speechArray[i].replace(position, 4, m_bestWinnersList[j].first);
+        speechArray[i].replace(position, 4, bestWinnersList[j].first);
         position = speechArray[i].find("X");
-        speechArray[i].replace(position, 1, std::to_string(m_bestWinnersList[j].second));
+        speechArray[i].replace(position, 1, std::to_string(bestWinnersList[j].second));
         position = speechArray[i].find("MONEY");
-        speechArray[i].replace(position, 5, std::to_string(m_bestWinnersList[j].third));
+        speechArray[i].replace(position, 5, std::to_string(bestWinnersList[j].third));
     }
     j = 0;
     std::string convert;
     for(auto i = 10; i < 19; ++i, ++j) {
         position = speechArray[i].find("NAME");
-        speechArray[i].replace(position, 4, m_bestLapsTimes[j].first);
+        speechArray[i].replace(position, 4, bestLapsTimes[j].first);
         position = speechArray[i].find("TIMES");
-        convert = std::to_string(static_cast<float>(m_bestLapsTimes[j].second)/1000.f);
+        convert = std::to_string(bestLapsTimes[j].second.asSeconds());
         convert.resize(5);
         speechArray[i].replace(position, 5, convert);
     }
@@ -435,7 +493,7 @@ bool Intro::creditsOriginal()
     background.setTexture(m_textureContaigner.getAsset(textures::ID::credits_original));
     background.setTextureRect(sf::IntRect(0, 0, 640, 400));
     mylib::Timer timer(6000);
-    timer.startTimer();
+    timer.start();
     m_window.clear();
     m_window.draw(background);
     m_window.display();
@@ -454,7 +512,7 @@ bool Intro::creditsAdditionnal()
     background.setTexture(m_textureContaigner.getAsset(textures::ID::credits_additionnal));
     background.setTextureRect(sf::IntRect(0, 0, 640, 400));
     mylib::Timer timer(6000);
-    timer.startTimer();
+    timer.start();
     m_window.clear();
     m_window.draw(background);
     m_window.display();
@@ -483,31 +541,36 @@ void Intro::loading(const sf::Int32 delay, const std::string& text)
     m_window.draw(message);
     m_window.display();
     mylib::Timer duration(delay);
-    duration.startTimer();
+    duration.start();
     while(!duration.isTimeElapsed())
         ;
 }
 
-bool Intro::launchGame()
+bool Intro::launchGame(mylib::Music& music)
 {
     Game game(m_window, m_language, m_players);
-    return game.launch();
+    return game.launch(music);
 }
 
 bool Intro::isIntroSkipped()
-{                                                               /////////////////  ajout bouton souris !!!!!!!!!!!!!!!
+{
+    sf::Joystick::update();
     bool skipIntro{false};
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) { skipIntro = true; }
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {  skipIntro = true; }
     else {
-        for(auto buttonID = 0; buttonID < 8; ++buttonID) {
-            if(sf::Joystick::isConnected(buttonID)) {
-                for(unsigned int j =0; j < sf::Joystick::getButtonCount(buttonID); ++j) {
-                    if(sf::Joystick::isButtonPressed(buttonID, j)) { skipIntro = true; }
+        for(auto joystickID = 0; joystickID < 8; ++joystickID) {
+            if(sf::Joystick::isConnected(joystickID)) {
+                for(unsigned int button =0; button < sf::Joystick::getButtonCount(joystickID); ++button) {
+                    if(sf::Joystick::isButtonPressed(joystickID, button)) { skipIntro = true; }
                 }
             }
         }
     }
-    if(skipIntro) { return true; }
+    if(skipIntro) {
+        sf::Event event;
+        while(m_window.pollEvent(event)) { }
+        return true;
+    }
     else { return false; }
 }
 
@@ -518,3 +581,4 @@ void Intro::initView()
     m_view.setCenter(sf::Vector2f(320, 200));
     m_window.setView(m_view);
 }
+

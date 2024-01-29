@@ -3,56 +3,64 @@
 
 #include <jsonfile/jsonfile.hpp>
 #include <SFML/Graphics/Image.hpp>
+
 #include <string>
 #include <vector>
 #include <array>
-#include <iostream>
 
 class Track {
     public :
-                                                                        enum class Orientation{ vertical = 0, horizontal };
                                                                         Track();
                                                                         Track(int trackNB);
-        void                                                            loadTrackData(int trackNB);
-        sf::Vector2f                                                    getCarSpawnCoords(unsigned int ranking, bool clock);
-        double                                                          getCarSpawnangle(unsigned int ranking, bool clock);
+
+        void                                                            loadTrackData(const int trackNB);
+        sf::Vector2f                                                    getCarSpawnCoords(const unsigned int ranking, const bool clock) const;
+        float                                                           getCarSpawnangle(const unsigned int ranking, const bool clock) const;
+        unsigned int                                                    getCarSpawnElevation(const unsigned int ranking, const bool clock) const;
+        const std::vector<sf::FloatRect>&                               getNearBridgearea() const;
+        unsigned int                                                    getBridgeNumber() const;
+        const sf::FloatRect&                                            getBridgeBounds(const unsigned int index) const;
+        unsigned int                                                    getBridgeOrientation(const unsigned int index) const;
+        unsigned int                                                    getArrivalPortalOrientation() const;
+        const sf::Vector2f&                                             getArrivalPortalCoords() const;
+        const sf::FloatRect&                                            getArrivalPortalArea() const;
+        const sf::Vector2f&                                             getHazard(const unsigned int index) const;
+        const sf::FloatRect&                                            getAnticheatWaypoint(const unsigned int index) const;
+        sf::Vector2f                                                    getCountdownCoords(const bool clock) const;
+        const sf::FloatRect&                                            getRankingArea(const unsigned int index, const bool clock) const;
+        unsigned int                                                    getRankingAreaNumber() const;
 
     private :
         mylib::JsonFile                                                 m_trackData;
         sf::Vector2f                                                    resolution;
-        sf::Vector2f                                                    arrivalDrawPortal;
-        Orientation                                                     arrivalDrawPortalOrientation;
-        sf::Vector2f                                                    arrival;
+        sf::Vector2f                                                    arrivalPortalCoords;
+        unsigned int                                                    arrivalPortalOrientation;
+        sf::FloatRect                                                   arrivalPortalArea;
         int                                                             bridgeNB;
         struct BridgeDrawsetting {
-            float x;
-            float y;
-            Orientation orientation;
-            int floor;
+           sf::FloatRect    bridgeBounds;
+           unsigned int     orientation;
         };
         std::vector<BridgeDrawsetting>                                  bridgeInfo;
-        std::vector<sf::Vector2f>                                       hazzardPossibleLocations;
+        std::vector<sf::Vector2f>                                       hazardPossibleLocations;
         struct CarSpawnLocation {
             float x;
             float y;
             float angle;
+            unsigned int elevation;
         };
         std::vector<CarSpawnLocation>                                   carsSpawnLocationsClock;
         std::vector<CarSpawnLocation>                                   carsSpawnLocationsCounterClock;
-        int                                                             antiCheatWaypointNb;
-        int                                                             antiCheatWaypointRadius;
-        std::vector<sf::Vector2f>                                       antiCheatWaypoints;
-        int                                                             upHillNb;
-        std::vector<sf::Vector2f>                                       upHillscoords;
-        int                                                             downHillNb;
-        std::vector<sf::Vector2f>                                       downHillscoords;
-        int                                                             nbRankingCoords;
-        int                                                             RankingCoordRadius;
-        std::vector<sf::Vector2f>                                       RankingCoords;
-        int                                                             autoPilotNbWaypoints;
-        int                                                             autoPilotWaypointRadius;
+        std::vector<sf::FloatRect>                                      antiCheatWaypoints;
+        std::vector<sf::FloatRect>                                      nearBridgeArea;
+        unsigned int                                                    nbRankingCoords;
+        std::vector<sf::FloatRect>                                      RankingCoordsClock;
+        std::vector<sf::FloatRect>                                      RankingCoordsCounterClock;
+        unsigned int                                                    autoPilotNbWaypoints;
+        unsigned int                                                    autoPilotWaypointRadius;
         std::array<std::vector<sf::Vector2f>, 3>                        waypointsLines;
-        std::array<int, 7>                                              firstWaypointForComputerCars;
+        std::array<unsigned int, 7>                                     firstWaypointClockForComputerCars;
+        std::array<unsigned int, 7>                                     firstWaypointCounterClockForComputerCars;
 };
 
 #endif // TRACK_HPP
