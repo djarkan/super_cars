@@ -1,0 +1,12 @@
+{
+    "pos" : "POS",
+    "lap" : "LAP",
+    "engine" : "ENG",
+    "tyres" : "TYR",
+    "body" : "BOD",
+    "fuel" : "FUE",
+    "currentracelap" : "1",
+    "text" : "AAA   BBB CCC  DDD EEE FFF GGG\n      U/V W/X",
+    "speed" : "SPD",
+    "totalracelap" : "2"
+}
