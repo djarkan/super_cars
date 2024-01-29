@@ -49,6 +49,8 @@ class Garage  {
         Player&                                                 m_player;
         Inputs                                                  m_inputs;
         Command                                                 m_command;
+        sf::View                                                m_topView;
+        sf::View                                                m_bottomView;
 
         void                                                    loadClickBoxes();
         void                                                    loadTextures();
@@ -57,5 +59,6 @@ class Garage  {
         void                                                    drawlabels();
         void                                                    drawPrices();
         void                                                    whatareyoudoing();
+        void                                                    initViews();
 };
 #endif

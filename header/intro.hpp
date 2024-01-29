@@ -3,12 +3,15 @@
 
 #include <array>
 #include <string>
+
 #include <SFML/Graphics/RenderWindow.hpp>
+
 #include "assetcontainer/assetcontainer.hpp"
-#include "header/assetkey.hpp"
 #include "triple/triple.hpp"
+#include "header/assetkey.hpp"
 #include "jsonfile/jsonfile.hpp"
 #include "header/inputs.hpp"
+#include "header/players.hpp"
 
 class Intro
 {
@@ -16,7 +19,7 @@ class Intro
                                                                 Intro();
         void                                                    loadAssets();
         void                                                    launchIntro();
-        void                                                    launchGame();
+        bool                                                    launchGame();
 
     private :
 
@@ -26,8 +29,9 @@ class Intro
         std::array<std::pair<std::string, int32_t>, 9>          m_bestLapsTimes;
         std::array<mylib::Triple<std::string, int, int>, 6>     m_bestWinnersList;
         unsigned int                                            m_language;
-        Player                                                  m_player;
-        Inputs                                                  m_inputs;
+        Players                                                 m_players;
+        mylib::JsonFile                                         m_languageJson;
+        sf::View                                                m_view;
 
         void                                                    gremlinsAndMagneticFields();
         void                                                    superCars();
@@ -35,8 +39,9 @@ class Intro
         bool                                                    ronAndNancy();
         bool                                                    creditsOriginal();
         bool                                                    creditsAdditionnal();
-        void                                                    loading(const sf::Int32 delay);
+        void                                                    loading(const sf::Int32 delay, const std::string& text);
         void                                                    buildRonAndNancySpeech(std::array<std::string, 21>& speechArray);
         bool                                                    isIntroSkipped();
+        void                                                    initView();
 };
 #endif // PLAYER_HPP

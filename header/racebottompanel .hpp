@@ -1,5 +1,5 @@
-#ifndef BOTTOMPANEL_HPP
-#define BOTTOMPANEL_HPP
+#ifndef RACEBOTTOMPANEL_HPP
+#define RACEBOTTOMPANEL_HPP
 
 #include <iostream>
 #include <string>
@@ -17,7 +17,7 @@
 #include "header/assetkey.hpp"
 #include "assetContainer/assetContainer.hpp"
 
-class BottomPanel : public sf::Drawable
+class RaceBottomPanel : public sf::Drawable
 {
     public :
                                                                 BottomPanel(Player& player, sf::RenderWindow& window, unsigned int language);

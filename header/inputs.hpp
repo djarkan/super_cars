@@ -12,8 +12,8 @@
 
 class Inputs {
     public:
-                                            Inputs(sf::RenderWindow& m_window, const unsigned int joystickID);
-        void                                readInput();                                                    // push m_commandQueue
+                                            Inputs(sf::RenderWindow& window);
+        void                                readInput(unsigned int joystickID);                                                    // push m_commandQueue
         Command                             getInput();                                                     // pop m_commandQueue
         bool                                isCommandAvailable();
         void                                clearCommand(Command& command);
@@ -22,11 +22,13 @@ class Inputs {
         sf::RenderWindow&                   m_window;
         Queue                               m_commandQueue;
         unsigned int                        m_currentJoystickButton;
-        const unsigned int                  m_joystickID;
+        unsigned int                        m_currentJoysstickID;
+        unsigned int                        m_currentJoystickID;
+        sf::Vector2f                        m_windowRatio;
 
-        void                                checkAxis(Command& command);
+        void                                checkAxis(Command& command, unsigned int joystickID);
         void                                checkLastJoystickButtonUsed(Command& command);
-
+        unsigned int                        whatJoystickUsed();
 };
 #endif
 

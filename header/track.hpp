@@ -14,8 +14,11 @@ class Track {
                                                                         Track();
                                                                         Track(int trackNB);
         void                                                            loadTrackData(int trackNB);
+        sf::Vector2f                                                    getCarSpawnCoords(unsigned int ranking, bool clock);
+        double                                                          getCarSpawnangle(unsigned int ranking, bool clock);
 
     private :
+        mylib::JsonFile                                                 m_trackData;
         sf::Vector2f                                                    resolution;
         sf::Vector2f                                                    arrivalDrawPortal;
         Orientation                                                     arrivalDrawPortalOrientation;

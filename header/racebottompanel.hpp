@@ -1,5 +1,5 @@
-#ifndef BOTTOMPANEL_HPP
-#define BOTTOMPANEL_HPP
+#ifndef RACEBOTTOMPANEL_HPP
+#define RACEBOTTOMPANEL_HPP
 
 #include <iostream>
 #include <string>
@@ -9,6 +9,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 #include "header/car.hpp"
 #include "header/player.hpp"
@@ -17,27 +18,28 @@
 #include "header/assetkey.hpp"
 #include "assetContainer/assetContainer.hpp"
 
-class BottomPanel : public sf::Drawable
+class RaceBottomPanel : public sf::Drawable
 {
     public :
-                                                                BottomPanel(Player& player, sf::RenderWindow& window, unsigned int language);
+                                                                RaceBottomPanel(const unsigned int language);
         void                                                    loadTextures();
         void                                                    spriteConfiguration();
+        void                                                    initSpeedMeter();
         void                                                    textConfiguration();
-        void                                                    updateCarModel(Car::Type type);
-        void                                                    updateMoney();
-        void                                                    updateUsury();
+        void                                                    updateSpeedMeter(const float speed);
+        void                                                    updateCarUsury(const float engine, const float body, const float fuel, const float tyres);
+        void                                                    updatePosition(const unsigned int position, const unsigned int totalRacers);
+        void                                                    updateLaps(const unsigned int lap, const unsigned int lapNb);
         void			                                        draw();
 
     private:
-        Player&                                                 m_player;
-        sf::RenderWindow&                                       m_window;
         unsigned int                                            m_language;
         mylib::AssetContainer<textures::ID, sf::Texture>        m_textureContaigner;
         std::array<std::unique_ptr<sf::Sprite>, 5>              m_sprites;
         mylib::BitmapText                                       m_Text;
         mylib::BitmapFont                                       m_font;
         mylib::JsonFile                                         m_languageJson;
+        sf::RectangleShape                                      m_speedMeter;
 
         virtual void                                            draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
