@@ -1,19 +1,20 @@
 #include "header/player.hpp"
+
 #include <SFML/Window/Mouse.hpp>
 
-Player::Player() : m_car()
+Player::Player()
 {
-    setJoystickID();
+
 }
 
-Player::Player(const bool human) : m_human{human}, m_money{5000} , m_car()
+Player::Player(const bool human) : m_human{human}, m_money{5000} , m_car(human)
 {
-    setJoystickID();
+    if(m_human) { setJoystickID(); }
 }
 
-Player::Player(const bool human, const std::string pseudo) : m_human{human}, m_name{pseudo}, m_money{5000} , m_car()
+Player::Player(const bool human, const std::string pseudo) : m_human{human}, m_name{pseudo}, m_money{5000} , m_car(human)
 {
-    setJoystickID();
+    if(m_human) { setJoystickID(); }
 }
 
 void Player::setGameDifficulty()
@@ -21,24 +22,27 @@ void Player::setGameDifficulty()
     if(m_name == "ODIE") {
         m_gameDifficulty = LevelDifficulty::medium;
         setCarType(Car::Type::Vaug_Interceptor2);
-        m_car.m_shape = sf::FloatRect(0, 0, 52, 38);
         m_money = 20000;
     }
     else {
         if(m_name == "BIGC") {
             m_gameDifficulty = LevelDifficulty::hard;
             setCarType(Car::Type::Retron_Parsec_Turbo5);
-            m_car.m_shape = sf::FloatRect(0, 0, 56, 38);
             m_money = 50000;
         }
         else {
             m_gameDifficulty = LevelDifficulty::normal;
             setCarType(Car::Type::Taraco_Neoroder);
-            m_car.m_shape = sf::FloatRect(0, 0, 48, 34);
             if(m_name == "RICH") { m_money = 500000; }
             else { m_money = 5000; }
         }
     }
+}
+
+void Player::levelupGameDifficulty()
+{
+    if(m_gameDifficulty == LevelDifficulty::normal) { m_gameDifficulty = LevelDifficulty::medium; }
+    if(m_gameDifficulty == LevelDifficulty::medium) { m_gameDifficulty = LevelDifficulty::hard; }
 }
 
 void Player::setJoystickID()
@@ -74,9 +78,19 @@ unsigned int Player::getMoney()
     return m_money;
 }
 
+std::string Player::getName()
+{
+    return m_name;
+}
+
 unsigned int Player::getJoystickID()
 {
     return m_joystickID;
+}
+
+unsigned int Player::getGameDifficulty()
+{
+    return m_gameDifficulty;
 }
 
 Car::Type Player::getCarType() const
@@ -104,9 +118,24 @@ float Player::getCarAcceleration() const
     return m_car.getAcceleration();
 }
 
-sf::Vector2f& Player::getCarCenter()
+float Player::getCarSpeedLimiter() const
+{
+   return m_car.getSpeedLimiter();
+}
+
+sf::Vector2f Player::getCarPosition()
+{
+    return m_car.getPosition();
+}
+
+sf::Vector2f Player::getCarCenter()
 {
     return m_car.getCenter();
+}
+
+sf::FloatRect Player::getCarShape() const
+{
+    return m_car.getShape();
 }
 
 int Player::getCarElevation() const
@@ -174,6 +203,16 @@ bool Player::getCarIsPowerSteeringKitEquiped() const
     return m_car.getIsPowerSteeringKitEquiped();
 }
 
+unsigned int Player::getCarColor()
+{
+    return m_car.getColor();
+}
+
+const Car& Player::getCar() const
+{
+    return m_car;
+}
+
 void Player::setCarType(Car::Type type)
 {
     m_car.setType(type);
@@ -184,9 +223,19 @@ void Player::setMoney(unsigned int money)
     m_money = money;
 }
 
-void Player::setCarShape(sf::FloatRect& shape)
+void Player::setCarShape(sf::FloatRect rect)
 {
-    m_car.setShape(shape);
+    m_car.setShape(rect);
+}
+
+void Player::setCarCenter(float centerX, float centerY)
+{
+    m_car.setCenter(centerX, centerY);
+}
+
+void Player::setCarCenter(sf::Vector2f& coords)
+{
+    m_car.setCenter(coords);
 }
 
 void  Player::setCarAngle(float angle)
@@ -209,14 +258,14 @@ void Player::setCarAcceleration(float acceleration)
     m_car.setAcceleration(acceleration);
 }
 
-void Player::setCarCenter(sf::Vector2f& coords)
-{
-    m_car.setCenter(coords);
-}
-
 void Player::setCarElevation(int elevation)
 {
     m_car.setElevation(elevation);
+}
+
+void Player::setCarSpeedLimiter(float speedLimiter)
+{
+    m_car.setSpeedLimiter(speedLimiter);
 }
 
 void Player::setCarBodyState(float body)
@@ -277,4 +326,49 @@ void  Player::setCarSideArmourKit(bool sideArmour)
 void Player::setCarPowerSteeringKit(bool powerSteering)
 {
     m_car.setIsPowerSteeringKitEquiped(powerSteering);
+}
+
+void Player::setCarColor(unsigned int color)
+{
+    m_car.setColor(color);
+}
+
+void Player::setTexture(sf::Texture* carTexture)
+{
+    m_car.setTexture(carTexture);
+}
+
+void Player::setCarPosition(const sf::Vector2f& position)
+{
+    m_car.setPosition(position);
+}
+
+void Player::setCarStartFrame()
+{
+    m_car.setStartFrame();
+}
+
+void Player::moveCar()
+{
+    m_car.move();
+}
+
+void Player::turnCarLeft()
+{
+    m_car.turnLeft();
+}
+
+void Player::turnCarRight()
+{
+    m_car.turnRight();
+}
+
+void Player::accelerate()
+{
+    m_car.accelerate();
+}
+
+void Player::decelerate()
+{
+    m_car.decelerate();
 }

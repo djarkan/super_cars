@@ -10,16 +10,14 @@
 #include "assetcontainer/assetcontainer.hpp"
 #include "header/race.hpp"
 #include "header/track.hpp"
-#include "text/bitmaptext/bitmapText.hpp"
-#include "text/bitmapfont/bitmapFont.hpp"
 #include "timer/timer.hpp"
 #include "music/music.hpp"
 #include "header/garage.hpp"
 #include "jsonfile/jsonfile.hpp"
-#include "header/bottompanel.hpp"
 #include "header/office.hpp"
 #include "header/inputs.hpp"
-
+#include "header/message.hpp"
+#include "header/players.hpp"
 
 #include <string>
 
@@ -27,7 +25,11 @@
     #define M_PI 3.14159265358979323846
 #endif
 
-Game::Game(sf::RenderWindow& window, Player& player, unsigned int language): m_window{window}, m_pseudo{"SOUT"}, m_gameLevel{1}, m_language{language}, m_player(player), m_inputs(m_window, player.getJoystickID()), m_languageJson()
+extern sf::Vector2f windowRatio;
+
+Game::Game(sf::RenderWindow& window, unsigned int language, Players& players):    m_window{window}, m_language{language}, m_players{players},
+                                                                m_inputs(m_window), m_languageJson(), m_bottomPanel(m_players.getHumanPlayer(),
+                                                                m_window, m_language), m_completedRaces{0}, m_lastRaceRanking{1}, m_clockwiseRaceRotation{true}
 {
     switch(m_language) {
         case 0 :
@@ -46,35 +48,37 @@ Game::Game(sf::RenderWindow& window, Player& player, unsigned int language): m_w
     loadTextures();
     loadClickBoxes();
     loadButtons();
+    initViews();
     m_raceListState.fill(false);
+    m_completedRaces = m_players.getGameDifficulty() * 9;
 }
 
-void Game::launch()  // json langage et si json de config reçoit les tableaux scores classement nb races/money et liste meilleurs temps/pseudo par ref non const
+bool Game::launch()  // json langage et si json de config reçoit les tableaux scores classement nb races/money et liste meilleurs temps/pseudo par ref non const
 {
     bool focus{true};
     mylib::Music music;
     music.loadMusic("music/track1.wav");
     music.setMusicLoop(true);
     music.setMusicVolume(100);
-    music.playMusic();
-    m_player.setName(enterPseudo());
-    m_player.setGameDifficulty();
+//    music.playMusic();
     sf::Sprite background;
     background.setTexture(m_textureContaigner.getAsset(textures::ID::game));
     background.setTextureRect(sf::IntRect(0, 0, 640, 360));
-    mylib::Timer inputsTimer(50);
+    mylib::Timer inputsTimer(10);
     inputsTimer.startTimer();
-    BottomPanel bottomPanel(m_player, m_window, m_language);
-    Garage garage(m_window, m_player, bottomPanel, m_language);
-    Office office(m_window, m_player, bottomPanel, m_language);
+    m_bottomPanel.textConfiguration();
+    Garage garage(m_window, m_players.getHumanPlayer(), m_bottomPanel, m_language);
+    Office office(m_window, m_players.getHumanPlayer(), m_bottomPanel, m_language);
     bool canGoToOffice{true};
     m_window.setMouseCursorVisible(true);
-    while(m_window.isOpen()){                                    ///////////////////////////// virer la boucle d'evenement !!!!!!!!!!!!!!!!!!!!!
+    bool gameover{false};
+    bool allRacesDone{false};
+    while(m_window.isOpen() && !gameover){                                    ///////////////////////////// virer la boucle d'evenement !!!!!!!!!!!!!!!!!!!!!
         if(inputsTimer.isTimeElapsed()) {
-            m_inputs.readInput();
+            m_inputs.readInput(m_players.getHumanJoystick());
             inputsTimer.restartTimer();
         }
-            if(m_inputs.isCommandAvailable()) {
+        if(m_inputs.isCommandAvailable()) {
             m_command = m_inputs.getInput();
             switch (m_command.action) {
                 case CommandType::noAction :
@@ -84,28 +88,40 @@ void Game::launch()  // json langage et si json de config reçoit les tableaux s
                 case CommandType::joystiskButtonPressed :
                 {
                     if(m_simpleClickBoxes[0]->isPressed(m_command.coords)) {
-                        loading(2000);
+                        loading(2000, m_languageJson.m_Root["message"].asString());
                         garage.carUpdate();
                         garage.setInitGarage(false);
-                        loading(2000);
+                        loading(2000, m_languageJson.m_Root["message"].asString());
                     }
                     if(m_simpleClickBoxes[1]->isPressed(m_command.coords) && canGoToOffice) {
                         canGoToOffice = false;
-                       loading(2000);
+                        loading(2000, m_languageJson.m_Root["message"].asString());
                         office.buy();
-                       loading(2000);
+                        loading(2000, m_languageJson.m_Root["message"].asString());
                     }
-                    int whatRace = checkButtons();
-                    if(whatRace >= 0 && whatRace < 9) {
-                        m_window.setMouseCursorVisible(false);
-                        race(whatRace);
-                        m_window.setMouseCursorVisible(true);
-                        garage.setInitGarage(true);
-                        canGoToOffice = true;
+                    int whatTrack = checkButtons();
+                    if(whatTrack >= 0 && whatTrack < 9) {
+                        if(!m_raceListState[whatTrack]) {
+                            m_window.setMouseCursorVisible(false);
+                            m_players.buildPlayers(m_completedRaces, m_lastRaceRanking);
+                            m_lastRaceRanking = race(whatTrack, m_lastRaceRanking);
+                            if(m_lastRaceRanking > 3) { gameover = true; }
+                            bool testFlag{true};
+                            for(bool elem : m_raceListState) { testFlag |= elem; }
+                            if(testFlag && !gameover) {
+                                m_players.levelupGameDifficulty();
+                                allRacesDone = true;
+                            }
+                            ++m_completedRaces;
+                            m_raceListState[whatTrack] = true;
+                            m_window.setMouseCursorVisible(true);
+                            garage.setInitGarage(true);
+                            canGoToOffice = true;
+                        }
                     }
                     for(auto i = 0; i < 3; ++i) {
                         if(m_ComplexClickBoxes[i]->isTriggerred(m_command.coords)) {
-                            loading(2000);
+                            loading(2000, m_languageJson.m_Root["message"].asString());
                             sf::Sprite carSpecs;
                             sf::Texture textureSDpecs;
                             switch (i) {
@@ -123,42 +139,56 @@ void Game::launch()  // json langage et si json de config reçoit les tableaux s
                             }
                             carSpecs.setTextureRect(sf::IntRect(0, 0, 640, 400));
                             m_window.clear();
+                            sf::View view;
+                            view.setSize(640, 400);
+                            view.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+                            view.setCenter(sf::Vector2f(320, 200));
+                            m_window.setView(view);
                             m_window.draw(carSpecs);
                             m_window.display();
                             m_inputs.clearCommand(m_command);
                             while(m_command.action != CommandType::joystiskButtonPressed && m_command.action != CommandType::mouseLeftButtonPressed) {
-                                m_inputs.readInput();
+                                m_inputs.readInput(m_players.getHumanJoystick());
                                 if(m_inputs.isCommandAvailable()) { m_command = m_inputs.getInput(); }
                             }
-                            loading(2000);
+                            loading(2000, m_languageJson.m_Root["message"].asString());
                             m_inputs.clearCommand(m_command);
                         }
                     }
-                    }
-                    case CommandType::joystiskMoved :
-                        break;
-                    case CommandType::keyboardPressed :
-                        break;
-                    case CommandType::lostFocus :
-                        focus = false;
-                        break;
-                    case CommandType::gainFocus :
-                        focus = true;
-                        break;
-                    default :
-                        break;
                 }
+                case CommandType::joystiskMoved :
+                    break;
+                case CommandType::keyboardPressed :
+                    break;
+                case CommandType::lostFocus :
+                    focus = false;
+                    break;
+                case CommandType::gainFocus :
+                    focus = true;
+                    break;
+                default :
+                    break;
+            }
+            if(m_command.action == CommandType::joystiskMoved) {
+                sf::Vector2i mouseCoords = sf::Mouse::getPosition(m_window);
+                mouseCoords.x += ((m_command.offsetX / 100) * 4);
+                mouseCoords.y += ((m_command.offsetY / 100) * 4);
+                sf::Mouse::setPosition(mouseCoords, m_window);
+            }
             if(focus) {
                 m_window.clear();
+                m_window.setView(m_topView);
                 m_window.draw(background);
                 drawRacePannel();
-                for(auto i = 0; i < 9; ++i) { m_window.draw(*m_races[i]); }
-                bottomPanel.updateUsury();
-                m_window.draw(bottomPanel);
+                for(auto i = 0; i < 9; ++i) { m_window.draw(*m_racesButtonsArray[i]); }
+                m_window.setView(m_bottomView);
+                m_bottomPanel.updateUsury();
+                m_window.draw(m_bottomPanel);
                 m_window.display();
             }
         }
     }
+    return allRacesDone;
 }
 
 void Game::loadTextures()
@@ -168,90 +198,17 @@ void Game::loadTextures()
     m_textureContaigner.loadAsset(textures::ID::redcar, "graphics/game/vaug_interceptor.png");
     m_textureContaigner.loadAsset(textures::ID::whitecar, "graphics/game/retron_parsec.png");
     m_textureContaigner.loadAsset(textures::ID::spritesheet, "graphics/sprite_sheet/sprite_sheet.png");
-    m_textureContaigner.loadAsset(textures::ID::pseudo, "graphics/intro/enter_name.png");
     m_textureContaigner.loadAsset(textures::ID::loading, "graphics/intro/loading.png");
     m_textureContaigner.loadAsset(textures::ID::goldenFont, "graphics/bitmap_fonts/golden_font_32x32.png");
 }
 
-std::string Game::enterPseudo()
-{
-    std::string pseudo = "RICH";
-    sf::Sprite background;
-    background.setTexture(m_textureContaigner.getAsset(textures::ID::pseudo));
-    background.setTextureRect(sf::IntRect(0, 0, 640, 400));
-    sf::Sprite clearedGlyph;
-    clearedGlyph.setTexture(m_textureContaigner.getAsset(textures::ID::pseudo));
-    clearedGlyph.setTextureRect(sf::IntRect(250, 335, 32, 32));
-    mylib::BitmapFont font(32, 32);
-    font.setTexture(m_textureContaigner.getAsset(textures::ID::goldenFont));
-    mylib::BitmapText bitmapText;
-    bitmapText.setFont(&font);
-    mylib::Timer flashingLetter(100);
-    unsigned int currentLetter{0};
-    flashingLetter.startTimer();
-    bool clearGlyph{false};
-    mylib::Timer commandTimer(200);
-    commandTimer.startTimer();
-    while(m_command.action != CommandType::joystiskButtonPressed && m_command.action != CommandType::mouseLeftButtonPressed) {
-        if(commandTimer.isTimeElapsed()) {
-            m_inputs.readInput();
-            commandTimer.restartTimer();
-        }
-        if(m_inputs.isCommandAvailable()) { m_command = m_inputs.getInput(); }
-        m_window.clear();
-        m_window.draw(background);
-        bitmapText.setText(m_languageJson.m_Root["pseudo"][0].asString());
-        sf::FloatRect bounds = bitmapText.getLocalBounds();
-        bitmapText.setPosition(320.f - (bounds.width / 2.f), 242.f);
-        m_window.draw(bitmapText);
-        bitmapText.setText(m_languageJson.m_Root["pseudo"][1].asString());
-        bounds = bitmapText.getLocalBounds();
-        bitmapText.setPosition(320.f - (bounds.width / 2.f), 278.f);
-        m_window.draw(bitmapText);
-        bitmapText.setText(pseudo);
-        bitmapText.setPosition(257, 335);
-        m_window.draw(bitmapText);
-        if(m_command.action == CommandType::joystiskMoved) {
-            if(m_command.offsetX > 75) {
-                currentLetter++;
-                if(currentLetter > 3) { currentLetter = 0; }
-            }
-            if(m_command.offsetX < -75) {
-                if(currentLetter == 0) { currentLetter = 3; }
-                else { currentLetter--; }
-            }
-            if(m_command.offsetY < -75) {
-                if(pseudo[currentLetter] == 'Z') { pseudo[currentLetter] = 'A';}
-                else { pseudo[currentLetter] = static_cast<char>(pseudo[currentLetter] + 1); }
-                bitmapText.setText(pseudo);
-            }
-            if(m_command.offsetY > 75) {
-                if(pseudo[currentLetter] == 'A') { pseudo[currentLetter] = 'Z';}
-                else { pseudo[currentLetter] = static_cast<char>(pseudo[currentLetter] - 1); }
-                bitmapText.setText(pseudo);
-            }
-        m_inputs.clearCommand(m_command);
-        }
-        if(clearGlyph) {
-            clearedGlyph.setPosition(257.f + (static_cast<float>(currentLetter) * 32.f), 335);
-            m_window.draw(clearedGlyph);
-        }
-        if(flashingLetter.isTimeElapsed()) {
-            if(clearGlyph) { clearGlyph = false; }
-            else { clearGlyph = true; }
-            flashingLetter.restartTimer();
-        }
-        m_window.display();
-    }
-    while(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {}
-    return pseudo;
-}
+
 
 void Game::drawRacePannel()
 {
     sf::Sprite sprite;
     sprite.setTexture(m_textureContaigner.getAsset(textures::ID::spritesheet));
-    sprite.setTextureRect(sf::IntRect(m_gameLevel * 40, 220, 20, 20));
+    sprite.setTextureRect(sf::IntRect(m_players.getGameDifficulty() * 40, 220, 20, 20));
     sprite.setPosition(174, 14);
     m_window.draw(sprite);
     sprite.setTextureRect(sf::IntRect(2, 222, 16, 16));
@@ -306,72 +263,53 @@ void Game::loadButtons()  //48  32
     sf::Vector2f textureCoords(0, textureY);
     for(auto i = 0; i < 9; ++i) {
         mylib::Button button(shape, m_textureContaigner.getAsset(textures::ID::spritesheet), textureCoords);
-        m_races[i] = std::make_unique<mylib::Button>(button);
-        m_races[i]->setFont("font/oneslot.ttf");
-        m_races[i]->setText(m_languageJson.m_Root["track"].asString() + std::to_string(i + 1));
-        m_races[i]->setTextColor(sf::Color::Black, sf::Color(0x557799FF));
-        m_races[i]->setTextSize(18);
-        m_races[i]->setTextSyle(sf::Text::Bold);
-        m_races[i]->setTextScale(sf::Vector2f(1.5f, 1.f));
+        m_racesButtonsArray[i] = std::make_unique<mylib::Button>(button);
+        m_racesButtonsArray[i]->setFont("font/oneslot.ttf");
+        m_racesButtonsArray[i]->setText(m_languageJson.m_Root["track"].asString() + std::to_string(i + 1));
+        m_racesButtonsArray[i]->setTextColor(sf::Color::Black, sf::Color(0x557799FF));
+        m_racesButtonsArray[i]->setTextSize(18);
+        m_racesButtonsArray[i]->setTextSyle(sf::Text::Bold);
+        m_racesButtonsArray[i]->setTextScale(sf::Vector2f(1.5f, 1.f));
         shape.top += 16;
     }
 }
 
 int Game::checkButtons()
 {
+    sf::Vector2i mouseCoords = sf::Mouse::getPosition(m_window);
+    mouseCoords.x /= windowRatio.x;
+    mouseCoords.y /= windowRatio.y;
     for(auto i = 0; i < 9; ++i) {
-        if(m_races[i]->isTriggerred(sf::Mouse::getPosition(m_window))) { return i; }
+        if(m_racesButtonsArray[i]->isTriggerred(mouseCoords)) { return i; }
     }
     return -1;
 }
 
-void Game::race(int whatRace)
+unsigned int Game::race(int whatTrack, unsigned int lastRaceRanking)
 {
-    switch (whatRace) {
-        case 0 :
-                std::cout << "race n° 1" << std::endl;
-                break;
-        case 1 :
-                std::cout << "race n° 2" << std::endl;
-                break;
-        case 2 :
-                std::cout << "race n° 3" << std::endl;
-                break;
-        case 3 :
-                std::cout << "race n° 4" << std::endl;
-                break;
-        case 4:
-                std::cout << "race n° 5" << std::endl;
-                break;
-        case 5 :
-                std::cout << "race n° 6" << std::endl;
-                break;
-        case 6 :
-                std::cout << "race n° 7" << std::endl;
-                break;
-        case 7:
-                std::cout << "race n° 8" << std::endl;
-                break;
-        case 8 :
-                std::cout << "race n° 9" << std::endl;
-                break;
-        default :
-                break;
-
-    }
+    Race race(m_window, whatTrack, m_players, m_language);
+    return race.racing(lastRaceRanking, m_completedRaces, m_clockwiseRaceRotation);
 }
 
-void Game::loading(const sf::Int32 delay)
+void Game::loading(const sf::Int32 delay, const std::string& text)
 {
-    sf::Sprite background;
-    background.setTexture(m_textureContaigner.getAsset(textures::ID::loading));
-    background.setTextureRect(sf::IntRect(0, 0, 640, 400));
-    mylib::Timer timer(delay);
-    timer.startTimer();
+    Message message;
+    if(!message.loadFont("graphics/bitmap_fonts/super_cars_16x16.png")) {
+        std::cout << "loading texture failed." << std::endl;
+    }
+    message.setFontSize(16 , 16);
+    message.setSize(sf::Vector2f(310, 96));
+    message.setPosition(sf::Vector2f(165, 152));
+    message.setColor(sf::Color(0x000099FF));
+    message.setText(text);
+
     m_window.clear();
-    m_window.draw(background);
+    m_window.setView(m_topView);
+    m_window.draw(message);
     m_window.display();
-    while(!timer.isTimeElapsed())
+    mylib::Timer duration(delay);
+    duration.startTimer();
+    while(!duration.isTimeElapsed())
         ;
 }
 
@@ -384,4 +322,15 @@ bool Game::setHandCursor()
         return true;
     }
     else { return false; }
+}
+
+void Game::initViews()
+{
+    m_topView.setSize(sf::Vector2f(640.f, 360.f));
+    m_topView.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 0.90f));
+    m_topView.setCenter(sf::Vector2f(320, 180));
+    m_bottomView.setSize(sf::Vector2f(640.f, 40.f));
+    m_bottomView.setViewport(sf::FloatRect(0.f, 0.9f, 1.f, 0.1f));
+    m_bottomView.setCenter(320, 20);
+
 }

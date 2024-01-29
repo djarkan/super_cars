@@ -11,7 +11,7 @@
 Garage::Garage( sf::RenderWindow& window, Player& player, BottomPanel& bottomPanel, const unsigned int language) :
                                                                 m_window{window}, m_language{language}, m_bottomPanel{bottomPanel},
                                                                 m_switch{true}, m_inGarage{true}, m_coordsJson("data/garage/coords.json"),
-                                                                m_initGrage{true}, m_font(14, 10), m_text(), m_player(player), m_inputs(m_window, player.getJoystickID())
+                                                                m_initGrage{true}, m_font(14, 10), m_text(), m_player(player), m_inputs(m_window)
 {
     loadClickBoxes();
     loadTextures();
@@ -30,6 +30,7 @@ Garage::Garage( sf::RenderWindow& window, Player& player, BottomPanel& bottomPan
             break;
     }
     m_font.setTexture(m_textureContaigner.getAsset(textures::ID::garageFont));
+    m_font.setSize(14, 10);
     m_font.setGlyphWidth('I', 9);
     m_font.setGlyphWidth('J', 10);
     m_text.setFont(&m_font);
@@ -37,8 +38,9 @@ Garage::Garage( sf::RenderWindow& window, Player& player, BottomPanel& bottomPan
     m_text.setLetterSpacing(2.f);
     m_garageSoundBuffer.loadFromFile("sound/cashdrawer.ogg");
     m_cashDrawerSound.setBuffer(m_garageSoundBuffer);
-    m_soundbuffer.loadFromFile("C:/Users/Djarkan/Documents/C++/codeblocks/Super_Cars_Revival/sound/whatareyoudoing.ogg");
+    m_soundbuffer.loadFromFile("sound/whatareyoudoing.ogg");
     m_whatryoudoing.setBuffer(m_soundbuffer);
+    initViews();
 }
 
 void Garage::loadClickBoxes()
@@ -112,12 +114,12 @@ void Garage::carUpdate()  // sold texture 180 980   90 * 17
     bool eyesDelayState{false};
     bool canDrawAnimation{false};
     if(m_initGrage) { definePrices(); }
-    mylib::Timer inputsTimer(50);
+    mylib::Timer inputsTimer(10);
     inputsTimer.startTimer();
     bool focus{true};
     while(m_inGarage) {
         if(inputsTimer.isTimeElapsed()) {
-            m_inputs.readInput();
+            m_inputs.readInput(m_player.getJoystickID());
             inputsTimer.restartTimer();
         }
         if(m_inputs.isCommandAvailable()) {
@@ -141,15 +143,23 @@ void Garage::carUpdate()  // sold texture 180 980   90 * 17
                 default :
                     break;
             }
+            if(m_command.action == CommandType::joystiskMoved) {
+                sf::Vector2i mouseCoords = sf::Mouse::getPosition(m_window);
+                mouseCoords.x += ((m_command.offsetX / 100) * 4);
+                mouseCoords.y += ((m_command.offsetY / 100) * 4);
+                sf::Mouse::setPosition(mouseCoords, m_window);
+            }
         }
         if(focus) {
             m_window.clear();
+            m_window.setView(m_topView);
             if(m_switch) { m_window.draw(m_background); }
-            m_window.draw(m_bottomPanel);
             drawPrices();
             drawlabels();
             if(canDrawAnimation) { m_window.draw(animation); }
             if(!m_switch) { m_window.draw(m_background); }
+            m_window.setView(m_bottomView);
+            m_window.draw(m_bottomPanel);
             m_window.display();
             if(smilingTimer.isTimeElapsed()) {
                 m_smiling.setPosition(-100, -100);
@@ -199,6 +209,7 @@ void Garage::action(int choice, Player& player)
                 m_OptionsBought[0] = true;
                 player.setMoney(playerCash - m_prices[0]);
                 m_prices[0] = 0;
+                m_bottomPanel.updateMoney();
                 m_cashDrawerSound.play();
             }
             break;
@@ -208,6 +219,7 @@ void Garage::action(int choice, Player& player)
                 m_OptionsBought[1] = true;
                 player.setMoney(playerCash - m_prices[1]);
                 m_prices[1] = 0;
+                m_bottomPanel.updateMoney();
                 m_cashDrawerSound.play();
             }
             break;
@@ -217,6 +229,7 @@ void Garage::action(int choice, Player& player)
                 m_OptionsBought[2] = true;
                 player.setMoney(playerCash - m_prices[2]);
                 m_prices[2] = 0;
+                m_bottomPanel.updateMoney();
                 m_cashDrawerSound.play();
             }
             break;
@@ -226,6 +239,7 @@ void Garage::action(int choice, Player& player)
                 m_OptionsBought[3] = true;
                 player.setMoney(playerCash - m_prices[3]);
                 m_prices[3] = 0;
+                m_bottomPanel.updateMoney();
                 m_cashDrawerSound.play();
             }
             break;
@@ -235,6 +249,7 @@ void Garage::action(int choice, Player& player)
                 m_OptionsBought[4] = true;
                 player.setMoney(playerCash - m_prices[4]);
                 m_prices[4] = 0;
+                m_bottomPanel.updateMoney();
                 m_cashDrawerSound.play();
             }
             break;
@@ -244,6 +259,7 @@ void Garage::action(int choice, Player& player)
                 m_OptionsBought[5] = true;
                 player.setMoney(playerCash - m_prices[5]);
                 m_prices[5] = 0;
+                m_bottomPanel.updateMoney();
                 m_cashDrawerSound.play();
             }
             break;
@@ -253,6 +269,7 @@ void Garage::action(int choice, Player& player)
                 m_OptionsBought[6] = true;
                 player.setMoney(playerCash - m_prices[6]);
                 m_prices[6] = 0;
+                m_bottomPanel.updateMoney();
                 m_cashDrawerSound.play();
             }
             break;
@@ -262,6 +279,7 @@ void Garage::action(int choice, Player& player)
                 m_OptionsBought[7] = true;
                 player.setMoney(playerCash - m_prices[7]);
                 m_prices[7] = 0;
+                m_bottomPanel.updateMoney();
                 m_cashDrawerSound.play();
             }
             break;
@@ -279,10 +297,10 @@ void Garage::action(int choice, Player& player)
                     float state = player.getCarEngineState();
                     player.setCarEngineState(1 - ((1  - state) * (1 - percentRepairPossible)));
                     player.setMoney(0);
-                    m_cashDrawerSound.play();
                 }
                 else { break; }
             }
+            m_bottomPanel.updateMoney();
             m_cashDrawerSound.play();
             m_bottomPanel.updateUsury();
             break;
@@ -303,6 +321,7 @@ void Garage::action(int choice, Player& player)
                 }
                 else { break; }
             }
+            m_bottomPanel.updateMoney();
             m_cashDrawerSound.play();
             m_bottomPanel.updateUsury();
             break;
@@ -323,6 +342,7 @@ void Garage::action(int choice, Player& player)
                 }
                 else { break; }
             }
+            m_bottomPanel.updateMoney();
             m_cashDrawerSound.play();
             m_bottomPanel.updateUsury();
             break;
@@ -343,6 +363,7 @@ void Garage::action(int choice, Player& player)
                 }
                 else { break; }
             }
+            m_bottomPanel.updateMoney();
             m_cashDrawerSound.play();
             m_bottomPanel.updateUsury();
             break;
@@ -363,9 +384,13 @@ void Garage::definePrices()
     m_prices[6] = 3000 + randomiser.randomNumber(0,19) * 50;
     m_prices[7] = 3000 + randomiser.randomNumber(0,19) * 50;
     if(m_player.getCarEngineState() < 1) { m_prices[8] = 4000 + randomiser.randomNumber(0,19) * 50; }
+    else { m_prices[8] = 0; }
     if(m_player.getCarBodyState() < 1) { m_prices[9] = 4000 + randomiser.randomNumber(0,19) * 50; }
+    else { m_prices[9] = 0; }
     if(m_player.getCarTyresState() < 1) { m_prices[10] = 2000 + randomiser.randomNumber(0,19) * 50; }
+    else { m_prices[10] = 0; }
     if(m_player.getCarFuelState() < 1) { m_prices[11] = 1000 + randomiser.randomNumber(0,19) * 50; }
+    else { m_prices[11] = 0; }
 }
 
 void Garage::drawPrices()
@@ -402,4 +427,15 @@ void Garage::drawlabels()
     m_text.setText(m_languageJson.m_Root["garage"]["fuel"].asString());
     m_text.setPosition(232, 326);
     m_window.draw(m_text);
+}
+
+void Garage::initViews()
+{
+    m_topView.setSize(sf::Vector2f(640.f, 360.f));
+    m_topView.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 0.90f));
+    m_topView.setCenter(sf::Vector2f(320, 180));
+    m_bottomView.setSize(sf::Vector2f(640.f, 40.f));
+    m_bottomView.setViewport(sf::FloatRect(0.f, 0.9f, 1.f, 0.1f));
+    m_bottomView.setCenter(320, 20);
+
 }

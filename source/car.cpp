@@ -1,48 +1,43 @@
 #include "header/car.hpp"
 
-Car::Car() : m_body{0.79}, m_engine{0.17}, m_tyres{0.63}, m_fuel{0.27}, m_frontMissile{false}, m_rearMissile{false},
-  m_highSpeed{false}, m_turboCharger{false}, m_spinAssist{false}, m_sideArmour{false},
-  m_powerSteering{false}, m_type{Car::Type::Taraco_Neoroder}
+Car::Car()
 {
 
 }
 
-void Car::updateCarLimits()
+Car::Car(bool human) : m_human{human}, m_body{1}, m_engine{1}, m_tyres{1}, m_fuel{1}, m_frontMissile{false}, m_rearMissile{false},
+  m_highSpeedKit{false}, m_turboCharger{false}, m_spinAssist{false}, m_sideArmour{false},
+  m_powerSteering{false}, m_type{Car::Type::Taraco_Neoroder}, m_speed{0}, m_speedLimiter{1}, m_frame{0}
 {
-    m_center.x = m_shape.left + (m_shape.width / 2);
-    m_center.y = m_shape.top + (m_shape.height / 2);
+    if(human) { m_color = 1; }
+    else { m_color = 0; }
+}
 
-    m_carLimits[0].x = m_center.x - (m_shape.width / 2);
-    m_carLimits[0].y = m_center.y - (m_shape.height / 2);
-    m_carLimits[1].x = m_center.x + (m_shape.width / 2);
-    m_carLimits[1].y = m_center.y - (m_shape.height / 2);
-    m_carLimits[2].x = m_center.x - (m_shape.width / 2);
-    m_carLimits[2].y = m_center.y + (m_shape.height / 2);
-    m_carLimits[3].x = m_center.x + (m_shape.width / 2);
-    m_carLimits[3].y = m_center.y + (m_shape.height / 2);
-    m_carLimits[4].x = m_center.x ;
-    m_carLimits[4].y = m_center.y + (m_shape.height / 2);
-    m_carLimits[5].x = m_center.x ;
-    m_carLimits[5].y = m_center.y - (m_shape.height / 2);
-    m_carLimits[6].x = m_center.x - (m_shape.width / 2);
-    m_carLimits[6].y = m_center.y;
-    m_carLimits[7].x = m_center.x + (m_shape.width / 2);
-    m_carLimits[7].y = m_center.y;
-    m_carLimits[8].x = m_center.x - (m_shape.width / 4);
-    m_carLimits[8].y = m_center.y - (m_shape.height / 2);
-    m_carLimits[9].x = m_center.x + (m_shape.width / 4);
-    m_carLimits[9].y = m_center.y - (m_shape.height / 2);
-    m_carLimits[10].x = m_center.x - (m_shape.width / 4);
-    m_carLimits[10].y = m_center.y + (m_shape.height / 2);
-    m_carLimits[11].x = m_center.x + (m_shape.width / 4);
-    m_carLimits[11].y = m_center.y + (m_shape.height / 2);
+void Car::updateCarLimits()   // 4 corners + 2 points for front lights  +-2 for car shadow
+{
+    sf::Vector2f coords{getPosition()};
+    m_carLimits[0].x = coords.x - m_center.x + 2;                     // top left
+    m_carLimits[0].y = coords.y - m_center.y + 2;
+    m_carLimits[1].x = coords.x + m_center.x - 2;                     // top right
+    m_carLimits[1].y = coords.y - m_center.y + 2;
+    m_carLimits[2].x = coords.x - m_center.x + 2;                     // bottom left
+    m_carLimits[2].y = coords.y + m_center.y - 2;
+    m_carLimits[3].x = coords.x + m_center.x - 2;                     // bottom right
+    m_carLimits[3].y = coords.y + m_center.y - 2;
+    m_carLimits[4].x = coords.x - m_center.x + 2;                     // <- left light
+    m_carLimits[4].y = coords.y + m_center.y - 8;
+    m_carLimits[5].x = coords.x - m_center.x + 2;                     // <- right light
+    m_carLimits[5].y = coords.y - m_center.y + 8;
+
     float sinusAngle = sinf(m_angle);
     float cosinusAngle = cosf(m_angle);
     for (auto& point : m_carLimits) {
-        point = rotateCarCorners(point, m_center, cosinusAngle, sinusAngle);
+// point = rotateCarCorners(point, m_center, cosinusAngle, sinusAngle);
+        point.x = ((point.x - m_center.x) * static_cast<float>(cosinusAngle)) - ((point.y - m_center.y) * static_cast<float>(sinusAngle)) + m_center.x;
+        point.y = ((point.x - m_center.x) * static_cast<float>(sinusAngle)) + ((point.y - m_center.y) * static_cast<float>(cosinusAngle)) + m_center.y;
     }
 }
-
+/*
 sf::Vector2f Car::rotateCarCorners(const sf::Vector2f& corner, const sf::Vector2f& center,const float cosinusAngle, const float sinusAngle)
 {
     sf::Vector2f newCoord;
@@ -50,7 +45,7 @@ sf::Vector2f Car::rotateCarCorners(const sf::Vector2f& corner, const sf::Vector2
     newCoord.y = ((corner.x - center.x) * static_cast<float>(sinusAngle)) + ((corner.y - center.y) * static_cast<float>(cosinusAngle)) + center.y;
     return newCoord;
 }
-
+*/
 sf::Vector2f Car::getCarLimit( unsigned int cornerNumber) const
 {
     return m_carLimits[cornerNumber];
@@ -68,6 +63,7 @@ void car::move()
 void Car::move()
 {
     if(m_speed + m_acceleration < m_maxSpeed) { m_speed += m_acceleration; }
+    else { m_speed = m_maxSpeed; }
     m_center.x -= cosf(m_angle) * m_speed;    // radians
     m_center.y += sinf(m_angle) * m_speed;    // radians
     updateCarLimits();
@@ -104,36 +100,30 @@ bool Car::isInTargetArea(const sf::Vector2f& target)
 
 void Car::turnLeft()
 {
-    m_angle -= 2.f;
+    setAngle(m_angle - 0.261f);
+    if(m_frame == 0) { m_frame = 23; }
+    else { --m_frame; }
+    // update des coins
 }
 
 void Car::turnRight()
 {
-    m_angle += 6.f;
+   setAngle(m_angle + 0.261f);
+   if(m_frame == 23) { m_frame = 0; }
+    else { ++m_frame; }
+    // update des coins
 }
 
-void Car::speedUp()
+void Car::accelerate()
 {
     if(m_speed < 3.f)
         m_speed += 0.05f;
 }
 
-void Car::speedDown()
+void Car::decelerate()
 {
     if(m_speed > 0.f)
         m_speed -= 0.05f;
-}
-
-void Car::setTheCar()
-{
-   // prendre x, y, angle dans json pour chaque circuit
-}
-
-void Car::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-//    sf::Transform states;
-	states.transform *= getTransform();
-	draw(target, states);
 }
 
 Car::Type Car::getType() const
@@ -161,9 +151,19 @@ float Car::getAcceleration() const
     return m_acceleration;
 }
 
-sf::Vector2f& Car::getCenter()
+float Car::getSpeedLimiter() const
+{
+    return m_speedLimiter;
+}
+
+sf::Vector2f Car::getCenter() const
 {
     return m_center;
+}
+
+sf::FloatRect Car::getShape() const
+{
+    return m_shape;
 }
 
 int Car::getElevation() const
@@ -203,7 +203,7 @@ bool Car::getIsRearMissileEquiped() const
 
 bool Car::getIsHighSpeedKitEquiped() const
 {
-    return m_highSpeed;
+    return m_highSpeedKit;
 }
 
 bool Car::getIsTurboChargerKitEquiped() const
@@ -231,19 +231,42 @@ bool Car::getIsPowerSteeringKitEquiped() const
     return m_powerSteering;
 }
 
+unsigned int Car::getColor()
+{
+    return m_color;
+}
+
 void Car::setType(Type type)
 {
     m_type = type;
 }
 
-void Car::setShape(sf::FloatRect& shape)
+void Car::setShape(sf::FloatRect& rect)
 {
-    m_shape = shape;
+    m_shape = rect;
+    updateCarLimits();
+}
+
+void Car::setCenter(float centerX, float centerY)
+{
+    m_center.x = centerX;
+    m_center.y = centerY;
+    setOrigin(centerX, centerY);
+}
+
+void Car::setCenter(sf::Vector2f& coords)
+{
+    m_center.x = coords.x;
+    m_center.y = coords.y;
+    setOrigin(coords.x, coords.y);
 }
 
 void  Car::setAngle(float angle)
 {
     m_angle = angle;
+    if(m_angle > 6.2838) { m_angle -= 6.2838; }
+    if(m_angle < 0) { m_angle += 6.2838; }
+    setRotation(m_angle  / 0.0174);
 }
 
 void Car::setSpeed(float speed)
@@ -261,9 +284,9 @@ void Car::setAcceleration(float acceleration)
     m_acceleration = acceleration;
 }
 
-void Car::setCenter(sf::Vector2f& coords)
+void Car::setSpeedLimiter(float speedLimiter)
 {
-    m_center = coords;
+    m_speedLimiter = speedLimiter;
 }
 
 void Car::setElevation(int elevation)
@@ -303,7 +326,7 @@ void Car::setIsRearMissileEquiped(bool rearMissile)
 
 void Car::setIsHighSpeedKitEquiped(bool highSpeed)
 {
-    m_highSpeed = highSpeed;
+    m_highSpeedKit = highSpeed;
 }
 
 void Car::setIsTurboChargerKitEquiped(bool turboCharger)
@@ -331,3 +354,84 @@ void Car::setIsPowerSteeringKitEquiped(bool powerSteering)
     m_powerSteering = powerSteering;
 }
 
+void Car::setColor(unsigned int color)
+{
+    m_color = color;
+    m_frame = 0;
+}
+
+void Car::setTexture(sf::Texture* carTexture)
+{
+    m_carTexture = carTexture;
+}
+
+void Car::setVertices()      /////////////////////////// set les vertices par rapport au model et la couleur
+{
+    m_vertices.setPrimitiveType(sf::Quads);
+    sf::FloatRect carTextureCoords;
+    switch(m_type) {
+        case Type::Taraco_Neoroder :
+        case Type::Taraco_Neoroder1 :
+            m_shape = sf::FloatRect(0, 0, 49, 35);
+            carTextureCoords = sf::FloatRect(0, 0, 49, 35);
+            break;
+        case Type::Vaug_Interceptor2 :
+        case Type::Vaug_Interceptor3 :
+            m_shape = sf::FloatRect(0, 0, 53, 39);
+            carTextureCoords = sf::FloatRect(0, 35, 53, 39);
+            break;
+        case Type::Retron_Parsec_Turbo5 :
+        case Type::Retron_Parsec_Turbo6 :
+        case Type::Retron_Parsec_Turbo8 :
+            m_shape = sf::FloatRect(0, 0, 57, 39);
+            carTextureCoords = sf::FloatRect(0, 74, 57, 39);
+            break;
+        default :
+            break;
+    }
+    carTextureCoords.top += m_color * 113;
+    float width = carTextureCoords.width;
+    float heigth = carTextureCoords.height;
+    float LeftX = carTextureCoords.left;
+    float topY = carTextureCoords.top;
+    float RightX = LeftX + width;
+    float bottomY = topY + heigth;
+    sf::Vertex vertex;
+    m_vertices.resize(0);
+    for(auto i = 0; i < 24; ++i) {
+        vertex.position = sf::Vector2f(0,0);
+        vertex.texCoords = sf::Vector2f(LeftX + (i * width), topY);
+        m_vertices.append(vertex);
+        vertex.position = sf::Vector2f(width,0);
+        vertex.texCoords = sf::Vector2f(RightX + (i * width), topY);
+        m_vertices.append(vertex);
+        vertex.position = sf::Vector2f(width,heigth);
+        vertex.texCoords = sf::Vector2f(RightX + (i * width), bottomY);
+        m_vertices.append(vertex);
+        vertex.position = sf::Vector2f(0,heigth);
+        vertex.texCoords = sf::Vector2f(LeftX + (i * width), bottomY);
+        m_vertices.append(vertex);
+    }
+}
+
+void Car::setStartFrame()
+{
+    if(m_angle < 1) { m_frame = 0; }
+    else {
+        if(m_angle >4.7123) { m_frame = 18; }
+        else {
+            if(m_angle > 3.1415) { m_frame = 12; }
+            else {
+                 if(m_angle > 1.5707) { m_frame = 6; }
+            }
+        }
+    }
+    setVertices();
+}
+
+void Car::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    states.transform *= getTransform();
+    states.texture = m_carTexture;
+    target.draw(&m_vertices[m_frame * 4], 4, sf::Quads, states);
+}

@@ -38,11 +38,11 @@ void BottomPanel::spriteConfiguration()
         m_sprites[i] = std::make_unique<sf::Sprite>(sprite);
     }
     m_sprites[0]->setTextureRect(sf::IntRect(0, 1940, 640, 40));
-    m_sprites[0]->setPosition(0, 360);
-    m_sprites[1]->setPosition(384, 384);
-    m_sprites[2]->setPosition(448, 384);
-    m_sprites[3]->setPosition(512, 384);
-    m_sprites[4]->setPosition(576, 384);
+    m_sprites[0]->setPosition(0, 0);
+    m_sprites[1]->setPosition(384, 24);
+    m_sprites[2]->setPosition(448, 24);
+    m_sprites[3]->setPosition(512, 24);
+    m_sprites[4]->setPosition(576, 24);
     updateUsury();
 }
 
@@ -50,26 +50,37 @@ void BottomPanel::textConfiguration()
 {
 
     m_font.setTexture(m_textureContaigner.getAsset(textures::ID::supercarsfont));
+    m_font.setSize(16, 16);
     m_Text.setFont(&m_font);
     std::string text = m_languageJson.m_Root["bottomScreen"]["text"].asString();
-    updateMoney(text);
-    updateCarModel(text);
-    m_Text.setText(text);
-    m_Text.setPosition(16, 364);
-}
-
-void BottomPanel::updateMoney(std::string& text)
-{
-    std::string price;
-    if(m_language < 2) {  price = m_languageJson.m_Root["bottomScreen"]["currency"].asString() + std::to_string(m_player.getMoney()); }
-    else { price = std::to_string(m_player.getMoney()) + m_languageJson.m_Root["bottomScreen"]["currency"].asString(); }
-    text.replace(39, 7, price);
-}
-
-void BottomPanel::updateCarModel(std::string& text)
-{
-    std::string model = m_languageJson.m_Root["bottomScreen"]["carModel"][m_player.getCarType()].asString();
+    std::string money;
+    if(m_language < 2) {  money = m_languageJson.m_Root["bottomScreen"]["currency"].asString() + std::to_string(m_player.getMoney()); }
+    else { money = std::to_string(m_player.getMoney()) + m_languageJson.m_Root["bottomScreen"]["currency"].asString(); }
+    while(money.size() < 7) { money += ' '; }
+    text.replace(39, 7, money);
+    std::string model = m_languageJson.m_Root["bottomScreen"]["carModel"][static_cast<unsigned int>(m_player.getCarType())].asString();
     text.replace(47, 14, model);
+    m_Text.setText(text);
+    m_Text.setPosition(16, 4);
+}
+
+void BottomPanel::updateMoney()
+{
+    std::string text{m_Text.getText()};
+    std::string money;
+    if(m_language < 2) {  money = m_languageJson.m_Root["bottomScreen"]["currency"].asString() + std::to_string(m_player.getMoney()); }
+    else { money = std::to_string(m_player.getMoney()) + m_languageJson.m_Root["bottomScreen"]["currency"].asString(); }
+    while(money.size() < 7) { money += " "; }
+    text.replace(39, 7, money);
+    m_Text.setText(text);
+}
+
+void BottomPanel::updateCarModel(Car::Type type)
+{
+    std::string text{m_Text.getText()};
+    text.replace(47, 24, "                        ");
+    std::string model = m_languageJson.m_Root["bottomScreen"]["carModel"][static_cast<unsigned int>(type)].asString();
+    text.replace(47, model.size(), model);
 }
 
 void BottomPanel::updateUsury()

@@ -11,26 +11,43 @@
 #include "header/game.hpp"
 #include "music/music.hpp"
 #include "random/random.hpp"
-#include "header/inputs.hpp"
 #include "text/bitmapfont/bitmapFont.hpp"
 #include "text/bitmaptext/bitmapText.hpp"
 #include "jsonfile/jsonfile.hpp"
 #include "bitmap/simpleanimation/animation.hpp"
 #include "bitmap/animationPlayer/animationPlayer.hpp"
 #include "header/command.hpp"
+#include "header/message.hpp"
 
-Intro::Intro() : m_window(sf::VideoMode(640, 400), "Super Cars Revival", sf::Style::Close), m_player(true), m_inputs(m_window, m_player.getJoystickID()) //(648, 409), "Super Cars Revival", sf::Style::Close)
+extern sf::Vector2f windowRatio;
+
+Intro::Intro() : m_window(sf::VideoMode(640, 400), "Super Cars Revival", sf::Style::Close), m_players(m_window)
 {
-
+    m_window.setJoystickThreshold(70);
     loadAssets();
     m_bestWinnersList =  { {{"SOUT", 3, 10000}, {"ANDY", 3, 5000}, {"JEZZ", 3, 4000}, {"DAVE", 3, 3000}, {"DOUG", 3, 2000}, {"PETE", 3, 1000}} };
     m_bestLapsTimes =    { {{"SOUT", 15000} , {"ANDY", 15000}, {"JEZZ", 20000}, {"DAVE", 20000}, {"DOUG", 25000}, { "PETE", 25000}, {"GARF", 30000}, {"MARI", 30000}, {"ANNE", 30000}} };
     mylib::JsonFile configJson("config.json");
     m_language = configJson.m_Root["language"].asInt();
+    switch(m_language) {
+        case 0 :
+            m_languageJson.loadJsonFile("language/english/game.json");
+            break;
+        case 1:
+            m_languageJson.loadJsonFile("language/usa/game.json");
+            break;
+        case 2 :
+            m_languageJson.loadJsonFile("language/french/game.json");
+            break;
+        default :
+            break;
+    }
     m_window.setMouseCursorVisible(false);
 
-    // m_window.setSize(sf::Vector2u(1280, 800));                                                       ///////////////////// mettre au bon ratio suivant fichier de config
-
+    m_window.setSize(sf::Vector2u(1280, 800));   ///////////////////// mettre au bon ratio suivant fichier de config
+    sf::Vector2u windowSize = m_window.getSize();
+    windowRatio.x = windowSize.x / 640;
+    windowRatio.y = windowSize.y / 400;
 }
 
 void Intro::loadAssets()
@@ -45,13 +62,20 @@ void Intro::loadAssets()
     m_textureContaigner.loadAsset(textures::ID::credits_original, "graphics/intro/credits.png");
     m_textureContaigner.loadAsset(textures::ID::credits_additionnal, "graphics/intro/credits aditional.png");
     m_textureContaigner.loadAsset(textures::ID::garageFont, "graphics/bitmap_fonts/ron_and_nancy_16x16.png");
+    m_textureContaigner.loadAsset(textures::ID::supercarsfont, "graphics/bitmap_fonts/super_cars_16x16.png");
+
+
     m_jsonConfig.loadJsonFile("config.json");
 
 }
 
 void Intro::launchIntro()
 {
-launchGame();
+    bool won{false};
+
+m_players.setHumanName(won);
+won = launchGame();
+    initView();
     gremlinsAndMagneticFields();
     mylib::Music music;
     music.loadMusic("music/intro.wav");
@@ -59,21 +83,22 @@ launchGame();
     music.setMusicVolume(100);
     music.playMusic();
     superCars();
-    loading(2500);
+    loading(2500, m_languageJson.m_Root["message"].asString());
     bool displayIntro{true};
     while(displayIntro)
     {
         if(displayIntro) { displayIntro = guyAndGirl(); }
-        if(displayIntro) { loading(2500); }
+        if(displayIntro) { loading(2500, m_languageJson.m_Root["message"].asString()); }
         if(displayIntro) { displayIntro = ronAndNancy(); }
-        if(displayIntro) { loading(1000); }
+        if(displayIntro) { loading(1000, m_languageJson.m_Root["message"].asString()); }
         if(displayIntro) { displayIntro = creditsOriginal(); }
-        if(displayIntro) { loading(1000); }
+        if(displayIntro) { loading(1000, m_languageJson.m_Root["message"].asString()); }
         if(displayIntro) { displayIntro = creditsAdditionnal(); }
-        loading(3000);
+        loading(3000, m_languageJson.m_Root["message"].asString());
     }
     music.stopMusic();
-    launchGame();
+    m_players.setHumanName(won);
+    won = launchGame();
 }
 
 void Intro::gremlinsAndMagneticFields()
@@ -100,7 +125,6 @@ void Intro::gremlinsAndMagneticFields()
     m_window.display();
     while(!timer.isTimeElapsed())
         ;
-
    timer.setTimerDuration(30);
     timer.startTimer();
     while(factorX >= 1.f)
@@ -158,7 +182,7 @@ bool Intro::guyAndGirl()
     timerCarMovement.startTimer();
     int distance{distanceToGo.randomNumber(1200, 1500)};
     int carModel;
-    Inputs inputs(m_window, m_player.getJoystickID());
+ //   Inputs inputs(m_window, m_player.getJoystickID());
     while(!timer.isTimeElapsed() && !exitIntro)                     // speech reste immobile 5s et scrolling de 1s   // commence par 1 scrolling
     {                                                               // animation bouches 5s
         if(carCoord.x >= distance  ) {
@@ -212,9 +236,9 @@ bool Intro::ronAndNancy()
     background.setTextureRect(sf::IntRect(0, 0, 640, 400));
     bool exitIntro{false};
     bool speechEnded(false);
-    Inputs inputs(m_window, m_player.getJoystickID());
-    mylib::BitmapFont font(16, 16);
+    mylib::BitmapFont font;
     font.setTexture(m_textureContaigner.getAsset(textures::ID::garageFont));
+    font.setSize(16, 16);
     mylib::BitmapText bitmapText;
     bitmapText.setFont(&font);
     bitmapText.setLineSpacing(4.f);
@@ -443,33 +467,54 @@ bool Intro::creditsAdditionnal()
     else { return true; }
 }
 
-void Intro::loading(const sf::Int32 delay)
+void Intro::loading(const sf::Int32 delay, const std::string& text)
 {
-    sf::Sprite background;
-    background.setTexture(m_textureContaigner.getAsset(textures::ID::loading));
-    background.setTextureRect(sf::IntRect(0, 0, 640, 400));
-    mylib::Timer timer(delay);
-    timer.startTimer();
+    Message message;
+    if(!message.loadFont("graphics/bitmap_fonts/super_cars_16x16.png")) {
+        std::cout << "loading texture failed." << std::endl;
+    }
+    message.setFontSize(16 , 16);
+    message.setSize(sf::Vector2f(310, 96));
+    message.setPosition(sf::Vector2f(165, 152));
+    message.setColor(sf::Color(0x000099FF));
+    message.setText(text);
+
     m_window.clear();
-    m_window.draw(background);
+    m_window.draw(message);
     m_window.display();
-    while(!timer.isTimeElapsed())
+    mylib::Timer duration(delay);
+    duration.startTimer();
+    while(!duration.isTimeElapsed())
         ;
 }
 
-void Intro::launchGame()
+bool Intro::launchGame()
 {
-    Game game(m_window, m_player, m_language);
-    game.launch();
+    Game game(m_window, m_language, m_players);
+    return game.launch();
 }
 
 bool Intro::isIntroSkipped()
-{
-    m_inputs.readInput();
-    Command command;
-    while(m_inputs.isCommandAvailable()) {
-        command = m_inputs.getInput();
-        if(command.action == CommandType::joystiskButtonPressed || command.action == CommandType::mouseLeftButtonPressed) { return true; }
+{                                                               /////////////////  ajout bouton souris !!!!!!!!!!!!!!!
+    bool skipIntro{false};
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) { skipIntro = true; }
+    else {
+        for(auto buttonID = 0; buttonID < 8; ++buttonID) {
+            if(sf::Joystick::isConnected(buttonID)) {
+                for(unsigned int j =0; j < sf::Joystick::getButtonCount(buttonID); ++j) {
+                    if(sf::Joystick::isButtonPressed(buttonID, j)) { skipIntro = true; }
+                }
+            }
+        }
     }
-    return false;
+    if(skipIntro) { return true; }
+    else { return false; }
+}
+
+void Intro::initView()
+{
+    m_view.setSize(sf::Vector2f(640.f, 400.f));
+    m_view.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+    m_view.setCenter(sf::Vector2f(320, 200));
+    m_window.setView(m_view);
 }

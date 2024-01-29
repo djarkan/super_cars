@@ -1,7 +1,9 @@
 #include <header/intro.hpp>
 
-int main() {
+sf::Vector2f windowRatio(1, 1);
 
+int main()
+{
     Intro intro;
     intro.launchIntro();
     return 0;

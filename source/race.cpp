@@ -1,77 +1,118 @@
 #include "header/race.hpp"
 
 #include <string>
+
 #include <SFML/Graphics/Sprite.hpp>
-Race::Race(sf::RenderWindow& window) : m_window(window), m_textureContaigner()
-{
 
+#include "timer/timer.hpp"
+#include "header/carTextureColorModifier.hpp"
+
+Race::Race(sf::RenderWindow& window, const unsigned int trackNb, Players& players, const unsigned int language) :
+                                                                                    m_window(window), m_trackData(trackNb + 1), m_textureContaigner(), m_trackNb{trackNb},
+                                                                                    m_players{players}, m_language{language}, m_raceBottomPanel(language),
+                                                                                    m_currentLap{1}, m_raceLapsNb{5}
+{
+    loadTextures(trackNb);
 }
 
-void Race::loadTextures(int trackNb)
+void Race::loadTextures(const unsigned int trackNb)
 {
-    m_textureContaigner.loadAsset(textures::ID::cars, "graphics/cars/cars.png");
-    m_textureContaigner.loadAsset(textures::ID::track, "graphics/tracks/races/track" + std::to_string(trackNb) + ".png");
+    m_textureContaigner.loadAsset(textures::ID::track, "graphics/tracks/races/track" + std::to_string(trackNb + 1) + ".png");
     m_textureContaigner.loadAsset(textures::ID::spritesheet, "graphics/sprite_sheet/sprite_sheet.png");
-    m_textureContaigner.loadAsset(textures::ID::shadows, "graphics/tracks/shadows/track" + std::to_string(trackNb) + " shadows.png");
-    m_textureContaigner.loadAsset(textures::ID::roadUp, "graphics/tracks/roads/track" + std::to_string(trackNb) + " up.png");
-    m_textureContaigner.loadAsset(textures::ID::roadDown, "graphics/tracks/roads/track" + std::to_string(trackNb) + " down.png");
+    m_textureContaigner.loadAsset(textures::ID::shadows, "graphics/tracks/shadows/track" + std::to_string(trackNb + 1) + " shadows.png");
+    m_textureContaigner.loadAsset(textures::ID::roadUp, "graphics/tracks/roads/track" + std::to_string(trackNb + 1) + " up.png");
+    m_textureContaigner.loadAsset(textures::ID::roadDown, "graphics/tracks/roads/track" + std::to_string(trackNb + 1) + " down.png");
 }
 
-void Race::setPlayerScreen(int playerId, const sf::Vector2f& spawnCoord)
+void Race::initViews()
 {
-    PlayerScreen playerScreen;
-    m_playersScreen.push_back(playerScreen);
-    m_playersScreen[playerId].topView.setSize(sf::Vector2f(512.f, 350.f));
-    m_playersScreen[playerId].topView.setCenter(spawnCoord.x, spawnCoord.y);
-    m_playersScreen[playerId].topView.setViewport(sf::FloatRect(0.1f, 0.f, 0.8f, 0.885f));
-    m_playersScreen[playerId].bottomView.setSize(sf::Vector2f(512.f, 40.f));
-    m_playersScreen[playerId].bottomView.setCenter(256, 20);
-    m_playersScreen[playerId].bottomView.setViewport(sf::FloatRect(0.1f, 0.9f, 0.8f, 0.1f));
+    m_topView.setSize(sf::Vector2f(512.f, 350.f));
+    m_topView.setViewport(sf::FloatRect(0.1f, 0.f, 0.8f, 0.885f));
+    m_bottomView.setSize(sf::Vector2f(512.f, 40.f));
+    m_bottomView.setCenter(256, 20);
+    m_bottomView.setViewport(sf::FloatRect(0.1f, 0.9f, 0.8f, 0.1f));
 }
 
-bool Race::racing()
+void Race::initSprites()
 {
-    Track track(1);
-    sf::Vector2f coord(590.f, 270.f);
-    setPlayerScreen(0, coord);
-    sf::Sprite top;
-    top.setPosition(0, 0);
-    top.setTexture(m_textureContaigner.getAsset(textures::ID::track));
-    sf::Sprite bottom;
-    bottom.setPosition(0, 0);
-    bottom.setTextureRect(sf::IntRect(0, 0, 512, 40));
-    bottom.setTexture(m_textureContaigner.getAsset(textures::ID::spritesheet));
-    sf::Sprite oneCar;
-    oneCar.setTexture(m_textureContaigner.getAsset(textures::ID::cars));
-    oneCar.setOrigin(24,17);
-    oneCar.setTextureRect(sf::IntRect(0, 0, 48, 34));
-    sf::Sprite shadows;
-    shadows.setTexture(m_textureContaigner.getAsset(textures::ID::shadows));
-    shadows.setPosition(0, 0);
+    m_track.setTexture(m_textureContaigner.getAsset(textures::ID::track));
+    m_track.setTextureRect(sf::IntRect(0, 0, 1280, 800));
+    m_track.setPosition(0, 0);
+    m_shadows.setTexture(m_textureContaigner.getAsset(textures::ID::shadows));
+    m_shadows.setTextureRect(sf::IntRect(0, 0, 1280, 800));
+    m_shadows.setPosition(0, 0);
+}
 
-    while(1) {
-        m_window.clear();
-    m_window.setView(m_playersScreen[0].topView);
-        m_window.draw(top);
+void Race::setTopViewCenter()
+{
+    sf::Vector2f humanCarCoords{m_players.getHumanCarPosition()};
+    if(humanCarCoords.x < 256) { humanCarCoords.x = 256; }
+    else
+        if(humanCarCoords.x > 1024) { humanCarCoords.x = 1024; }
+    if(humanCarCoords.y < 175) { humanCarCoords.y = 175; }
+    else
+        if(humanCarCoords.y > 625) { humanCarCoords.y = 625; }
+    m_topView.setCenter(humanCarCoords);
+}
 
-     //   oneCar.setRotation(90.f);
-        oneCar.setPosition(coord);
-        m_window.draw(oneCar);
-
-        m_window.draw(shadows);
-
-    m_window.setView(m_playersScreen[0].bottomView);
-        m_window.draw(bottom);
-        float x{256};
-        sf::Sprite jauge;
-        jauge.setTexture(m_textureContaigner.getAsset(textures::ID::spritesheet));
-        jauge.setTextureRect(sf::IntRect(0, 150, 46, 10));
-        for(auto i = 0; i < 4; ++i) {
-            jauge.setPosition(x, 24);
-            m_window.draw(jauge);
-            x += 64;
-        }
-        m_window.display();
+void Race::setRacersOnStartingPosition(bool clockwiseRaceRotation)
+{
+    for(unsigned int i = 8 - m_players.getRacerNumber(), h = 0, j = 0; h < m_players.getRacerNumber(); ++i, ++h, ++j) {
+        sf::Vector2f spawnCoords = m_trackData.getCarSpawnCoords(i, clockwiseRaceRotation);
+        m_players.setCarPosition(spawnCoords, j);
+        m_players.setCarAngle(m_trackData.getCarSpawnangle(i, clockwiseRaceRotation), j);
+        m_players.setCarStartFrame(j);
     }
-    return true;
+}
+
+unsigned int Race::racing(unsigned int lastRaceRanking, unsigned int completedRaces, bool clockwiseRaceRotation)
+{
+    initViews();
+    initSprites();
+    setRaceLapsNumber(completedRaces);
+    setRacersOnStartingPosition(clockwiseRaceRotation);
+    mylib::Timer moveCarsTimer(350);
+    moveCarsTimer.startTimer();
+    while(1) {
+        updateRaceBottomPanel(m_players.getHumanPlayer());
+        m_window.clear();
+        setTopViewCenter();
+        m_window.setView(m_topView);
+        m_window.draw(m_track);
+
+        if(moveCarsTimer.isTimeElapsed()) {
+            m_players.moveCars();
+            moveCarsTimer.restartTimer();
+
+
+            for(unsigned int i = 0; i < m_players.getRacerNumber(); ++i) {
+                m_window.draw(m_players.getPlayerCar(i));
+            }
+
+            m_window.draw(m_shadows);
+
+            m_window.setView(m_bottomView);
+            m_window.draw(m_raceBottomPanel);
+
+            m_window.display();
+        }
+    }
+    return 1;                                           /////////// return la place à la fin de la course
+}
+
+void Race::updateRaceBottomPanel(const Player& player)
+{
+    m_raceBottomPanel.updateSpeedMeter(player.getCarSpeed());
+    m_raceBottomPanel.updateLaps(m_currentLap, m_raceLapsNb);
+    m_raceBottomPanel.updatePosition(4, 4);                             /////////////////////////////////  à modifier
+    m_raceBottomPanel.updateCarUsury(player.getCarEngineState(), player.getCarBodyState(), player.getCarFuelState(), player.getCarTyresState());
+}
+
+void Race::setRaceLapsNumber(unsigned int completedRaces)
+{
+    if(completedRaces > 17) { m_raceLapsNb = 9; }
+    else {
+        if(completedRaces > 8) { m_raceLapsNb = 7; }
+        else { m_raceLapsNb = 5; }
+    }
 }
