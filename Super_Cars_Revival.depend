@@ -457,10 +457,10 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1683907052 source:c:\users\djarkan\documents\c++\codeblocks\mylib\timer\timer.cpp
+1715002065 source:c:\users\djarkan\documents\c++\codeblocks\mylib\timer\timer.cpp
 	"timer.hpp"
 
-1683905183 c:\users\djarkan\documents\c++\codeblocks\mylib\timer\timer.hpp
+1715002107 c:\users\djarkan\documents\c++\codeblocks\mylib\timer\timer.hpp
 	<SFML/Graphics.hpp>
 
 1668160496 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\fortesting.cpp
@@ -483,7 +483,7 @@
 1674261333 source:c:\users\djarkan\documents\c++\codeblocks\mylib\assetcontainer\assetcontainer.cpp
 	"assetcontainer/assetcontainer.hpp"
 
-1686223384 c:\users\djarkan\documents\c++\codeblocks\mylib\assetcontainer\assetcontainer.hpp
+1714391581 c:\users\djarkan\documents\c++\codeblocks\mylib\assetcontainer\assetcontainer.hpp
 	<map>
 	<memory>
 	<string>
@@ -497,8 +497,9 @@
 1674406343 c:\users\djarkan\documents\c++\codeblocks\mylib\entity\entity.hpp
 	<SFML/System/Vector2.hpp>
 
-1705709060 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\car.cpp
+1717283709 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\car.cpp
 	"header/car.hpp"
+	<cmath>
 
 1687441015 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\\header\car.hpp
 	<cmath>
@@ -509,7 +510,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1706487083 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\game.cpp
+1716808569 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\game.cpp
 	<header/game.hpp>
 	<SFML/Graphics/RenderWindow.hpp>
 	<SFML/Window/Event.hpp>
@@ -541,7 +542,7 @@
 	"button/simpleclickbox/simpleclickbox.hpp"
 	"button/complexClickBox/complexClickBox.hpp"
 
-1706486185 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\inputs.cpp
+1706967728 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\inputs.cpp
 	<header/inputs.hpp>
 
 1686745853 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\\header\inputs.hpp
@@ -549,7 +550,7 @@
 	<SFML/Window/Event.hpp>
 	<vector>
 
-1706486143 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\main.cpp
+1706489743 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\main.cpp
 	<header/intro.hpp>
 
 1675118957 source:c:\users\djarkan\documents\c++\codeblocks\mylib\scenenode\scenenode.cpp
@@ -586,12 +587,20 @@
 
 1687381904 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\\header\assetkey.hpp
 
-1706396762 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\race.cpp
+1717278735 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\race.cpp
 	"header/race.hpp"
 	<string>
+	<array>
+	<algorithm>
+	<cmath>
 	<SFML/Graphics/Sprite.hpp>
 	"timer/timer.hpp"
 	"header/carTextureColorModifier.hpp"
+	"header/inputs.hpp"
+	"header/command.hpp"
+	"random/random.hpp"
+	"bitmap/simpleAnimation/animation.hpp"
+	"assetcontainer/assetcontainer.hpp"
 
 1686227115 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\\header\race.hpp
 	<SFML/Graphics/RenderWindow.hpp>
@@ -601,11 +610,11 @@
 	<iostream>
 	<jsonfile/jsonfile.hpp>
 
-1683591565 c:\users\djarkan\documents\c++\codeblocks\mylib\jsonfile\jsonfile.hpp
+1683595165 c:\users\djarkan\documents\c++\codeblocks\mylib\jsonfile\jsonfile.hpp
 	<fstream>
 	"json\json.h"
 
-1653957738 c:\users\djarkan\documents\c++\codeblocks\mylib\jsonfile\json\json.h
+1653961338 c:\users\djarkan\documents\c++\codeblocks\mylib\jsonfile\json\json.h
 	<cstring>
 	<memory>
 	<cstddef>
@@ -642,10 +651,10 @@
 	<sstream>
 	"config.h"
 
-1683591435 source:c:\users\djarkan\documents\c++\codeblocks\mylib\jsonfile\jsonfile.cpp
+1683595035 source:c:\users\djarkan\documents\c++\codeblocks\mylib\jsonfile\jsonfile.cpp
 	"jsonfile.hpp"
 
-1653957738 source:c:\users\djarkan\documents\c++\codeblocks\mylib\jsonfile\jsoncpp.cpp
+1653961338 source:c:\users\djarkan\documents\c++\codeblocks\mylib\jsonfile\jsoncpp.cpp
 	"json/json.h"
 	<json/config.h>
 	<clocale>
@@ -696,8 +705,9 @@
 	<float.h>
 	<ieeefp.h>
 
-1704162418 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\track.cpp
+1715341584 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\track.cpp
 	"header/track.hpp"
+	<iostream>
 
 1683423209 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\\header\track.hpp
 	<jsonfile/jsonfile.hpp>
@@ -714,7 +724,7 @@
 	<SFML/Window/Event.hpp>
 	<SFML/Graphics/RenderWindow.hpp>
 
-1705709060 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\player.cpp
+1717284156 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\player.cpp
 	"header/player.hpp"
 	<SFML/Window/Mouse.hpp>
 
@@ -737,7 +747,7 @@
 	<SFML/Graphics/Image.hpp>
 	<string>
 
-1682950023 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\trackrework.cpp
+1682953623 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\trackrework.cpp
 	"header/trackREwork.hpp"
 	<iostream>
 
@@ -752,24 +762,25 @@
 	"triple/triple.hpp"
 	"jsonfile/jsonfile.hpp"
 
-1706487169 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\intro.cpp
+1715645462 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\intro.cpp
 	"header/intro.hpp"
 	<iostream>
 	<SFML/Graphics/Sprite.hpp>
 	<SFML/Graphics/Color.hpp>
-	"header/car.hpp"
-	"header/inputs.hpp"
+	<SFML/Window/Event.hpp>
 	"timer/timer.hpp"
-	"header/game.hpp"
+	"bitmap/simpleanimation/animation.hpp"
+	"bitmap/animationPlayer/animationPlayer.hpp"
 	"music/music.hpp"
 	"random/random.hpp"
 	"text/bitmapfont/bitmapFont.hpp"
 	"text/bitmaptext/bitmapText.hpp"
 	"jsonfile/jsonfile.hpp"
-	"bitmap/simpleanimation/animation.hpp"
-	"bitmap/animationPlayer/animationPlayer.hpp"
+	"header/car.hpp"
+	"header/inputs.hpp"
 	"header/command.hpp"
 	"header/message.hpp"
+	"header/game.hpp"
 
 1525812018 c:\program files\sfml\sfml-2.5.1-cb\include\sfml\audio\music.hpp
 	<SFML/Audio/Export.hpp>
@@ -806,10 +817,10 @@
 	<string>
 	<algorithm>
 
-1683329562 source:c:\users\djarkan\documents\c++\codeblocks\mylib\music\music.cpp
+1683333162 source:c:\users\djarkan\documents\c++\codeblocks\mylib\music\music.cpp
 	"music.hpp"
 
-1683329562 c:\users\djarkan\documents\c++\codeblocks\mylib\music\music.hpp
+1683333162 c:\users\djarkan\documents\c++\codeblocks\mylib\music\music.hpp
 	<SFML/Audio.hpp>
 	<string>
 
@@ -882,32 +893,32 @@
 	<SFML/Audio/Export.hpp>
 	<string>
 
-1685265932 c:\users\djarkan\documents\c++\codeblocks\mylib\random\random.hpp
+1685269532 c:\users\djarkan\documents\c++\codeblocks\mylib\random\random.hpp
 	<random>
 	<algorithm>
 	<chrono>
 	"random/random.inl"
 
-1686681578 c:\users\djarkan\documents\c++\codeblocks\mylib\random
+1686685178 c:\users\djarkan\documents\c++\codeblocks\mylib\random
 
 1683415925 source:c:\users\djarkan\documents\c++\codeblocks\mylib\text\bitmap font\bitmapfont.cpp
 
 1683415951 source:c:\users\djarkan\documents\c++\codeblocks\mylib\text\bitmap text\bitmaptext.cpp
 
-1706399518 source:c:\users\djarkan\documents\c++\codeblocks\mylib\text\bitmaptext\bitmaptext.cpp
+1712509428 source:c:\users\djarkan\documents\c++\codeblocks\mylib\text\bitmaptext\bitmaptext.cpp
 	"text/bitmaptext/bitmapText.hpp"
 
-1695578481 source:c:\users\djarkan\documents\c++\codeblocks\mylib\text\bitmapfont\bitmapfont.cpp
+1695582081 source:c:\users\djarkan\documents\c++\codeblocks\mylib\text\bitmapfont\bitmapfont.cpp
 	"bitmapfont.hpp"
 	"iostream"
 
-1692699830 c:\users\djarkan\documents\c++\codeblocks\mylib\text\bitmapfont\bitmapfont.hpp
+1711242261 c:\users\djarkan\documents\c++\codeblocks\mylib\text\bitmapfont\bitmapfont.hpp
 	<SFML/Graphics/Texture.hpp>
 	<SFML/Graphics/Sprite.hpp>
 	<array>
 	<memory>
 
-1692659582 c:\users\djarkan\documents\c++\codeblocks\mylib\text\bitmaptext\bitmaptext.hpp
+1711401006 c:\users\djarkan\documents\c++\codeblocks\mylib\text\bitmaptext\bitmaptext.hpp
 	<SFML/Graphics/RenderWindow.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Transformable.hpp>
@@ -916,7 +927,8 @@
 	<memory>
 	"text/bitmapfont/bitmapFont.hpp"
 
-1686481982 c:\users\djarkan\documents\c++\codeblocks\mylib\triple\triple.hpp
+1713048702 c:\users\djarkan\documents\c++\codeblocks\mylib\triple\triple.hpp
+	"triple.inl"
 
 1684712996 source:c:\users\djarkan\documents\c++\codeblocks\mylib\bitmap\animation\animation.cpp
 	"animation.hpp"
@@ -932,19 +944,19 @@
 	<vector>
 	"timer/timer.hpp"
 
-1691795903 source:c:\users\djarkan\documents\c++\codeblocks\mylib\bitmap\animationplayer\animationplayer.cpp
+1691799503 source:c:\users\djarkan\documents\c++\codeblocks\mylib\bitmap\animationplayer\animationplayer.cpp
 	"animationplayer.hpp"
 	<iostream>
 
-1691795787 c:\users\djarkan\documents\c++\codeblocks\mylib\bitmap\animationplayer\animationplayer.hpp
+1691799387 c:\users\djarkan\documents\c++\codeblocks\mylib\bitmap\animationplayer\animationplayer.hpp
 	<SFML/Graphics/Texture.hpp>
 	<SFML/Graphics/Vertex.hpp>
 	<vector>
 	"bitmap/simpleanimation/animation.hpp"
 
-1685265851 c:\users\djarkan\documents\c++\codeblocks\mylib\random\random.inl
+1685269451 c:\users\djarkan\documents\c++\codeblocks\mylib\random\random.inl
 
-1691797706 c:\users\djarkan\documents\c++\codeblocks\mylib\bitmap\simpleanimation\animation.hpp
+1714316593 c:\users\djarkan\documents\c++\codeblocks\mylib\bitmap\simpleanimation\animation.hpp
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Transformable.hpp>
 	<SFML/Graphics/Texture.hpp>
@@ -953,19 +965,19 @@
 	<vector>
 	"timer/timer.hpp"
 
-1691797980 source:c:\users\djarkan\documents\c++\codeblocks\mylib\bitmap\simpleanimation\animation.cpp
+1715002447 source:c:\users\djarkan\documents\c++\codeblocks\mylib\bitmap\simpleanimation\animation.cpp
 	"bitmap/simpleAnimation/animation.hpp"
 	<iostream>
 	"random/random.hpp"
 	<sfml/graphics/Rect.hpp>
 
-1691586307 source:c:\users\djarkan\documents\c++\codeblocks\mylib\button\button\button.cpp
+1714256532 source:c:\users\djarkan\documents\c++\codeblocks\mylib\button\button\button.cpp
 	"button.hpp"
 	"SFML/Window/Mouse.hpp"
 	<iostream>
 	<cmath>
 
-1691583395 c:\users\djarkan\documents\c++\codeblocks\mylib\button\button\button.hpp
+1714256532 c:\users\djarkan\documents\c++\codeblocks\mylib\button\button\button.hpp
 	<SFML/Graphics/Rect.hpp>
 	<SFML/Graphics/RenderWindow.hpp>
 	<SFML/Graphics/RenderTexture.hpp>
@@ -979,10 +991,10 @@
 	<array>
 	"clickable/clickable.hpp"
 
-1691611040 c:\users\djarkan\documents\c++\codeblocks\mylib\button\simpleclickbox\simpleclickbox.hpp
+1691614640 c:\users\djarkan\documents\c++\codeblocks\mylib\button\simpleclickbox\simpleclickbox.hpp
 	<SFML/Graphics/Rect.hpp>
 
-1691701596 source:c:\users\djarkan\documents\c++\codeblocks\mylib\button\simpleclickbox\simpleclickbox.cpp
+1691705196 source:c:\users\djarkan\documents\c++\codeblocks\mylib\button\simpleclickbox\simpleclickbox.cpp
 	"simpleclickbox.hpp"
 	"SFML/Window/Mouse.hpp"
 
@@ -999,7 +1011,7 @@
 	"text/bitmaptext/bitmapText.hpp"
 	"header/bottompanel.hpp"
 
-1706544287 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\garage.cpp
+1716156045 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\garage.cpp
 	"header/garage.hpp"
 	"jsonfile/jsonfile.hpp"
 	"header/inputs.hpp"
@@ -1008,17 +1020,18 @@
 	"bitmap/simpleAnimation/animation.hpp"
 	<sfml/window/mouse.hpp>
 	<iostream>
+	"triple/triple.hpp"
 
-1691612180 c:\users\djarkan\documents\c++\codeblocks\mylib\button\complexclickbox\complexclickbox.hpp
+1711892704 c:\users\djarkan\documents\c++\codeblocks\mylib\button\complexclickbox\complexclickbox.hpp
 	<SFML/Graphics/RenderWindow.hpp>
 
-1691620756 source:c:\users\djarkan\documents\c++\codeblocks\mylib\button\complexclickbox\complexclickbox.cpp
+1711893448 source:c:\users\djarkan\documents\c++\codeblocks\mylib\button\complexclickbox\complexclickbox.cpp
 	"ComplexClickBox.hpp"
 	"random/random.hpp"
 	<SFML/Window/Mouse.hpp>
 	<iostream>
 
-1706471115 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\bottompanel.cpp
+1706474715 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\bottompanel.cpp
 	"header/bottompanel.hpp"
 	"header/car.hpp"
 	<iostream>
@@ -1038,79 +1051,79 @@
 	"header/assetkey.hpp"
 	"assetContainer/assetContainer.hpp"
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\texture.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\texture.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Image.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\export.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\export.hpp
 	<SFML/Config.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\config.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\config.hpp
 	"TargetConditionals.h"
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\image.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\image.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/Graphics/Rect.hpp>
 	<string>
 	<vector>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\color.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\color.hpp
 	<SFML/Graphics/Export.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\rect.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\rect.hpp
 	<SFML/System/Vector2.hpp>
 	<algorithm>
 	<SFML/Graphics/Rect.inl>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\vector2.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\vector2.hpp
 	<SFML/System/Vector2.inl>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\vector2.inl
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\vector2.inl
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\rect.inl
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\rect.inl
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\glresource.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\glresource.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\export.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\export.hpp
 	<SFML/Config.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\noncopyable.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\noncopyable.hpp
 	<SFML/System/Export.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\export.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\export.hpp
 	<SFML/Config.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\vertex.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\vertex.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/System/Vector2.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\drawable.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\drawable.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/RenderStates.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\renderstates.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\renderstates.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/BlendMode.hpp>
 	<SFML/Graphics/Transform.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\blendmode.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\blendmode.hpp
 	<SFML/Graphics/Export.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\transform.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\transform.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Rect.hpp>
 	<SFML/System/Vector2.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\transformable.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\transformable.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Transform.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
 	<SFML/Graphics/BlendMode.hpp>
 	<SFML/Graphics/CircleShape.hpp>
@@ -1139,7 +1152,7 @@
 	<SFML/Graphics/VertexBuffer.hpp>
 	<SFML/Graphics/View.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window.hpp
 	<SFML/System.hpp>
 	<SFML/Window/Clipboard.hpp>
 	<SFML/Window/Context.hpp>
@@ -1156,7 +1169,7 @@
 	<SFML/Window/WindowHandle.hpp>
 	<SFML/Window/WindowStyle.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Clock.hpp>
 	<SFML/System/Err.hpp>
@@ -1176,18 +1189,18 @@
 	<SFML/System/Vector2.hpp>
 	<SFML/System/Vector3.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\clock.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\clock.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Time.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\time.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\time.hpp
 	<SFML/System/Export.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\err.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\err.hpp
 	<SFML/System/Export.hpp>
 	<ostream>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\fileinputstream.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\fileinputstream.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Export.hpp>
 	<SFML/System/InputStream.hpp>
@@ -1195,29 +1208,29 @@
 	<cstdio>
 	<string>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\inputstream.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\inputstream.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Export.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\lock.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\lock.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\memoryinputstream.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\memoryinputstream.hpp
 	<SFML/Config.hpp>
 	<SFML/System/InputStream.hpp>
 	<SFML/System/Export.hpp>
 	<cstdlib>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\mutex.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\mutex.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\sleep.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\sleep.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Time.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\string.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\string.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Utf.hpp>
 	<iterator>
@@ -1225,7 +1238,7 @@
 	<string>
 	<SFML/System/String.inl>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\utf.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\utf.hpp
 	<SFML/Config.hpp>
 	<algorithm>
 	<locale>
@@ -1233,89 +1246,89 @@
 	<cstdlib>
 	<SFML/System/Utf.inl>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\utf.inl
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\utf.inl
 
-1675377929 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\string.inl
+1675381529 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\string.inl
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\thread.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\thread.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<cstdlib>
 	<SFML/System/Thread.inl>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\thread.inl
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\thread.inl
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\threadlocal.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\threadlocal.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<cstdlib>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\threadlocalptr.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\threadlocalptr.hpp
 	<SFML/System/ThreadLocal.hpp>
 	<SFML/System/ThreadLocalPtr.inl>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\threadlocalptr.inl
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\threadlocalptr.inl
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\vector3.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\vector3.hpp
 	<SFML/System/Vector3.inl>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\vector3.inl
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\system\vector3.inl
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\clipboard.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\clipboard.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/String.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\context.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\context.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/Window/GlResource.hpp>
 	<SFML/Window/ContextSettings.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\contextsettings.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\contextsettings.hpp
 	<SFML/Config.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\cursor.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\cursor.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<SFML/System/Vector2.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\event.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\event.hpp
 	<SFML/Config.hpp>
 	<SFML/Window/Joystick.hpp>
 	<SFML/Window/Keyboard.hpp>
 	<SFML/Window/Mouse.hpp>
 	<SFML/Window/Sensor.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\joystick.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\joystick.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/String.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\keyboard.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\keyboard.hpp
 	<SFML/Window/Export.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\mouse.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\mouse.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/Vector2.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\sensor.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\sensor.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/Vector3.hpp>
 	<SFML/System/Time.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\touch.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\touch.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/Vector2.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\videomode.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\videomode.hpp
 	<SFML/Window/Export.hpp>
 	<vector>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\window.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\window.hpp
 	<SFML/Window/ContextSettings.hpp>
 	<SFML/Window/GlResource.hpp>
 	<SFML/Window/WindowBase.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\windowbase.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\windowbase.hpp
 	<SFML/Window/Cursor.hpp>
 	<SFML/Window/Export.hpp>
 	<SFML/Window/VideoMode.hpp>
@@ -1327,30 +1340,30 @@
 	<SFML/System/String.hpp>
 	<SFML/System/Vector2.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\vulkan.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\vulkan.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/Window/WindowHandle.hpp>
 	<vector>
 	<cstddef>
 	<stdint.h>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\windowhandle.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\windowhandle.hpp
 	<SFML/Config.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\windowstyle.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\window\windowstyle.hpp
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\circleshape.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\circleshape.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Shape.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\shape.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\shape.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Transformable.hpp>
 	<SFML/Graphics/VertexArray.hpp>
 	<SFML/System/Vector2.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\vertexarray.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\vertexarray.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Vertex.hpp>
 	<SFML/Graphics/PrimitiveType.hpp>
@@ -1358,14 +1371,14 @@
 	<SFML/Graphics/Drawable.hpp>
 	<vector>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\primitivetype.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\primitivetype.hpp
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\convexshape.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\convexshape.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Shape.hpp>
 	<vector>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\font.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\font.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Glyph.hpp>
 	<SFML/Graphics/Texture.hpp>
@@ -1374,15 +1387,15 @@
 	<string>
 	<vector>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\glyph.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\glyph.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Rect.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\rectangleshape.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\rectangleshape.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Shape.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\rendertarget.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\rendertarget.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/Graphics/Rect.hpp>
@@ -1394,26 +1407,26 @@
 	<SFML/Graphics/Vertex.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\view.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\view.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Rect.hpp>
 	<SFML/Graphics/Transform.hpp>
 	<SFML/System/Vector2.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\rendertexture.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\rendertexture.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Texture.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
 	<SFML/Window/ContextSettings.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\renderwindow.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\renderwindow.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
 	<SFML/Graphics/Image.hpp>
 	<SFML/Window/Window.hpp>
 	<string>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\shader.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\shader.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Glsl.hpp>
 	<SFML/Window/GlResource.hpp>
@@ -1423,23 +1436,23 @@
 	<map>
 	<string>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\glsl.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\glsl.hpp
 	<SFML/Graphics/Transform.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/System/Vector2.hpp>
 	<SFML/System/Vector3.hpp>
 	<SFML/Graphics/Glsl.inl>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\glsl.inl
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\glsl.inl
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\sprite.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\sprite.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Transformable.hpp>
 	<SFML/Graphics/Vertex.hpp>
 	<SFML/Graphics/Rect.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\text.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\text.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Transformable.hpp>
@@ -1450,13 +1463,13 @@
 	<string>
 	<vector>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\vertexbuffer.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\graphics\vertexbuffer.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/PrimitiveType.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio.hpp
 	<SFML/System.hpp>
 	<SFML/Audio/InputSoundFile.hpp>
 	<SFML/Audio/Listener.hpp>
@@ -1472,21 +1485,21 @@
 	<SFML/Audio/SoundSource.hpp>
 	<SFML/Audio/SoundStream.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\inputsoundfile.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\inputsoundfile.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<SFML/System/Time.hpp>
 	<string>
 	<cstddef>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\export.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\export.hpp
 	<SFML/Config.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\listener.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\listener.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/System/Vector3.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\music.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\music.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundStream.hpp>
 	<SFML/Audio/InputSoundFile.hpp>
@@ -1495,7 +1508,7 @@
 	<string>
 	<vector>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundstream.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundstream.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundSource.hpp>
 	<SFML/System/Thread.hpp>
@@ -1503,26 +1516,26 @@
 	<SFML/System/Mutex.hpp>
 	<cstdlib>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundsource.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundsource.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/AlResource.hpp>
 	<SFML/System/Vector3.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\alresource.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\alresource.hpp
 	<SFML/Audio/Export.hpp>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\outputsoundfile.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\outputsoundfile.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<string>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\sound.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\sound.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundSource.hpp>
 	<SFML/System/Time.hpp>
 	<cstdlib>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundbuffer.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundbuffer.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/AlResource.hpp>
 	<SFML/System/Time.hpp>
@@ -1530,13 +1543,13 @@
 	<vector>
 	<set>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundbufferrecorder.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundbufferrecorder.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundBuffer.hpp>
 	<SFML/Audio/SoundRecorder.hpp>
 	<vector>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundrecorder.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundrecorder.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/AlResource.hpp>
 	<SFML/System/Thread.hpp>
@@ -1544,23 +1557,23 @@
 	<vector>
 	<string>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundfilefactory.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundfilefactory.hpp
 	<SFML/Audio/Export.hpp>
 	<string>
 	<vector>
 	<SFML/Audio/SoundFileFactory.inl>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundfilefactory.inl
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundfilefactory.inl
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundfilereader.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundfilereader.hpp
 	<SFML/Audio/Export.hpp>
 	<string>
 
-1688067891 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundfilewriter.hpp
+1688071491 c:\program files\sfml\sfml-2.6.0 gcc 13.1.0 32-bit\include\sfml\audio\soundfilewriter.hpp
 	<SFML/Audio/Export.hpp>
 	<string>
 
-1692224906 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\bottompanel.hpp
+1692228506 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\bottompanel.hpp
 	<iostream>
 	<string>
 	<array>
@@ -1575,7 +1588,7 @@
 	"header/assetkey.hpp"
 	"assetContainer/assetContainer.hpp"
 
-1704660486 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\car.hpp
+1717282564 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\car.hpp
 	<cmath>
 	<array>
 	<SFML/System/Vector2.hpp>
@@ -1586,17 +1599,19 @@
 	<SFML/Graphics/VertexArray.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
 
-1704660486 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\player.hpp
-	<iostream>
-	<string>
+1717284156 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\player.hpp
 	<SFML/Window/Joystick.hpp>
 	<SFML/Graphics/Sprite.hpp>
 	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Clock.hpp>
+	<iostream>
+	<string>
 	"header/car.hpp"
 
-1690067908 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\assetkey.hpp
+1714565485 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\assetkey.hpp
 
-1706478309 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\game.hpp
+1714256532 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\game.hpp
 	<SFML/Graphics/RenderWindow.hpp>
 	<array>
 	<vector>
@@ -1608,9 +1623,10 @@
 	"header/assetkey.hpp"
 	"header/inputs.hpp"
 	"header/players.hpp"
+	"music/music.hpp"
 	"header/bottompanel.hpp"
 
-1706486143 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\inputs.hpp
+1706877887 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\inputs.hpp
 	<SFML/Graphics/RenderWindow.hpp>
 	<SFML/Window/Event.hpp>
 	<vector>
@@ -1618,25 +1634,29 @@
 	"header/commandqueue.hpp"
 	"header/player.hpp"
 
-1706396462 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\race.hpp
+1716746570 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\race.hpp
 	<SFML/Graphics/RenderWindow.hpp>
 	<iostream>
+	<array>
 	<jsonfile/jsonfile.hpp>
-	<assetcontainer/assetcontainer.hpp>
 	"header/assetkey.hpp"
 	"header/track.hpp"
 	"header/players.hpp"
 	"header/racebottompanel.hpp"
+	"header/player.hpp"
+	"header/command.hpp"
+	"triple/triple.hpp"
+	"audioPlayer/audioPlayer.hpp"
+	"collisioner/collisioner.hpp"
 
-1693770553 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\track.hpp
+1715341584 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\track.hpp
 	<jsonfile/jsonfile.hpp>
 	<SFML/Graphics/Image.hpp>
 	<string>
 	<vector>
 	<array>
-	<iostream>
 
-1706478648 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\garage.hpp
+1706482248 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\garage.hpp
 	<SFML/Graphics/Sprite.hpp>
 	<SFML/Audio/Sound.hpp>
 	<SFML/Audio/SoundBuffer.hpp>
@@ -1652,7 +1672,7 @@
 	"header/inputs.hpp"
 	"header/command.hpp"
 
-1706480620 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\intro.hpp
+1715037623 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\intro.hpp
 	<array>
 	<string>
 	<SFML/Graphics/RenderWindow.hpp>
@@ -1662,20 +1682,22 @@
 	"jsonfile/jsonfile.hpp"
 	"header/inputs.hpp"
 	"header/players.hpp"
+	"music/music.hpp"
 
-1682950023 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\trackrework.hpp
+1682953623 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\trackrework.hpp
 	<jsonfile/jsonfile.hpp>
 	<SFML/Graphics/Image.hpp>
 	<string>
 
-1706543686 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\office.cpp
+1716156075 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\office.cpp
 	"header/office.hpp"
 	<SFML/Window/Mouse.hpp>
 	"random/random.hpp"
 	"bitmap/simpleAnimation/animation.hpp"
 	"header/inputs.hpp"
+	"triple/triple.hpp"
 
-1706464910 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\office.hpp
+1706468510 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\office.hpp
 	<SFML/Graphics/Sprite.hpp>
 	<SFML/Graphics/RenderWindow.hpp>
 	<SFML/Audio/Sound.hpp>
@@ -1690,37 +1712,37 @@
 	"header/inputs.hpp"
 	"bitmap/animationPlayer/animationPlayer.hpp"
 
-1691589243 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\command.hpp
+1691592843 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\command.hpp
 	<SFML/System/Vector2.hpp>
 
-1691363495 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\commandqueue.hpp
+1691367095 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\commandqueue.hpp
 	<queue>
 	"header/command.hpp"
 
-1691250212 c:\users\djarkan\documents\c++\codeblocks\mylib\clickable\clickable.hpp
+1691253812 c:\users\djarkan\documents\c++\codeblocks\mylib\clickable\clickable.hpp
 
-1691251718 source:c:\users\djarkan\documents\c++\codeblocks\mylib\clickable\clickable.cpp
+1691255318 source:c:\users\djarkan\documents\c++\codeblocks\mylib\clickable\clickable.cpp
 	"clickable/clickable.hpp"
 
-1691363495 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\commandqueue.cpp
+1691367095 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\commandqueue.cpp
 	"header/commandqueue.hpp"
 
-1692660102 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\message.cpp
+1692663702 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\message.cpp
 	"header/message.hpp"
 
-1692657941 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\message.hpp
+1692661541 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\message.hpp
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/RectangleShape.hpp>
 	<string>
 	"text/bitmapfont/bitmapFont.hpp"
 	"text/bitmaptext/bitmapText.hpp"
 
-1706397668 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\racebottompanel.cpp
+1714778104 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\racebottompanel.cpp
 	"header/racebottompanel.hpp"
 	"header/car.hpp"
 	<iostream>
 
-1706396888 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\racebottompanel.hpp
+1712501727 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\racebottompanel.hpp
 	<iostream>
 	<string>
 	<array>
@@ -1736,15 +1758,16 @@
 	"header/assetkey.hpp"
 	"assetContainer/assetContainer.hpp"
 
-1704658347 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\players.hpp
+1713219921 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\players.hpp
 	<vector>
 	<memory>
 	<SFML/Graphics/RenderWindow.hpp>
 	<SFML/Graphics/Texture.hpp>
-	"header/player.hpp"
 	"jsonfile/jsonfile.hpp"
+	"timer/timer.hpp"
+	"header/inputs.hpp"
 
-1706439758 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\players.cpp
+1717281971 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\players.cpp
 	"header/players.hpp"
 	<SFML/Graphics/Texture.hpp>
 	"text/bitmapfont/bitmapFont.hpp"
@@ -1753,12 +1776,43 @@
 	"header/command.hpp"
 	"header/commandqueue.hpp"
 	"header/inputs.hpp"
+	"music/music.hpp"
 
-1705620436 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\cartexturecolormodifier.cpp
+1705624036 source:c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\source\cartexturecolormodifier.cpp
 	"header/carTextureColorModifier.hpp"
 	<SFML/Graphics/Image.hpp>
 	<iostream>
 
-1705620164 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\cartexturecolormodifier.hpp
+1705623764 c:\users\djarkan\documents\c++\codeblocks\super_cars_revival\header\cartexturecolormodifier.hpp
 	<SFML/Graphics/Color.hpp>
+
+1716419534 source:c:\users\djarkan\documents\c++\codeblocks\mylib\colisioner\colisioner.cpp
+	"colisioner/colisioner.hpp"
+	<cmath>
+	"random/random.hpp"
+
+1716419534 c:\users\djarkan\documents\c++\codeblocks\mylib\colisioner\colisioner.hpp
+	<SFML/Graphics/CircleShape.hpp>
+
+1713048702 c:\users\djarkan\documents\c++\codeblocks\mylib\triple\triple.inl
+
+1716217161 source:c:\users\djarkan\documents\c++\codeblocks\mylib\audioplayer\audioplayer.cpp
+	"audioPlayer.hpp"
+
+1714396795 c:\users\djarkan\documents\c++\codeblocks\mylib\audioplayer\audioplayer.hpp
+	<SFML/Audio/Sound.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/Music.hpp>
+	<unordered_map>
+	"header/assetkey.hpp"
+	"assetcontainer/assetcontainer.hpp"
+
+1716809247 source:c:\users\djarkan\documents\c++\codeblocks\mylib\collisioner\collisioner.cpp
+	"collisioner/collisioner.hpp"
+	<cmath>
+	<iostream>
+	"random/random.hpp"
+
+1716806489 c:\users\djarkan\documents\c++\codeblocks\mylib\collisioner\collisioner.hpp
+	<SFML/Graphics/CircleShape.hpp>
 

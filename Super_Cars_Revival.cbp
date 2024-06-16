@@ -61,6 +61,8 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="../mylib/assetcontainer/assetcontainer.hpp" />
+		<Unit filename="../mylib/audioPlayer/audioPlayer.cpp" />
+		<Unit filename="../mylib/audioPlayer/audioPlayer.hpp" />
 		<Unit filename="../mylib/bitmap/animationPlayer/animationPlayer.cpp" />
 		<Unit filename="../mylib/bitmap/animationPlayer/animationPlayer.hpp" />
 		<Unit filename="../mylib/bitmap/simpleAnimation/animation.cpp" />
@@ -73,6 +75,8 @@
 		<Unit filename="../mylib/button/simpleClickBox/simpleClickBox.hpp" />
 		<Unit filename="../mylib/clickable/clickable.cpp" />
 		<Unit filename="../mylib/clickable/clickable.hpp" />
+		<Unit filename="../mylib/collisioner/collisioner.cpp" />
+		<Unit filename="../mylib/collisioner/collisioner.hpp" />
 		<Unit filename="../mylib/jsonfile/jsoncpp.cpp" />
 		<Unit filename="../mylib/jsonfile/jsonfile.cpp" />
 		<Unit filename="../mylib/jsonfile/jsonfile.hpp" />
